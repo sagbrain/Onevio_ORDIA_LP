@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORDIA | AI受注自動化 for バイオ業界 | Onevio</title>
+  <meta name="description" content="ORDIAはバイオ業界の販売店・代理店・商社向けAI受注自動化サービスです。FAX・メール・PDF・XMLなど多様な注文書を自動読み取り、受注データを正規化します。">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* ===== Variables ===== */
+    :root {
+      --blue-dark:  #1B4F8C;
+      --blue-mid:   #2B72CB;
+      --blue-light: #5B9BD5;
+      --green:      #2EA84A;
+      --green-dk:   #23883B;
+      --cyan:       #00A8E8;
+      --white:      #FFFFFF;
+      --gray-50:    #F5F7FA;
+      --gray-100:   #EEF2F7;
+      --gray-200:   #DDE4EF;
+      --gray-400:   #9EB0C8;
+      --gray-600:   #5A6E85;
+      --gray-800:   #2D3748;
+      --text:       #1A2A3A;
+      --sh-sm:  0 1px 4px rgba(27,79,140,.08);
+      --sh-md:  0 4px 18px rgba(27,79,140,.12);
+      --sh-lg:  0 8px 36px rgba(27,79,140,.18);
+      --r:  12px;
+      --r-lg: 20px;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; color: var(--text); background: #fff; line-height: 1.65; font-size: 15px; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== Layout ===== */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .sec      { padding: 84px 0; }
+    .sec-sm   { padding: 56px 0; }
+    .sec-bg   { background: var(--gray-50); }
+    .sec-dark { background: var(--blue-dark); color: #fff; }
+
+    /* ===== Typography ===== */
+    .chip {
+      display: inline-block;
+      font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue-mid); background: rgba(43,114,203,.09);
+      padding: 4px 13px; border-radius: 100px; margin-bottom: 12px;
+    }
+    .chip.green { color: var(--green); background: rgba(46,168,74,.09); }
+    .chip.white { color: rgba(255,255,255,.8); background: rgba(255,255,255,.12); }
+    .h2 { font-size: clamp(26px, 3.8vw, 40px); font-weight: 900; line-height: 1.28; margin-bottom: 14px; }
+    .h2.white { color: #fff; }
+    .lead { font-size: 16px; color: var(--gray-600); max-width: 640px; }
+    .lead.white { color: rgba(255,255,255,.76); }
+    .tc { text-align: center; }
+    .tc .lead { margin: 0 auto; }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 22px; border-radius: 9px;
+      font-size: 14px; font-weight: 800; cursor: pointer;
+      transition: all .2s; border: none; white-space: nowrap;
+    }
+    .btn-primary { background: var(--blue-mid); color: #fff; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 5px 14px rgba(43,114,203,.35); }
+    .btn-outline { background: transparent; color: var(--blue-mid); border: 2px solid var(--blue-mid); }
+    .btn-outline:hover { background: rgba(43,114,203,.06); }
+    .btn-outline-w { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.55); }
+    .btn-outline-w:hover { background: rgba(255,255,255,.1); }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { background: var(--green-dk); transform: translateY(-1px); box-shadow: 0 5px 14px rgba(46,168,74,.35); }
+    .btn-lg  { padding: 14px 30px; font-size: 16px; border-radius: 10px; }
+    .btn-xl  { padding: 17px 38px; font-size: 17px; border-radius: 12px; }
+
+    /* ===== Header ===== */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200); box-shadow: var(--sh-sm);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo .brand { font-size: 22px; font-weight: 900; color: var(--blue-dark); letter-spacing: -.02em; }
+    .nav-logo .badge-by {
+      font-size: 10px; font-weight: 800; background: var(--blue-dark); color: #fff;
+      padding: 2px 8px; border-radius: 5px; letter-spacing: .04em;
+    }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { font-size: 13.5px; font-weight: 600; color: var(--gray-600); transition: color .2s; }
+    .nav-links a:hover { color: var(--blue-mid); }
+    .nav-cta { display: flex; gap: 10px; }
+
+    /* ===== Hero ===== */
+    .hero {
+      background: linear-gradient(138deg, #f0f5ff 0%, #e8f3ff 55%, #f0fff5 100%);
+      padding: 84px 0 76px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -120px; right: -100px;
+      width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(43,114,203,.055) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+    /* live badge */
+    .hero-live {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #fff; border: 1px solid var(--gray-200); border-radius: 100px;
+      padding: 5px 14px 5px 9px; font-size: 12.5px; font-weight: 700; color: var(--blue-dark);
+      margin-bottom: 22px; box-shadow: var(--sh-sm);
+    }
+    .hero-live .dot {
+      width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+    .hero h1 {
+      font-size: clamp(30px, 4.2vw, 50px); font-weight: 900;
+      line-height: 1.22; color: var(--text); margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue-mid); position: relative; }
+    .hero h1 em::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
+      height: 3px; background: linear-gradient(90deg, var(--blue-mid), var(--cyan)); border-radius: 2px;
+    }
+    .hero-sub { font-size: 16.5px; color: var(--gray-600); margin-bottom: 34px; line-height: 1.75; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .hero-kpis { display: flex; gap: 0; }
+    .kpi { text-align: center; padding: 0 22px; }
+    .kpi:first-child { padding-left: 0; }
+    .kpi-num { font-size: 30px; font-weight: 900; color: var(--blue-mid); line-height: 1; }
+    .kpi-num sub { font-size: 14px; }
+    .kpi-label { font-size: 11px; color: var(--gray-600); margin-top: 3px; }
+    .kpi-divider { width: 1px; background: var(--gray-200); height: 38px; margin-top: 10px; }
+
+    /* Hero visual card */
+    .hero-card {
+      background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-lg);
+      padding: 26px; position: relative;
+    }
+    .hc-head {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--gray-100);
+    }
+    .hc-icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: var(--blue-dark); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;
+    }
+    .hc-title { font-weight: 800; font-size: 14px; }
+    .hc-sub   { font-size: 11px; color: var(--gray-400); }
+    .flow-list { display: flex; flex-direction: column; gap: 7px; }
+    .fl-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 13px; border-radius: 8px; background: var(--gray-50);
+      font-size: 13px; font-weight: 600;
+    }
+    .fl-item.active {
+      background: linear-gradient(135deg,rgba(43,114,203,.08),rgba(0,168,232,.05));
+      border: 1.5px solid rgba(43,114,203,.2);
+    }
+    .fl-ic {
+      width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 13px; color: #fff;
+    }
+    .fl-ic.b { background: var(--blue-mid); }
+    .fl-ic.g { background: var(--green); }
+    .fl-ic.c { background: var(--cyan); }
+    .fl-arrow { text-align: center; color: var(--gray-400); font-size: 11px; padding-left: 26px; }
+    .fl-badge {
+      margin-left: auto; font-size: 10px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px;
+    }
+    .fl-badge.done { color: var(--green); background: rgba(46,168,74,.1); }
+    .fl-badge.proc { color: var(--blue-mid); background: rgba(43,114,203,.1); }
+    .hc-float {
+      position: absolute; background: #fff; border-radius: 10px;
+      padding: 9px 13px; box-shadow: var(--sh-md);
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700;
+    }
+    .hc-float.tr { top: -14px; right: -14px; }
+    .hc-float.bl { bottom: -14px; left: -14px; }
+
+    /* ===== Pain ===== */
+    .pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 48px; }
+    .pain-card {
+      background: #fff; border-radius: var(--r); padding: 28px 24px;
+      border: 1.5px solid var(--gray-200); transition: all .2s;
+    }
+    .pain-card:hover { border-color: var(--blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .pain-no  { font-size: 12px; font-weight: 800; color: var(--blue-light); letter-spacing: .1em; margin-bottom: 10px; }
+    .pain-card h3 { font-size: 17px; font-weight: 900; margin-bottom: 10px; }
+    .pain-card p  { font-size: 13.5px; color: var(--gray-600); line-height: 1.68; }
+    .pain-emoji   { font-size: 30px; margin-bottom: 12px; }
+    .insight-box {
+      max-width: 700px; margin: 40px auto 0;
+      padding: 22px 28px; background: #fff;
+      border-radius: var(--r); border: 2px solid var(--blue-mid); text-align: center;
+    }
+    .insight-box strong { font-size: 16px; color: var(--blue-dark); }
+    .insight-box p { font-size: 13.5px; color: var(--gray-600); margin-top: 6px; }
+
+    /* ===== Process ===== */
+    .process-wrap {
+      display: flex; margin-top: 56px;
+      background: #fff; border-radius: var(--r-lg);
+      box-shadow: var(--sh-md); overflow: hidden;
+    }
+    .proc-step {
+      flex: 1; padding: 30px 18px; text-align: center;
+      border-right: 1px solid var(--gray-100); position: relative;
+    }
+    .proc-step:last-child { border-right: none; }
+    .proc-step:hover { background: var(--gray-50); }
+    .proc-no {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--blue-dark); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; margin-bottom: 12px;
+    }
+    .proc-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+    .proc-step h4 { font-size: 14px; font-weight: 900; margin-bottom: 6px; }
+    .proc-step p  { font-size: 11.5px; color: var(--gray-600); line-height: 1.55; }
+    .proc-arr {
+      position: absolute; right: -11px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px; background: var(--blue-mid); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; z-index: 1;
+    }
+
+    /* ===== Impact ===== */
+    .impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+    .impact-card {
+      background: #fff; border-radius: var(--r-lg);
+      padding: 38px 28px; text-align: center; box-shadow: var(--sh-md);
+      border-top: 4px solid;
+    }
+    .impact-card:nth-child(1) { border-color: var(--blue-mid); }
+    .impact-card:nth-child(2) { border-color: var(--green); }
+    .impact-card:nth-child(3) { border-color: var(--cyan); }
+    .imp-num { font-size: clamp(48px,6vw,68px); font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .impact-card:nth-child(1) .imp-num { color: var(--blue-mid); }
+    .impact-card:nth-child(2) .imp-num { color: var(--green); }
+    .impact-card:nth-child(3) .imp-num { color: var(--cyan); }
+    .imp-title { font-size: 14.5px; font-weight: 800; margin-bottom: 7px; }
+    .imp-desc  { font-size: 12.5px; color: var(--gray-600); line-height: 1.55; }
+
+    /* ===== Features ===== */
+    .feat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin-top: 48px; }
+    .feat-card {
+      background: #fff; border-radius: var(--r); padding: 28px;
+      border: 1.5px solid var(--gray-200);
+      display: flex; gap: 18px; align-items: flex-start; transition: all .2s;
+    }
+    .feat-card:hover { border-color: var(--blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .feat-card.wide { grid-column: 1 / -1; }
+    .feat-ic {
+      width: 46px; height: 46px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 20px; flex-shrink: 0;
+    }
+    .feat-ic.g { background: linear-gradient(135deg, #1a8a33, var(--green)); }
+    .feat-ic.c { background: linear-gradient(135deg, #0089c0, var(--cyan)); }
+    .feat-body h3 { font-size: 16px; font-weight: 900; margin-bottom: 6px; }
+    .feat-body p  { font-size: 13.5px; color: var(--gray-600); line-height: 1.68; }
+
+    /* ===== Makers ===== */
+    .maker-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; justify-content: center; }
+    .maker-tag {
+      background: #fff; border: 1.5px solid var(--gray-200); border-radius: 8px;
+      padding: 8px 18px; font-size: 13px; font-weight: 700; color: var(--gray-800); transition: all .2s;
+    }
+    .maker-tag:hover { border-color: var(--blue-light); color: var(--blue-dark); }
+    .maker-tag.more { border-style: dashed; color: var(--gray-400); }
+
+    /* ===== Onevio synergy ===== */
+    .syn-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 48px; }
+    .syn-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--r); padding: 26px;
+    }
+    .syn-ic {
+      width: 42px; height: 42px; border-radius: 9px;
+      background: rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 14px;
+    }
+    .syn-card h3 { font-size: 16px; font-weight: 900; color: #fff; margin-bottom: 9px; }
+    .syn-card p  { font-size: 13.5px; color: rgba(255,255,255,.72); line-height: 1.68; }
+    .roadmap {
+      margin-top: 40px; padding: 24px 28px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: var(--r);
+    }
+    .roadmap-label { font-size: 13px; color: rgba(255,255,255,.75); margin-bottom: 14px; font-weight: 700; }
+    .roadmap-steps { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .rs { padding: 9px 22px; border-radius: 8px; font-size: 13px; font-weight: 800; }
+    .rs.active { background: var(--blue-mid); color: #fff; }
+    .rs.next { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+    .rs-arrow { color: rgba(255,255,255,.4); font-size: 18px; }
+    .rs-or { color: rgba(255,255,255,.4); font-size: 12px; font-weight: 700; }
+    .rs-note { font-size: 11.5px; color: rgba(255,255,255,.45); margin-top: 10px; text-align: center; }
+
+    /* ===== Pricing ===== */
+    .price-top { text-align: center; margin-bottom: 46px; }
+    .price-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(46,168,74,.1); color: var(--green);
+      border: 1.5px solid rgba(46,168,74,.25);
+      border-radius: 100px; padding: 6px 18px; font-size: 13px; font-weight: 800;
+    }
+    .price-table { background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-md); overflow: hidden; margin-bottom: 14px; }
+    .pt-head { background: var(--blue-dark); color: #fff; padding: 15px 28px; font-size: 15px; font-weight: 800; }
+    .pt-row { display: grid; grid-template-columns: 130px 1fr 1fr 1fr; border-bottom: 1px solid var(--gray-100); }
+    .pt-row.th { background: var(--gray-50); }
+    .pt-row:last-child { border-bottom: none; }
+    .pt-cell {
+      padding: 14px 20px; font-size: 13.5px; border-right: 1px solid var(--gray-100);
+      display: flex; align-items: center;
+    }
+    .pt-cell:last-child { border-right: none; }
+    .pt-cell.name  { font-weight: 800; background: rgba(43,114,203,.04); }
+    .pt-cell.th-c  { font-weight: 800; font-size: 11.5px; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; }
+    .pt-hi { font-weight: 900; color: var(--blue-mid); font-size: 15px; }
+    .price-note { font-size: 12.5px; color: var(--gray-600); text-align: center; background: var(--gray-50); padding: 14px 20px; border-radius: 8px; }
+
+    /* ===== Demo ===== */
+    .demo-sec { background: linear-gradient(138deg, #f0f5ff, #e8f8ef); padding: 84px 0; }
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .trial-box {
+      margin: 22px 0; background: rgba(46,168,74,.07);
+      border: 1.5px solid rgba(46,168,74,.22); border-radius: var(--r); padding: 16px 20px;
+    }
+    .trial-box .t-title { font-size: 13px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+    .trial-box .t-body  { font-size: 13px; color: var(--gray-600); }
+    .trial-box strong   { color: var(--text); }
+    .scope-list { background: #fff; border-radius: var(--r); padding: 20px; border: 1px solid var(--gray-200); margin-bottom: 20px; }
+    .scope-list h4 { font-size: 13px; font-weight: 800; margin-bottom: 12px; }
+    .scope-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--gray-600); margin-bottom: 7px; }
+    .scope-item:last-child { margin-bottom: 0; }
+    .scope-item .ic { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+    /* demo panel */
+    .dp { background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-lg); overflow: hidden; }
+    .dp-head {
+      background: var(--blue-dark); color: #fff;
+      padding: 14px 22px; display: flex; align-items: center; gap: 10px;
+    }
+    .dp-dots { display: flex; gap: 5px; }
+    .dp-dots span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.28); }
+    .dp-title { font-size: 13px; font-weight: 700; flex: 1; text-align: center; }
+    .dp-body { padding: 20px; }
+    .dp-label { font-size: 11.5px; font-weight: 800; color: var(--gray-600); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 7px; }
+    .dp-samples { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 6px 0 12px; }
+    .dp-sample {
+      font-size: 11px; padding: 4px 10px; border-radius: 5px;
+      border: 1px solid var(--gray-200); background: #fff; cursor: pointer;
+      font-weight: 700; color: var(--gray-600); transition: all .15s;
+    }
+    .dp-sample:hover { border-color: var(--blue-mid); color: var(--blue-mid); background: rgba(43,114,203,.04); }
+    .dp-textarea {
+      width: 100%; height: 178px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+      padding: 12px; font-size: 12.5px; font-family: 'Courier New', monospace;
+      color: var(--text); resize: none; outline: none; transition: border-color .2s;
+      background: var(--gray-50); line-height: 1.6;
+    }
+    .dp-textarea:focus { border-color: var(--blue-mid); background: #fff; }
+    .dp-run {
+      width: 100%; padding: 13px; background: var(--blue-mid); color: #fff;
+      border: none; border-radius: 8px; font-size: 14px; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all .2s; margin-top: 12px;
+    }
+    .dp-run:hover { background: var(--blue-dark); }
+    .dp-run:disabled { background: var(--gray-400); cursor: not-allowed; }
+    .dp-result { display: none; margin-top: 16px; }
+    .dp-result.show { display: block; }
+    .dp-proc {
+      display: none; align-items: center; justify-content: center; gap: 8px;
+      padding: 24px; color: var(--blue-mid); font-size: 13px; font-weight: 700;
+    }
+    .spin { width: 18px; height: 18px; border: 2.5px solid rgba(43,114,203,.2); border-top-color: var(--blue-mid); border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .dp-ok { display: none; }
+    .dp-ok-head { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+    .rt { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .rt th { background: var(--blue-dark); color: #fff; padding: 7px 10px; text-align: left; font-weight: 700; }
+    .rt td { padding: 7px 10px; border-bottom: 1px solid var(--gray-100); }
+    .rt tr:nth-child(even) td { background: var(--gray-50); }
+    .rt tr:last-child td { border-bottom: none; }
+    .cb { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+    .cb-h { background: rgba(46,168,74,.1); color: var(--green); }
+    .cb-m { background: rgba(230,150,0,.1); color: #c88200; }
+    .dp-meta { margin-top: 10px; padding: 10px; background: var(--gray-50); border-radius: 6px; font-size: 11px; color: var(--gray-600); }
+    .dp-cta { margin-top: 12px; }
+
+    /* ===== Trial Steps ===== */
+    .trial-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 40px 0 46px; }
+    .ts {
+      background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--r); padding: 20px; text-align: center; position: relative;
+    }
+    .ts::after {
+      content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+      color: rgba(255,255,255,.4); font-size: 15px; z-index: 1;
+    }
+    .ts:last-child::after { display: none; }
+    .ts-no  { font-size: 11px; font-weight: 800; color: rgba(255,255,255,.45); letter-spacing: .1em; margin-bottom: 8px; }
+    .ts-ico { font-size: 26px; margin-bottom: 8px; }
+    .ts h4  { font-size: 13px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .ts p   { font-size: 11px; color: rgba(255,255,255,.62); line-height: 1.55; }
+
+    /* ===== FAQ ===== */
+    .faq-wrap { max-width: 760px; margin: 40px auto 0; }
+    .faq-item { border-bottom: 1px solid var(--gray-200); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; cursor: pointer; font-size: 15px; font-weight: 800; gap: 16px;
+    }
+    .faq-q .ico {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--blue-mid); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 12px;
+      flex-shrink: 0; transition: transform .2s;
+    }
+    .faq-item.open .faq-q .ico { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 0 20px; font-size: 14px; color: var(--gray-600); line-height: 1.78; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ===== Contact ===== */
+    .form-box { max-width: 720px; margin: 0 auto; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .fg { display: flex; flex-direction: column; gap: 5px; }
+    .fg.full { grid-column: 1 / -1; }
+    .fg label { font-size: 13px; font-weight: 800; color: var(--text); }
+    .fg label .req { color: #e53e3e; margin-left: 3px; }
+    .fg input, .fg select, .fg textarea {
+      padding: 11px 14px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+      font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s; background: #fff;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue-mid); }
+    .fg textarea { height: 100px; resize: vertical; }
+    .form-foot { margin-top: 10px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .form-privacy { font-size: 12px; color: var(--gray-600); }
+    .form-privacy a { color: var(--blue-mid); text-decoration: underline; }
+
+    /* ===== CTA band ===== */
+    .cta-band { background: linear-gradient(135deg, var(--blue-dark), #1565c0); padding: 76px 0; text-align: center; }
+    .cta-band h2 { font-size: clamp(24px,4vw,38px); font-weight: 900; color: #fff; margin-bottom: 14px; }
+    .cta-band p  { color: rgba(255,255,255,.78); font-size: 16px; margin-bottom: 36px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    /* ===== Footer ===== */
+    footer { background: var(--gray-800); color: rgba(255,255,255,.68); padding: 52px 0 28px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .f-brand .logo { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 10px; }
+    .f-brand p { font-size: 13px; line-height: 1.68; }
+    .f-brand .addr { margin-top: 14px; font-size: 12px; line-height: 1.8; }
+    .f-col h4 { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 14px; }
+    .f-col ul { list-style: none; }
+    .f-col li { margin-bottom: 8px; }
+    .f-col a { font-size: 13px; color: rgba(255,255,255,.58); transition: color .15s; }
+    .f-col a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px;
+      display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 8px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 960px) {
+      .hero-grid     { grid-template-columns: 1fr; }
+      .hero-card     { display: none; }
+      .pain-grid     { grid-template-columns: 1fr; }
+      .impact-grid   { grid-template-columns: 1fr; }
+      .feat-grid     { grid-template-columns: 1fr; }
+      .syn-grid      { grid-template-columns: 1fr; }
+      .demo-grid     { grid-template-columns: 1fr; }
+      .trial-steps   { grid-template-columns: 1fr 1fr; }
+      .footer-grid   { grid-template-columns: 1fr 1fr; }
+      .nav-links     { display: none; }
+    }
+    @media (max-width: 640px) {
+      .container     { padding: 0 16px; }
+      .sec           { padding: 60px 0; }
+      .process-wrap  { flex-direction: column; }
+      .proc-arr      { display: none; }
+      .form-grid     { grid-template-columns: 1fr; }
+      .trial-steps   { grid-template-columns: 1fr; }
+      .ts::after     { display: none; }
+      .footer-grid   { grid-template-columns: 1fr; }
+      .pt-row        { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======= HEADER ======= -->
+<header>
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-logo">
+        <span class="brand">ORDIA</span>
+        <span class="badge-by">by Onevio</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">ORDIAとは</a></li>
+        <li><a href="#features">機能</a></li>
+        <li><a href="#pricing">料金</a></li>
+        <li><a href="#demo">無料体験</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-outline">資料請求</a>
+        <a href="#demo"    class="btn btn-green">無料で試す</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ======= HERO ======= -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <!-- left -->
+      <div>
+        <div class="hero-live">
+          <span class="dot"></span>
+          2026年8月 ローンチ予定・先行無料体験受付中
+        </div>
+        <h1>
+          お客様のやり方は<br>
+          変えなくていい。<br>
+          <em>変わるのは</em><br>
+          貴社の受け方だけ。
+        </h1>
+        <p class="hero-sub">
+          FAX・メール・PDF・XML・CSV――<br>
+          どんな形式の注文書も、AIが自動で読み取り、<br>
+          正規化された受注データへ変換します。
+        </p>
+        <div class="hero-btns">
+          <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>注文書を無料で解析してみる</a>
+          <a href="#contact" class="btn btn-outline btn-xl">資料請求・デモ申込</a>
+        </div>
+        <div class="hero-kpis">
+          <div class="kpi">
+            <div class="kpi-num">約38<sub>%</sub></div>
+            <div class="kpi-label">人件費削減</div>
+          </div>
+          <div class="kpi-divider"></div>
+          <div class="kpi">
+            <div class="kpi-num">80<sub>%</sub></div>
+            <div class="kpi-label">処理時間短縮</div>
+          </div>
+          <div class="kpi-divider"></div>
+          <div class="kpi">
+            <div class="kpi-num">0<sub>円</sub></div>
+            <div class="kpi-label">基本月額費</div>
+          </div>
+          <div class="kpi-divider"></div>
+          <div class="kpi">
+            <div class="kpi-num">20<sub>社+</sub></div>
+            <div class="kpi-label">RPA対応メーカー</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right visual -->
+      <div class="hero-card">
+        <div class="hc-float tr">
+          <span style="color:var(--green);font-size:15px;">●</span> AI解析中...
+        </div>
+        <div class="hc-head">
+          <div class="hc-icon"><i class="fas fa-robot"></i></div>
+          <div>
+            <div class="hc-title">ORDIA AI受注処理</div>
+            <div class="hc-sub">リアルタイム自動解析</div>
+          </div>
+        </div>
+        <div class="flow-list">
+          <div class="fl-item active">
+            <div class="fl-ic b"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:800;">受信</div>
+              <div style="font-size:11px;color:var(--gray-400);">メール / FAX / PDF</div>
+            </div>
+            <span class="fl-badge done">✓ 受信済</span>
+          </div>
+          <div class="fl-arrow">↓</div>
+          <div class="fl-item active">
+            <div class="fl-ic b"><i class="fas fa-brain"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:800;">AI解析</div>
+              <div style="font-size:11px;color:var(--gray-400);">品番・数量・納期を抽出</div>
+            </div>
+            <span class="fl-badge done">✓ 完了</span>
+          </div>
+          <div class="fl-arrow">↓</div>
+          <div class="fl-item">
+            <div class="fl-ic c"><i class="fas fa-sync-alt"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:800;">在庫・納期照会</div>
+              <div style="font-size:11px;color:var(--gray-400);">メーカーRPA連携</div>
+            </div>
+            <span class="fl-badge proc">処理中</span>
+          </div>
+          <div class="fl-arrow">↓</div>
+          <div class="fl-item">
+            <div class="fl-ic g"><i class="fas fa-check-circle"></i></div>
+            <div>
+              <div style="font-size:12px;font-weight:800;">受注登録</div>
+              <div style="font-size:11px;color:var(--gray-400);">基幹システムへ自動連携</div>
+            </div>
+          </div>
+        </div>
+        <div class="hc-float bl">
+          <i class="fas fa-shield-alt" style="color:var(--blue-mid)"></i> ISO/IEC 27001認証
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======= PAIN ======= -->
+<section class="sec sec-bg" id="about">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">課題</span>
+      <h2 class="h2">バイオ業界の受注現場、<br>こんな問題を抱えていませんか？</h2>
+      <p class="lead">試薬・消耗品流通の現場では、3つの構造的課題が同時に進行しています。</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-emoji">📬</div>
+        <div class="pain-no">ISSUE 01</div>
+        <h3>受注チャネルのバラツキ</h3>
+        <p>電話・FAX・メール・顧客書式・購買システム・EDIが顧客ごとに混在。チャネル別の手入力による品番ミスや数量の取り違えが頻発し、受注業務が特定担当者に集中しやすい構造。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-emoji">🏭</div>
+        <div class="pain-no">ISSUE 02</div>
+        <h3>メーカーEDIの乱立</h3>
+        <p>JD-NET（AS2）/ cXML / CSV / メーカー独自仕様 / FAX。仕入先が増えるほど書式・プロトコルがバラバラになり、担当者の経験と暗黙知に依存しがちな状況が続く。</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-emoji">👥</div>
+        <div class="pain-no">ISSUE 03</div>
+        <h3>人手不足と業務の属人化</h3>
+        <p>受発注処理が特定担当者の経験に依存。退職・異動でノウハウが失われ、新人の習熟にも時間がかかる。夜間・休日の対応不可も顧客満足度を下げる要因に。</p>
+      </div>
+    </div>
+    <div class="insight-box">
+      <strong>「自前主義」から、「業界共通インフラの活用」へ。</strong>
+      <p>単独で対応するには複雑になりすぎた業務を、業界全体で標準化されたインフラに載せ替える時代へ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======= PROCESS ======= -->
+<section class="sec">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">ORDIAの仕組み</span>
+      <h2 class="h2">AIが「下書き・調査」を行い、<br>人が「判断・承認」する5ステップ</h2>
+      <p class="lead">お客様の発注方法はそのまま。貴社の受け方だけをAIが自動化します。</p>
+    </div>
+    <div class="process-wrap">
+      <div class="proc-step">
+        <div class="proc-no">1</div>
+        <span class="proc-icon">📥</span>
+        <h4>受信</h4>
+        <p>メール / FAX<br>PDF / CSV<br>XML / API</p>
+        <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-no">2</div>
+        <span class="proc-icon">🤖</span>
+        <h4>AI解析</h4>
+        <p>OCR＋自然言語処理<br>品番・数量・納期を<br>自動抽出</p>
+        <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-no">3</div>
+        <span class="proc-icon">🔄</span>
+        <h4>FMTマッピング</h4>
+        <p>顧客別フォーマットに<br>自動適用。AI追加学習<br>で精度向上</p>
+        <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-no">4</div>
+        <span class="proc-icon">🏪</span>
+        <h4>在庫・納期照会</h4>
+        <p>メーカーWebサイトから<br>RPAで自動取得。<br>問い合わせ作業を削減</p>
+        <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-no">5</div>
+        <span class="proc-icon">✅</span>
+        <h4>受注登録</h4>
+        <p>確認・承認後に<br>受注データを自動作成。<br>基幹システムへ連携</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= IMPACT ======= -->
+<section class="sec sec-bg">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">導入効果</span>
+      <h2 class="h2">「AIが処理し、人が確認する」<br>運用で実現する数字</h2>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="imp-num">約38%</div>
+        <div class="imp-title">1注文あたりの人件費削減</div>
+        <div class="imp-desc">従来120円/件 → ORDIAで74円/件へ<br>（時給1,200円換算・処理5分→確認1分）</div>
+      </div>
+      <div class="impact-card">
+        <div class="imp-num">80%</div>
+        <div class="imp-title">担当者拘束時間の削減</div>
+        <div class="imp-desc">利益を圧迫する「準備（調査・待機）の80%」<br>をAIが代替。人は承認作業に集中できる。</div>
+      </div>
+      <div class="impact-card">
+        <div class="imp-num">0円</div>
+        <div class="imp-title">基本月額費</div>
+        <div class="imp-desc">従量課金制（使った分だけ）で<br>リスクゼロのスモールスタートが可能。</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:18px;">※算出根拠：時給1,200円×1.20（法定福利費等）＝24円/分。業界の注文書は2〜3明細が大半。Cap適用で実質固定価格運用も可。</p>
+  </div>
+</section>
+
+<!-- ======= FEATURES ======= -->
+<section class="sec" id="features">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">機能</span>
+      <h2 class="h2">ORDIAの5つの強み</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-ic"><i class="fas fa-layer-group"></i></div>
+        <div class="feat-body">
+          <h3>多様なチャネルを一元対応</h3>
+          <p>FAX / PDF / メール / CSV / Excel / EDI / API に対応。顧客ごとに異なる発注形式を、貴社の受け方だけで自動処理。お客様に行動変化を求めません。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic"><i class="fas fa-brain"></i></div>
+        <div class="feat-body">
+          <h3>AI解析 ＋ 継続的な追加学習</h3>
+          <p>OCR＋自然言語処理で品番・数量・納期を自動抽出。FMTプロンプトで顧客別フォーマットに対応し、運用を重ねるほど精度が向上する仕組み。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic g"><i class="fas fa-warehouse"></i></div>
+        <div class="feat-body">
+          <h3>在庫・納期の自動照会</h3>
+          <p>主要メーカー20社超でRPA設定済み。富士フィルム和光純薬、シグマアルドリッチ、メルク、フナコシ、タカラバイオなど。問い合わせ作業を大幅削減。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic g"><i class="fas fa-clock"></i></div>
+        <div class="feat-body">
+          <h3>24時間365日の自動受付</h3>
+          <p>深夜・休日・連休中に届いた注文書も自動で処理開始。翌営業日には担当者が確認・承認するだけ。夜間対応への不安を解消します。</p>
+        </div>
+      </div>
+      <div class="feat-card wide">
+        <div class="feat-ic c"><i class="fas fa-plug"></i></div>
+        <div class="feat-body">
+          <h3>既存基幹システムとの連携 ＆ Onevioプラットフォームへの発展</h3>
+          <p>CSV出力・標準API・RPAによる連携で、現在の基幹システムと並行稼働が可能。さらにOnevioのプラットフォーム上では、<strong>商品マスター（BRP-Code 3,000万件超）・販売管理・売上分析・DOG（受発注EDI統合）</strong>との連携により、受注業務全体の省力化と高度化が実現できます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= MAKERS ======= -->
+<section class="sec-sm sec-bg">
+  <div class="container tc">
+    <span class="chip">対応メーカー</span>
+    <h2 class="h2" style="font-size:22px;">在庫・納期 自動取得が可能なメーカー（主要20社超対応）</h2>
+    <p class="lead" style="margin:4px auto 0;">RPA設定済み。対応メーカーは随時追加中。</p>
+    <div class="maker-tags">
+      <span class="maker-tag">富士フィルム和光純薬</span>
+      <span class="maker-tag">シグマアルドリッチ（メルク）</span>
+      <span class="maker-tag">メルク</span>
+      <span class="maker-tag">コスモ・バイオ</span>
+      <span class="maker-tag">フナコシ</span>
+      <span class="maker-tag">アブカム</span>
+      <span class="maker-tag">東京化成</span>
+      <span class="maker-tag">三商</span>
+      <span class="maker-tag">ケニス</span>
+      <span class="maker-tag">タカラバイオ</span>
+      <span class="maker-tag more">＋その他各社</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= DEMO ======= -->
+<section class="demo-sec" id="demo">
+  <div class="container">
+    <div class="demo-grid">
+
+      <!-- left info -->
+      <div>
+        <span class="chip green">無料体験</span>
+        <h2 class="h2">今すぐ注文書を<br>AI解析してみる</h2>
+        <p class="lead" style="margin-bottom:20px;">
+          実際の注文書（メール本文・FAX OCRテキスト・Excelデータなど）を
+          貼り付けて、ORDIAのAIがどのように読み取るかをその場で体験できます。
+        </p>
+
+        <div class="scope-list">
+          <h4>無料体験でできること</h4>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 注文書テキストのAI解析（品番・数量・納期の自動抽出）</div>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 読み取り精度・信頼スコアの確認</div>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 正規化後の受注データプレビュー</div>
+          <div class="scope-item"><span class="ic" style="color:var(--gray-400);">○</span> 在庫・納期照会連携は本登録後にご利用可能</div>
+        </div>
+
+        <div class="trial-box">
+          <div class="t-title"><i class="fas fa-gift"></i> 先行無料トライアル特典（2026年8月ローンチ前）</div>
+          <div class="t-body">ローンチ前の先行登録で、<strong>3ヶ月間・最大1,000明細まで無料</strong>でお試しいただけます。</div>
+        </div>
+
+        <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
+          <i class="fas fa-rocket"></i> 無料トライアルに申し込む
+        </a>
+      </div>
+
+      <!-- right panel -->
+      <div>
+        <div class="dp">
+          <div class="dp-head">
+            <div class="dp-dots"><span></span><span></span><span></span></div>
+            <div class="dp-title">ORDIA AI解析デモ</div>
+          </div>
+          <div class="dp-body">
+            <div class="dp-label">注文書テキストを貼り付け</div>
+            <div class="dp-samples">
+              <span class="dp-label" style="margin:0;font-size:11px;">サンプル：</span>
+              <button class="dp-sample" onclick="loadSample('email')">メール注文</button>
+              <button class="dp-sample" onclick="loadSample('fax')">FAX注文書</button>
+              <button class="dp-sample" onclick="loadSample('excel')">Excel形式</button>
+            </div>
+            <textarea class="dp-textarea" id="demoInput"
+              placeholder="注文書のテキストをここに貼り付けてください...&#10;&#10;（例）&#10;品番：W3500-100ML  数量：5本&#10;品番：A3156-5G     数量：2個&#10;納期：2026年9月末まで"></textarea>
+            <button class="dp-run" id="demoBtn" onclick="runDemo()">
+              <i class="fas fa-magic"></i> AIで解析する
+            </button>
+            <div class="dp-result" id="demoResult">
+              <div class="dp-proc" id="demoProc">
+                <div class="spin"></div><span>AI解析中...</span>
+              </div>
+              <div class="dp-ok" id="demoOk">
+                <div class="dp-ok-head">
+                  <i class="fas fa-check-circle"></i> 解析完了 — 受注データを正規化しました
+                </div>
+                <table class="rt">
+                  <thead>
+                    <tr>
+                      <th>品番</th><th>品名（推定）</th><th>数量</th><th>単位</th><th>納期</th><th>精度</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resultBody"></tbody>
+                </table>
+                <div class="dp-meta" id="dpMeta"></div>
+                <div class="dp-cta">
+                  <a href="#contact" class="btn btn-green" style="width:100%;">
+                    <i class="fas fa-rocket"></i> 無料トライアルに申し込む
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======= ONEVIO SYNERGY ======= -->
+<section class="sec sec-dark">
+  <div class="container">
+    <div class="tc">
+      <span class="chip white">Onevioとの連携</span>
+      <h2 class="h2 white">ORDIAから始まる、<br>受発注業務の全体最適化</h2>
+      <p class="lead white">ORDIAはOnevioプラットフォームの入口。必要に応じて機能を段階的に拡張できます。</p>
+    </div>
+    <div class="syn-grid">
+      <div class="syn-card">
+        <div class="syn-ic">📦</div>
+        <h3>商品マスター自動照合</h3>
+        <p>BRP-Code（業界共通商品マスター・3,000万件超）と連携。自社でマスタを整備する必要なく、AI解析した品番を正確な商品情報に紐づけます。</p>
+      </div>
+      <div class="syn-card">
+        <div class="syn-ic">📊</div>
+        <h3>売上分析・経営ダッシュボード</h3>
+        <p>受注データ × LDB全国研究機関DBで横串分析。得意先別・エンドユーザー別・ABC分析を即時可視化し、経営判断のスピードが向上します。</p>
+      </div>
+      <div class="syn-card">
+        <div class="syn-ic">🔗</div>
+        <h3>DOG（発注EDI統合）との連携</h3>
+        <p>受注した注文をメーカーへ発注する際もDOGが一元管理。仕入先ごとの変換作業から解放され、FAXへの逆戻りを解消できます。</p>
+      </div>
+      <div class="syn-card">
+        <div class="syn-ic">🏗️</div>
+        <h3>既存システムはそのまま</h3>
+        <p>マルチテナントSaaSで貴社基幹を載せ替えず並行稼働可能。月額0円の従量課金でリスクなくスモールスタート。使いながら拡張できます。</p>
+      </div>
+    </div>
+    <div class="roadmap">
+      <div class="roadmap-label">段階導入のロードマップ</div>
+      <div class="roadmap-steps">
+        <div class="rs active">Step 1 ： ORDIA 導入</div>
+        <div class="rs-arrow">→</div>
+        <div class="rs next">Step 2-A ： DOG 導入（発注EDI統合）</div>
+        <div class="rs-or">or</div>
+        <div class="rs next">Step 2-B ： エリアパートナー化（BPM連携）</div>
+      </div>
+      <div class="rs-note">Step 1 の期間目安：1〜2ヶ月 / CSV運用から開始可 / 月額0円の従量課金</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= PRICING ======= -->
+<section class="sec" id="pricing">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">料金</span>
+      <h2 class="h2">使った分だけ。<br>基本月額費0円の従量課金</h2>
+    </div>
+    <div class="price-top">
+      <div class="price-badge"><i class="fas fa-check-circle"></i>プラットフォーム共通の基盤料金はかかりません</div>
+      <p class="lead" style="margin-top:10px;">1pt ＝ 1円相当。注文書の種類とチャネルに応じた従量制で、固定費ゼロからスタートできます。</p>
+    </div>
+
+    <div class="price-table">
+      <div class="pt-head">ORDIA 料金プラン　<span style="font-size:12px;font-weight:400;opacity:.75;">※2026年8月リリース予定 / 個別見積 / 基本月額費 0円 の従量課金</span></div>
+      <div class="pt-row th">
+        <div class="pt-cell th-c">プラン</div>
+        <div class="pt-cell th-c">対象チャネル</div>
+        <div class="pt-cell th-c">従量単価</div>
+        <div class="pt-cell th-c">Cap（明細あたり上限）</div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-cell name">標準解析</div>
+        <div class="pt-cell">Excel / PDF（テキスト）</div>
+        <div class="pt-cell"><span class="pt-hi">30 pt</span> / 明細</div>
+        <div class="pt-cell">50 pt</div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-cell name">高度解析</div>
+        <div class="pt-cell">FAX / 画像スキャン</div>
+        <div class="pt-cell"><span class="pt-hi">40 pt</span> / 明細</div>
+        <div class="pt-cell">80 pt</div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-cell name">データ連携</div>
+        <div class="pt-cell">他社ECサイト連携</div>
+        <div class="pt-cell"><span class="pt-hi">25 pt</span> / 明細</div>
+        <div class="pt-cell">40 pt</div>
+      </div>
+      <div class="pt-row">
+        <div class="pt-cell name">BPM連携</div>
+        <div class="pt-cell">弊社ECシステム（BPM）</div>
+        <div class="pt-cell"><span class="pt-hi">5 pt</span> / 明細</div>
+        <div class="pt-cell">なし（最安プラン）</div>
+      </div>
+    </div>
+    <div class="price-note">
+      ※ 価格はすべて税別。最終はお見積もりにて確定。業界の注文書は2〜3明細が大半のため、Cap適用で実質固定価格運用も可能です。
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="#contact" class="btn btn-primary btn-xl">
+        <i class="fas fa-calculator"></i> 自社の利用料を試算する（無料相談）
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======= TRIAL STEPS ======= -->
+<section class="sec sec-dark">
+  <div class="container tc">
+    <span class="chip white">無料トライアル</span>
+    <h2 class="h2 white">3ヶ月間・最大1,000明細まで<br>完全無料でお試しいただけます</h2>
+    <p class="lead white">ローンチ前の先行登録特典。お申し込みから最短1週間でご利用開始可能です。</p>
+    <div class="trial-steps">
+      <div class="ts">
+        <div class="ts-no">STEP 01</div>
+        <div class="ts-ico">📝</div>
+        <h4>お申し込み</h4>
+        <p>フォームに必要事項を入力</p>
+      </div>
+      <div class="ts">
+        <div class="ts-no">STEP 02</div>
+        <div class="ts-ico">📞</div>
+        <h4>ヒアリング</h4>
+        <p>担当者が受注フローを確認（30分程度）</p>
+      </div>
+      <div class="ts">
+        <div class="ts-no">STEP 03</div>
+        <div class="ts-ico">⚙️</div>
+        <h4>初期設定</h4>
+        <p>メール転送設定・マスターCSV連携のみ</p>
+      </div>
+      <div class="ts">
+        <div class="ts-no">STEP 04</div>
+        <div class="ts-ico">🚀</div>
+        <h4>運用開始</h4>
+        <p>3ヶ月間・1,000明細まで無料</p>
+      </div>
+    </div>
+    <a href="#contact" class="btn btn-green btn-xl">
+      <i class="fas fa-rocket"></i> 無料トライアルに申し込む
+    </a>
+  </div>
+</section>
+
+<!-- ======= FAQ ======= -->
+<section class="sec sec-bg" id="faq">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">よくあるご質問</span>
+      <h2 class="h2">FAQ</h2>
+    </div>
+    <div class="faq-wrap">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          自社の基幹システムと連携できますか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">CSV出力や標準APIによる連携が可能です。リアルタイム連携が必要な場合はカスタムAPIやRPAを個別に開発・設定することもできます。まずはCSV運用から始め、段階的に連携を深めることを推奨しています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          導入時に社内で準備するものは何ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">最低限必要なものは①利用者のメールアドレス、②注文受信チャネルからのメール転送設定、③商品・得意先マスターのCSV、④AI学習用の受注原本ファイル（約500件）です。専任のIT担当者は不要で、業務担当者のみで導入を進められます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          FAXの注文書にも対応できますか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">はい、対応しています。FAX受信したPDF・画像をOCR処理し、AIが内容を解析します。高度解析プラン（40pt/明細、Cap:80pt）でご利用可能です。手書きのFAXにも対応していますが、活字に比べ精度が低下する場合があります。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          AI解析の精度はどの程度ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">顧客ごとの定型フォーマットに対しては95%以上の精度を実現しています。初期導入時はAI学習用データ（約500件）を使ったトレーニングとFMTプロンプトの最適化を行います。その後も運用を通じて継続的に精度が向上する仕組みです。精度管理画面から顧客別の解析品質をリアルタイムに確認できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          セキュリティ面は大丈夫ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">株式会社サグブレインはISO/IEC 27001（ISMS）認証を取得しています（認証番号：MSA-IS-532）。データは国内リージョンで管理され、テナント間の完全な論理分離を実施しています。お客様のデータが他社に参照されることはありません。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          既存のORDIA（ordia.net）との関係は？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">本サービスはOnevioプラットフォームに統合された次世代版ORDIAです。旧ORDIAのAI受注解析機能をベースに、商品マスター連携・販売管理・売上分析などの拡張機能を加えています。旧ORDIAのご利用者向けには移行サポートをご用意しています。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT ======= -->
+<section class="sec" id="contact">
+  <div class="container">
+    <div class="form-box">
+      <div class="tc" style="margin-bottom:40px;">
+        <span class="chip green">お申し込み・お問い合わせ</span>
+        <h2 class="h2">無料トライアル・資料請求<br>デモのご依頼はこちら</h2>
+        <p class="lead">担当者より2営業日以内にご連絡いたします。</p>
+      </div>
+      <form style="background:#fff;padding:36px;border-radius:var(--r-lg);box-shadow:var(--sh-md);">
+        <div class="form-grid">
+          <div class="fg"><label>会社名<span class="req">*</span></label><input type="text" placeholder="株式会社○○"></div>
+          <div class="fg"><label>部署名</label><input type="text" placeholder="営業部 受注チーム"></div>
+          <div class="fg"><label>担当者名<span class="req">*</span></label><input type="text" placeholder="山田 太郎"></div>
+          <div class="fg"><label>メールアドレス<span class="req">*</span></label><input type="email" placeholder="taro.yamada@example.com"></div>
+          <div class="fg"><label>電話番号</label><input type="tel" placeholder="03-XXXX-XXXX"></div>
+          <div class="fg">
+            <label>業種</label>
+            <select>
+              <option value="">選択してください</option>
+              <option>バイオ試薬・機器 販売店</option>
+              <option>代理店・商社</option>
+              <option>メーカー（サプライヤー）</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>お問い合わせ内容</label>
+            <select>
+              <option value="">選択してください</option>
+              <option>無料トライアルに申し込む</option>
+              <option>資料を請求したい</option>
+              <option>デモ・ヒアリングを依頼したい</option>
+              <option>料金・見積もりについて相談したい</option>
+              <option>その他お問い合わせ</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label>現在の受注形式・課題（任意）</label>
+            <textarea placeholder="例：FAXとメールが混在しており、手入力が多い。月間受注件数は約200件程度..."></textarea>
+          </div>
+        </div>
+        <div class="form-foot">
+          <button type="submit" class="btn btn-green btn-xl">
+            <i class="fas fa-paper-plane"></i> 送信する
+          </button>
+          <p class="form-privacy">送信することで<a href="#">プライバシーポリシー</a>に同意したものとみなします。</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CTA BAND ======= -->
+<section class="cta-band">
+  <div class="container">
+    <h2>まず、注文書を1枚<br>解析してみてください。</h2>
+    <p>登録不要・無料。貼り付けるだけでAIの精度を実感できます。</p>
+    <div class="cta-btns">
+      <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>今すぐ無料で試す</a>
+      <a href="#contact" class="btn btn-outline-w btn-xl">資料請求・デモ申込</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======= FOOTER ======= -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="logo">ORDIA <span style="font-size:13px;font-weight:400;opacity:.55;">by Onevio</span></div>
+        <p>バイオ業界の販売店・代理店・商社向け<br>AI受注自動化サービス。<br>「入力業務ゼロ」を目指す受注インフラ。</p>
+        <div class="addr">
+          株式会社サグブレイン<br>
+          〒135-0034 東京都江東区永代2-31-15 ベルウッド永代ビル5階<br>
+          TEL: 03-6661-3300 ／ info@sagbrain.com
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>サービス</h4>
+        <ul>
+          <li><a href="#about">ORDIAとは</a></li>
+          <li><a href="#features">機能一覧</a></li>
+          <li><a href="#pricing">料金プラン</a></li>
+          <li><a href="#demo">無料体験</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Onevio</h4>
+        <ul>
+          <li><a href="#">Onevioとは</a></li>
+          <li><a href="#">DOG（発注EDI統合）</a></li>
+          <li><a href="#">BPM（エリアパートナー）</a></li>
+          <li><a href="#">Lab Partner AI + CLIMS</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>会社情報</h4>
+        <ul>
+          <li><a href="https://sagbrain.com/" target="_blank" rel="noopener">株式会社サグブレイン</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">利用規約</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2002-2026 SAGBRAIN CORPORATION. All Rights Reserved.</p>
+      <p>ISO/IEC 27001（ISMS）認証取得 MSA-IS-532</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ======= JS ======= -->
+<script>
+/* FAQ */
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+/* Demo samples */
+const SAMPLES = {
+  email: `件名：注文書のご送付
+お世話になっております。○○大学 理学研究科 山田研究室です。
+下記の通りご注文申し上げます。
+
+品番：196-10021　和光純薬 エタノール（特級）500mL　2本
+品番：31212-34　 和光純薬 PBS(-) 500mL　　　　　　 5本
+品番：W3500-100ML　Sigma DMSO　　　　　　　　　　 10本
+
+希望納期：2026年9月10日まで
+お支払い：月末締め翌月末払い
+
+よろしくお願いいたします。`,
+
+  fax: `FAX注文書
+
+注　文　書
+                        2026年8月28日
+
+株式会社○○ 御中
+
+品番         品名                  数量  単位
+----------   -------------------   ----  ----
+T9281-1G     Trypsin porcine          3   本
+A6003-100MG  Albumin bovine           2   本
+D8662-500ML  D-Glucose solution       1   本
+M2128-10G    Mannitol                 5   本
+
+希望納期：2026年9月末まで
+取引先番号：KEN-20234
+
+以上`,
+
+  excel: `注文番号,品番,品名,数量,単位,希望納期
+PO-2026-0891,4A0806,DMEM/F12 培地 500mL,10,本,2026/09/15
+PO-2026-0891,11965092,Opti-MEM 培地 500mL,5,本,2026/09/15
+PO-2026-0891,15140122,ペニシリン/ストレプトマイシン,3,本,2026/09/15
+PO-2026-0891,10010023,FBS（ウシ胎児血清）500mL,2,本,2026/09/15`
+};
+
+function loadSample(t) {
+  document.getElementById('demoInput').value = SAMPLES[t];
+}
+
+/* Demo results */
+const RESULTS = {
+  email: {
+    src: 'メール本文', conf: '94%',
+    rows: [
+      { code:'196-10021', name:'エタノール（特級）500mL', qty:2, unit:'本', del:'2026/09/10', c:'h' },
+      { code:'31212-34',  name:'PBS(-) 500mL',           qty:5, unit:'本', del:'2026/09/10', c:'h' },
+      { code:'W3500-100ML', name:'DMSO 100mL',           qty:10,unit:'本', del:'2026/09/10', c:'h' },
+    ]
+  },
+  fax: {
+    src: 'FAX / 画像PDF', conf: '89%',
+    rows: [
+      { code:'T9281-1G',    name:'Trypsin from porcine 1G', qty:3, unit:'本', del:'2026/09末', c:'h' },
+      { code:'A6003-100MG', name:'Albumin bovine 100mg',    qty:2, unit:'本', del:'2026/09末', c:'h' },
+      { code:'D8662-500ML', name:'D-Glucose solution 500mL',qty:1, unit:'本', del:'2026/09末', c:'m' },
+      { code:'M2128-10G',   name:'Mannitol 10G',            qty:5, unit:'本', del:'2026/09末', c:'h' },
+    ]
+  },
+  excel: {
+    src: 'Excel / CSV', conf: '99%',
+    rows: [
+      { code:'4A0806',    name:'DMEM/F12 培地 500mL',         qty:10, unit:'本', del:'2026/09/15', c:'h' },
+      { code:'11965092',  name:'Opti-MEM 培地 500mL',         qty:5,  unit:'本', del:'2026/09/15', c:'h' },
+      { code:'15140122',  name:'ペニシリン/ストレプトマイシン',qty:3,  unit:'本', del:'2026/09/15', c:'h' },
+      { code:'10010023',  name:'FBS（ウシ胎児血清）500mL',   qty:2,  unit:'本', del:'2026/09/15', c:'h' },
+    ]
+  },
+  default: {
+    src: '入力テキスト', conf: '91%',
+    rows: [
+      { code:'(抽出中)', name:'AI解析結果（入力から抽出）', qty:'—', unit:'—', del:'—', c:'h' },
+    ]
+  }
+};
+
+function runDemo() {
+  const val = document.getElementById('demoInput').value.trim();
+  if (!val) { alert('注文書のテキストを入力してください。'); return; }
+
+  const btn    = document.getElementById('demoBtn');
+  const wrap   = document.getElementById('demoResult');
+  const proc   = document.getElementById('demoProc');
+  const ok     = document.getElementById('demoOk');
+
+  btn.disabled = true;
+  wrap.classList.add('show');
+  proc.style.display = 'flex';
+  ok.style.display   = 'none';
+
+  let key = 'default';
+  if (val.includes('196-10021') || (val.includes('PBS') && val.includes('DMSO'))) key = 'email';
+  else if (val.includes('T9281') || val.includes('KEN-20234') || val.includes('FAX注文書')) key = 'fax';
+  else if (val.includes('4A0806') || val.includes('DMEM') || val.includes('注文番号')) key = 'excel';
+
+  const data = RESULTS[key];
+
+  setTimeout(() => {
+    proc.style.display = 'none';
+    ok.style.display   = 'block';
+
+    const tbody = document.getElementById('resultBody');
+    tbody.innerHTML = '';
+    data.rows.forEach(r => {
+      const cb = r.c === 'h'
+        ? '<span class="cb cb-h">● 高</span>'
+        : '<span class="cb cb-m">● 中</span>';
+      tbody.innerHTML += `<tr>
+        <td style="font-family:monospace;font-weight:800;">${r.code}</td>
+        <td>${r.name}</td>
+        <td style="text-align:center;font-weight:800;">${r.qty}</td>
+        <td style="text-align:center;">${r.unit}</td>
+        <td>${r.del}</td>
+        <td>${cb}</td>
+      </tr>`;
+    });
+
+    document.getElementById('dpMeta').innerHTML =
+      `<strong>解析元：</strong>${data.src}　` +
+      `<strong>検出明細数：</strong>${data.rows.length}件　` +
+      `<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">${data.conf}</span>`;
+
+    btn.disabled = false;
+  }, 1800);
+}
+</script>
+
+</body>
+</html>
