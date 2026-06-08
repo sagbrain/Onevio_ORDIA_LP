@@ -368,8 +368,32 @@
       font-weight: 700; color: var(--gray-600); transition: all .15s;
     }
     .dp-sample:hover { border-color: var(--blue-mid); color: var(--blue-mid); background: rgba(43,114,203,.04); }
+    .dp-sample.active { border-color: var(--blue-mid); color: var(--blue-mid); background: rgba(43,114,203,.08); }
+
+    /* ── ファイルドロップゾーン ── */
+    .dp-drop {
+      border: 2px dashed var(--gray-200); border-radius: 10px;
+      padding: 22px 16px; text-align: center; cursor: pointer;
+      transition: border-color .2s, background .2s; background: var(--gray-50);
+      margin-bottom: 10px; position: relative;
+    }
+    .dp-drop:hover, .dp-drop.drag-over {
+      border-color: var(--blue-mid); background: rgba(43,114,203,.04);
+    }
+    .dp-drop input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%;
+    }
+    .dp-drop-icon { font-size: 28px; margin-bottom: 6px; }
+    .dp-drop-text { font-size: 13px; font-weight: 700; color: var(--gray-600); margin-bottom: 2px; }
+    .dp-drop-sub  { font-size: 11px; color: var(--gray-400); }
+    .dp-drop-file { /* 選択済み表示 */
+      display: none; align-items: center; gap: 8px; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--blue-mid);
+    }
+    .dp-or { text-align: center; font-size: 11px; color: var(--gray-400); margin: 8px 0; }
+
     .dp-textarea {
-      width: 100%; height: 178px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+      width: 100%; height: 130px; border: 1.5px solid var(--gray-200); border-radius: 8px;
       padding: 12px; font-size: 12.5px; font-family: 'Courier New', monospace;
       color: var(--text); resize: none; outline: none; transition: border-color .2s;
       background: var(--gray-50); line-height: 1.6;
@@ -385,24 +409,74 @@
     .dp-run:disabled { background: var(--gray-400); cursor: not-allowed; }
     .dp-result { display: none; margin-top: 16px; }
     .dp-result.show { display: block; }
+
+    /* ── AI解析ログアニメーション ── */
     .dp-proc {
-      display: none; align-items: center; justify-content: center; gap: 8px;
-      padding: 24px; color: var(--blue-mid); font-size: 13px; font-weight: 700;
+      display: none; flex-direction: column; gap: 0;
+      padding: 18px; background: #0d1117; border-radius: 8px;
     }
-    .spin { width: 18px; height: 18px; border: 2.5px solid rgba(43,114,203,.2); border-top-color: var(--blue-mid); border-radius: 50%; animation: spin .7s linear infinite; }
+    .dp-proc-title {
+      font-size: 12px; font-weight: 800; color: rgba(255,255,255,.5);
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .spin { width: 14px; height: 14px; border: 2px solid rgba(43,114,203,.3); border-top-color: #5B9BD5; border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0; }
     @keyframes spin { to{transform:rotate(360deg)} }
+    .dp-log-line {
+      font-family: 'Courier New', monospace; font-size: 11.5px; line-height: 1.9;
+      opacity: 0; transform: translateY(3px); transition: opacity .25s, transform .25s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dp-log-line.show { opacity: 1; transform: none; }
+    .dp-log-line .l-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dp-log-line.pending .l-dot { background: #5B9BD5; animation: blink 1s infinite; }
+    .dp-log-line.done    .l-dot { background: #2EA84A; animation: none; }
+    .dp-log-line.pending { color: #8bb8e8; }
+    .dp-log-line.done    { color: #6ee7a0; }
+    .dp-prog-bar {
+      height: 3px; background: rgba(255,255,255,.08); border-radius: 2px; margin: 12px 0 4px;
+    }
+    .dp-prog-fill {
+      height: 100%; background: linear-gradient(90deg, #2B72CB, #00A8E8);
+      border-radius: 2px; width: 0%; transition: width .3s ease;
+    }
+    .dp-prog-pct { font-size: 10px; color: rgba(255,255,255,.35); text-align: right; font-family: monospace; }
+
     .dp-ok { display: none; }
     .dp-ok-head { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
     .rt { width: 100%; border-collapse: collapse; font-size: 12px; }
     .rt th { background: var(--blue-dark); color: #fff; padding: 7px 10px; text-align: left; font-weight: 700; }
     .rt td { padding: 7px 10px; border-bottom: 1px solid var(--gray-100); }
     .rt tr:nth-child(even) td { background: var(--gray-50); }
+
+    /* ── 解析後メインCTA ── */
+    .dp-main-cta {
+      margin-top: 14px; padding: 18px 20px;
+      background: linear-gradient(135deg, #f0fff5, #e8f8ef);
+      border: 1.5px solid rgba(46,168,74,.28); border-radius: 10px;
+      text-align: center; animation: slideUp .4s ease both;
+    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+    .dp-main-cta .cta-lead { font-size: 13px; color: var(--gray-600); margin-bottom: 4px; }
+    .dp-main-cta .cta-title { font-size: 16px; font-weight: 900; color: var(--text); margin-bottom: 14px; }
+    .dp-main-cta .cta-title span { color: var(--green); }
+    .dp-main-cta .cta-note { font-size: 11px; color: var(--gray-400); margin-top: 8px; }
     .rt tr:last-child td { border-bottom: none; }
     .cb { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
     .cb-h { background: rgba(46,168,74,.1); color: var(--green); }
     .cb-m { background: rgba(230,150,0,.1); color: #c88200; }
     .dp-meta { margin-top: 10px; padding: 10px; background: var(--gray-50); border-radius: 6px; font-size: 11px; color: var(--gray-600); }
     .dp-cta { margin-top: 12px; }
+    /* Inbox header */
+    .dp-inbox-hdr { background:#f0f4ff; border:1px solid #c5d5f5; border-radius:7px; padding:9px 12px; margin-bottom:10px; font-size:11px; color:#2d3748; }
+    .ib-row  { display:flex; align-items:center; gap:8px; margin-bottom:5px; flex-wrap:wrap; }
+    .ib-row2 { display:flex; align-items:center; gap:10px; flex-wrap:wrap; color:#4a5568; font-size:10.5px; }
+    .ib-icon { font-size:15px; }
+    .ib-channel { font-weight:800; color:var(--blue-mid); }
+    .ib-badge { background:var(--blue-mid); color:#fff; border-radius:10px; padding:2px 9px; font-size:10px; font-weight:700; }
+    .ib-time  { margin-left:auto; color:#718096; font-size:10px; }
+    .ib-status { margin-left:auto; color:var(--green); font-weight:700; }
+    .dp-demo-note { margin-top:6px; font-size:10px; color:#a0aec0; }
 
     /* ===== Trial Steps ===== */
     .trial-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 40px 0 46px; }
@@ -783,7 +857,7 @@
         <div class="feat-ic c"><i class="fas fa-plug"></i></div>
         <div class="feat-body">
           <h3>既存基幹システムとの連携 ＆ Onevioプラットフォームへの発展</h3>
-          <p>CSV出力・標準API・RPAによる連携で、現在の基幹システムと並行稼働が可能。さらにOnevioのプラットフォーム上では、<strong>商品マスター（BRP-Code 3,000万件超）・販売管理・売上分析・DOG（受発注EDI統合）</strong>との連携により、受注業務全体の省力化と高度化が実現できます。</p>
+          <p>CSV出力・標準API・RPAによる連携で、現在の基幹システムと並行稼働が可能。さらにOnevioのプラットフォーム上では、<strong>BRPcode（商品マスター）・DealerOrder（受注・出荷・請求管理）・LDB（受注データ分析）・DOG（受発注 EDI ゲートウェイ）</strong>との連携により、受注業務全体の省力化と高度化が実現できます。</p>
         </div>
       </div>
     </div>
@@ -799,7 +873,6 @@
     <div class="maker-tags">
       <span class="maker-tag">富士フィルム和光純薬</span>
       <span class="maker-tag">シグマアルドリッチ（メルク）</span>
-      <span class="maker-tag">メルク</span>
       <span class="maker-tag">コスモ・バイオ</span>
       <span class="maker-tag">フナコシ</span>
       <span class="maker-tag">アブカム</span>
@@ -837,6 +910,7 @@
         <div class="trial-box">
           <div class="t-title"><i class="fas fa-gift"></i> 先行無料トライアル特典（2026年8月ローンチ前）</div>
           <div class="t-body">ローンチ前の先行登録で、<strong>3ヶ月間・最大1,000明細まで無料</strong>でお試しいただけます。</div>
+          <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※初回AIチューニングのため、過去の受注データ（約500件）のご提供をお願いしております。</div>
         </div>
 
         <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
@@ -852,23 +926,58 @@
             <div class="dp-title">ORDIA AI解析デモ</div>
           </div>
           <div class="dp-body">
-            <div class="dp-label">注文書テキストを貼り付け</div>
+
+            <!-- ① ファイルドロップゾーン -->
+            <div class="dp-label">注文書ファイルをドロップ</div>
+            <div class="dp-drop" id="dropZone"
+              ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+              <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.png,.jpg,.jpeg,.tiff"
+                onchange="onFileSelect(this)">
+              <div id="dropDefault">
+                <div class="dp-drop-icon">📂</div>
+                <div class="dp-drop-text">PDFやExcel・FAX画像をここにドロップ</div>
+                <div class="dp-drop-sub">PDF / Excel / PNG・JPG（FAXスキャン）対応</div>
+              </div>
+              <div class="dp-drop-file" id="dropSelected">
+                <i class="fas fa-file-alt" style="color:var(--blue-mid)"></i>
+                <span id="selectedFileName"></span>
+                <span style="font-size:10px;color:var(--gray-400);margin-left:4px;">選択済み</span>
+              </div>
+            </div>
+
+            <!-- ② テキスト貼り付け（オルタネート） -->
+            <div class="dp-or">── またはテキストを貼り付け ──</div>
             <div class="dp-samples">
-              <span class="dp-label" style="margin:0;font-size:11px;">サンプル：</span>
-              <button class="dp-sample" onclick="loadSample('email')">メール注文</button>
-              <button class="dp-sample" onclick="loadSample('fax')">FAX注文書</button>
-              <button class="dp-sample" onclick="loadSample('excel')">Excel形式</button>
+              <span style="font-size:11px;font-weight:700;color:var(--gray-400);">サンプル：</span>
+              <button class="dp-sample" onclick="loadSample('email',this)">📧 メール注文</button>
+              <button class="dp-sample" onclick="loadSample('fax',this)">📠 FAX注文書</button>
+              <button class="dp-sample" onclick="loadSample('excel',this)">📊 Excel形式</button>
             </div>
             <textarea class="dp-textarea" id="demoInput"
               placeholder="注文書のテキストをここに貼り付けてください...&#10;&#10;（例）&#10;品番：W3500-100ML  数量：5本&#10;品番：A3156-5G     数量：2個&#10;納期：2026年9月末まで"></textarea>
+
+            <!-- ③ 解析ボタン -->
             <button class="dp-run" id="demoBtn" onclick="runDemo()">
               <i class="fas fa-magic"></i> AIで解析する
             </button>
+
+            <!-- ④ 結果エリア -->
             <div class="dp-result" id="demoResult">
+
+              <!-- 解析中：ログアニメーション -->
               <div class="dp-proc" id="demoProc">
-                <div class="spin"></div><span>AI解析中...</span>
+                <div class="dp-proc-title">
+                  <div class="spin"></div>
+                  <span id="procLabel">ORDIA AI — 解析中...</span>
+                </div>
+                <div id="logLines"></div>
+                <div class="dp-prog-bar"><div class="dp-prog-fill" id="progFill"></div></div>
+                <div class="dp-prog-pct" id="progPct">0%</div>
               </div>
+
+              <!-- 解析完了 -->
               <div class="dp-ok" id="demoOk">
+                <div class="dp-inbox-hdr" id="inboxHeader"></div>
                 <div class="dp-ok-head">
                   <i class="fas fa-check-circle"></i> 解析完了 — 受注データを正規化しました
                 </div>
@@ -881,11 +990,17 @@
                   <tbody id="resultBody"></tbody>
                 </table>
                 <div class="dp-meta" id="dpMeta"></div>
-                <div class="dp-cta">
-                  <a href="#contact" class="btn btn-green" style="width:100%;">
-                    <i class="fas fa-rocket"></i> 無料トライアルに申し込む
+
+                <!-- 解析後メインCTA（マイクロCV → 主CV） -->
+                <div class="dp-main-cta" id="dpMainCta" style="display:none;">
+                  <div class="cta-lead">いかがでしょうか？</div>
+                  <div class="cta-title">自社の注文書でも、<span>同じことができます。</span></div>
+                  <a href="#contact" class="btn btn-green btn-lg" style="width:100%;">
+                    <i class="fas fa-rocket"></i> 無料トライアルを始める（3ヶ月・1,000明細まで無料）
                   </a>
+                  <div class="cta-note">初期費用¥0 · 基本月額¥0 · いつでも解約可能</div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -908,17 +1023,17 @@
       <div class="syn-card">
         <div class="syn-ic">📦</div>
         <h3>商品マスター自動照合</h3>
-        <p>BRP-Code（業界共通商品マスター・3,000万件超）と連携。自社でマスタを整備する必要なく、AI解析した品番を正確な商品情報に紐づけます。</p>
+        <p>BRPcode（業界共通商品マスター）と連携。自社でマスタを整備する必要なく、AI解析した品番を正確な商品情報に紐づけます。</p>
       </div>
       <div class="syn-card">
         <div class="syn-ic">📊</div>
-        <h3>売上分析・経営ダッシュボード</h3>
-        <p>受注データ × LDB全国研究機関DBで横串分析。得意先別・エンドユーザー別・ABC分析を即時可視化し、経営判断のスピードが向上します。</p>
+        <h3>LDB連携 — 受注データの横串分析</h3>
+        <p>受注データ × LDB（全国研究機関DB）で横串分析。得意先別・エンドユーザー別・ABC分析を即時可視化し、経営判断のスピードが向上します。</p>
       </div>
       <div class="syn-card">
         <div class="syn-ic">🔗</div>
-        <h3>DOG（発注EDI統合）との連携</h3>
-        <p>受注した注文をメーカーへ発注する際もDOGが一元管理。仕入先ごとの変換作業から解放され、FAXへの逆戻りを解消できます。</p>
+        <h3>DOG（受発注 EDI ゲートウェイ）との連携</h3>
+        <p>メーカーへの発注 EDI も DOG が一元管理。既存の各種 EDI プロトコル（JD-NET / cXML / CSV 等）を自動変換し、仕入先ごとの手作業から解放されます。</p>
       </div>
       <div class="syn-card">
         <div class="syn-ic">🏗️</div>
@@ -931,7 +1046,7 @@
       <div class="roadmap-steps">
         <div class="rs active">Step 1 ： ORDIA 導入</div>
         <div class="rs-arrow">→</div>
-        <div class="rs next">Step 2-A ： DOG 導入（発注EDI統合）</div>
+        <div class="rs next">Step 2-A ： DOG 導入（受発注 EDI ゲートウェイ）</div>
         <div class="rs-or">or</div>
         <div class="rs next">Step 2-B ： エリアパートナー化（BPM連携）</div>
       </div>
@@ -1088,7 +1203,7 @@
           既存のORDIA（ordia.net）との関係は？
           <span class="ico"><i class="fas fa-plus"></i></span>
         </div>
-        <div class="faq-a">本サービスはOnevioプラットフォームに統合された次世代版ORDIAです。旧ORDIAのAI受注解析機能をベースに、商品マスター連携・販売管理・売上分析などの拡張機能を加えています。旧ORDIAのご利用者向けには移行サポートをご用意しています。</div>
+        <div class="faq-a">本サービスはOnevioプラットフォームに統合された次世代版ORDIAです。旧ORDIAのAI受注解析機能をベースに、BRPcode商品マスター連携・DealerOrder（受注・出荷・請求管理）・LDB受注データ分析などの拡張機能を加えています。旧ORDIAのご利用者向けには移行サポートをご用意しています。</div>
       </div>
 
     </div>
@@ -1186,7 +1301,7 @@
         <h4>Onevio</h4>
         <ul>
           <li><a href="#">Onevioとは</a></li>
-          <li><a href="#">DOG（発注EDI統合）</a></li>
+          <li><a href="#">DOG（受発注 EDI ゲートウェイ）</a></li>
           <li><a href="#">BPM（エリアパートナー）</a></li>
           <li><a href="#">Lab Partner AI + CLIMS</a></li>
         </ul>
@@ -1256,94 +1371,345 @@ PO-2026-0891,15140122,ペニシリン/ストレプトマイシン,3,本,2026/09/
 PO-2026-0891,10010023,FBS（ウシ胎児血清）500mL,2,本,2026/09/15`
 };
 
-function loadSample(t) {
+// サンプルボタンのアクティブ管理
+function loadSample(t, btn) {
   document.getElementById('demoInput').value = SAMPLES[t];
+  // ファイル選択をリセット
+  clearFileSelection();
+  // ボタンハイライト
+  document.querySelectorAll('.dp-sample').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
 }
 
-/* Demo results */
-const RESULTS = {
-  email: {
-    src: 'メール本文', conf: '94%',
-    rows: [
-      { code:'196-10021', name:'エタノール（特級）500mL', qty:2, unit:'本', del:'2026/09/10', c:'h' },
-      { code:'31212-34',  name:'PBS(-) 500mL',           qty:5, unit:'本', del:'2026/09/10', c:'h' },
-      { code:'W3500-100ML', name:'DMSO 100mL',           qty:10,unit:'本', del:'2026/09/10', c:'h' },
-    ]
-  },
-  fax: {
-    src: 'FAX / 画像PDF', conf: '89%',
-    rows: [
-      { code:'T9281-1G',    name:'Trypsin from porcine 1G', qty:3, unit:'本', del:'2026/09末', c:'h' },
-      { code:'A6003-100MG', name:'Albumin bovine 100mg',    qty:2, unit:'本', del:'2026/09末', c:'h' },
-      { code:'D8662-500ML', name:'D-Glucose solution 500mL',qty:1, unit:'本', del:'2026/09末', c:'m' },
-      { code:'M2128-10G',   name:'Mannitol 10G',            qty:5, unit:'本', del:'2026/09末', c:'h' },
-    ]
-  },
-  excel: {
-    src: 'Excel / CSV', conf: '99%',
-    rows: [
-      { code:'4A0806',    name:'DMEM/F12 培地 500mL',         qty:10, unit:'本', del:'2026/09/15', c:'h' },
-      { code:'11965092',  name:'Opti-MEM 培地 500mL',         qty:5,  unit:'本', del:'2026/09/15', c:'h' },
-      { code:'15140122',  name:'ペニシリン/ストレプトマイシン',qty:3,  unit:'本', del:'2026/09/15', c:'h' },
-      { code:'10010023',  name:'FBS（ウシ胎児血清）500mL',   qty:2,  unit:'本', del:'2026/09/15', c:'h' },
-    ]
-  },
-  default: {
-    src: '入力テキスト', conf: '91%',
-    rows: [
-      { code:'(抽出中)', name:'AI解析結果（入力から抽出）', qty:'—', unit:'—', del:'—', c:'h' },
-    ]
+/* ═══════════════════
+   ファイルドロップ処理
+═══════════════════ */
+var selectedFile = null;
+
+function onDragOver(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.add('drag-over');
+}
+function onDragLeave(e) {
+  document.getElementById('dropZone').classList.remove('drag-over');
+}
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  var file = e.dataTransfer.files[0];
+  if (file) applyFile(file);
+}
+function onFileSelect(input) {
+  if (input.files[0]) applyFile(input.files[0]);
+}
+function applyFile(file) {
+  selectedFile = file;
+  document.getElementById('dropDefault').style.display = 'none';
+  var sel = document.getElementById('dropSelected');
+  sel.style.display = 'flex';
+  document.getElementById('selectedFileName').textContent = file.name;
+  // テキストエリアをクリア・サンプルボタンをリセット
+  document.getElementById('demoInput').value = '';
+  document.querySelectorAll('.dp-sample').forEach(function(b){ b.classList.remove('active'); });
+}
+function clearFileSelection() {
+  selectedFile = null;
+  document.getElementById('dropDefault').style.display = 'block';
+  document.getElementById('dropSelected').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+}
+
+/* ═══════════════════════════════════════════════
+   ORDIA デモ — フロントエンド解析エンジン
+   入力テキストを実際に解析して動的に結果を生成します
+   ═══════════════════════════════════════════════ */
+
+function parseOrderText(text) {
+  var lines = text.split(/\r?\n/);
+
+  // ── チャネル判定 ──
+  var channel = 'テキスト', channelIcon = '📄';
+  if (/From:|Subject:|件名[：:]|お世話になっております/.test(text)) {
+    channel = 'メール'; channelIcon = '📧';
+  } else if (/FAX|注\s*文\s*書|発注書/.test(text) && !/^[^,\n]+,[^,\n]+,/.test(text)) {
+    channel = 'FAX / 画像PDF'; channelIcon = '📠';
+  } else if (lines.filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2) {
+    channel = 'CSV / Excel'; channelIcon = '📊';
   }
+
+  // ── 送信元判定 ──
+  var sender = '不明';
+  var mFrom    = text.match(/From:\s*([^\n<]+)/i);
+  var mHonor   = text.match(/([゠-ヿ぀-ゟ一-鿿\w（）　]+)\s*御中/);
+  var mCo1     = text.match(/(?:株式会社|有限会社|合同会社)([゠-ヿ぀-ゟ一-鿿\w]+)/);
+  var mCo2     = text.match(/([゠-ヿ぀-ゟ一-鿿\w]+)(?:株式会社|有限会社)/);
+  var mUniv    = text.match(/([一-鿿]+(?:大学|研究所|研究室|センター))/);
+  if      (mFrom)  sender = mFrom[1].trim();
+  else if (mHonor) sender = mHonor[1].trim();
+  else if (mCo1)   sender = '株式会社' + mCo1[1];
+  else if (mCo2)   sender = mCo2[1] + '株式会社';
+  else if (mUniv)  sender = mUniv[1];
+
+  // ── 納期判定 ──
+  var delivery = '記載なし';
+  var mDlLabel = text.match(/(?:希望納期|納期)[：:]\s*([^\n,]{2,25})/);
+  var mDate    = text.match(/(\d{4})[\/\-年](\d{1,2})[\/\-月](\d{1,2})/);
+  var mMEnd    = text.match(/(\d{1,2})月末/);
+  if (/至急|できるだけ早く|ASAP|急ぎ/.test(text)) {
+    delivery = '至急';
+  } else if (mDlLabel) {
+    var dl = mDlLabel[1].trim();
+    var md = dl.match(/(\d{4})[\/\-年](\d{1,2})[\/\-月](\d{1,2})/);
+    var me = dl.match(/(\d{1,2})月末/);
+    if      (md) delivery = md[1] + '/' + ('0'+md[2]).slice(-2) + '/' + ('0'+md[3]).slice(-2);
+    else if (me) delivery = me[1] + '月末';
+    else         delivery = dl.replace(/まで|迄/,'').trim();
+  } else if (mDate) {
+    delivery = mDate[1] + '/' + ('0'+mDate[2]).slice(-2) + '/' + ('0'+mDate[3]).slice(-2);
+  } else if (mMEnd) {
+    delivery = mMEnd[1] + '月末';
+  }
+
+  var items = [];
+  var isCsv = lines.filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2;
+
+  // ─ Mode A: CSV / Excel ─
+  if (isCsv) {
+    var headerIdx = -1, colCode = 1, colName = 2, colQty = 3, colUnit = 4, colDel = 5;
+    lines.forEach(function(line, i) {
+      if (/品番|code|item/i.test(line) && /,/.test(line)) {
+        headerIdx = i;
+        line.split(',').forEach(function(c, j) {
+          if (/品番|code|item/i.test(c)) colCode = j;
+          else if (/品名|name|desc/i.test(c)) colName = j;
+          else if (/数量|qty|count/i.test(c)) colQty  = j;
+          else if (/単位|unit/i.test(c))      colUnit = j;
+          else if (/納期|delivery|date/i.test(c)) colDel = j;
+        });
+      }
+    });
+    lines.slice(headerIdx + 1).forEach(function(line) {
+      var cols = line.split(',');
+      if (cols.length < 3) return;
+      var code = (cols[colCode] || '').trim();
+      if (!code || /^PO|^\d{4}$/.test(code)) return;
+      var name = (cols[colName] || '（品名不明）').trim();
+      var qty  = (cols[colQty]  || '?').trim();
+      var unit = (cols[colUnit] || '−').trim();
+      var del  = (cols[colDel]  || delivery).trim() || delivery;
+      items.push({ code: code, name: name, qty: qty, unit: unit, del: del, conf: 'h' });
+    });
+  }
+
+  // ─ Mode B: 品番ラベル形式（品番：XXX） ─
+  else if (/品番[：:]/.test(text)) {
+    lines.forEach(function(line) {
+      var m = line.match(/品番[：:]\s*([A-Za-z0-9\-（）]+)/);
+      if (!m) return;
+      var code = m[1].trim();
+      // 個数単位（本/個/枚…）を優先し、容量・質量単位（mL/g…）は後退
+      var qtyPiece  = line.match(/(\d+)\s*(本|個|枚|袋|セット|vial)/);
+      var qtyVolume = line.match(/(\d+)\s*(mL|μL|L|g|kg)/);
+      var qtyM = qtyPiece || qtyVolume;
+      var qty  = qtyM ? qtyM[1] : '?';
+      var unit = qtyM ? qtyM[2] : '−';
+      var after = line.slice(line.indexOf(code) + code.length).trim();
+      var name  = after.replace(/\d+\s*(?:本|個|mL|μL|L|g|kg|vial|枚|袋|セット).*/,'').trim() || '（品名解析中）';
+      items.push({ code: code, name: name, qty: qty, unit: unit, del: delivery, conf: qtyM ? 'h' : 'm' });
+    });
+  }
+
+  // ─ Mode C: FAX スタイル表（行頭に品番、スペース区切り） ─
+  else {
+    var partRow = /^([A-Z][A-Z0-9\-]{3,})\s+(.+?)\s+(\d+)\s*(本|個|mL|μL|L|g|kg|vial|枚|袋)?/;
+    lines.forEach(function(line) {
+      var t = line.trim();
+      if (!t || /^[-─=\s]{3,}$/.test(t)) return;
+      if (/品番|品名|数量|単位|納期/.test(t)) return;
+      var m = t.match(partRow);
+      if (!m) return;
+      items.push({ code: m[1], name: m[2].trim(), qty: m[3], unit: m[4]||'−', del: delivery, conf: 'h' });
+    });
+    // Fallback: extract any product-code-like tokens
+    if (items.length === 0) {
+      var seen = {};
+      var re = /\b([A-Z][A-Z0-9\-]{4,})\b/g, hit;
+      while ((hit = re.exec(text)) !== null) {
+        if (!seen[hit[1]]) {
+          seen[hit[1]] = true;
+          items.push({ code: hit[1], name: '（品名解析中）', qty: '?', unit: '−', del: delivery, conf: 'm' });
+        }
+      }
+    }
+  }
+
+  // ── 信頼スコア計算 ──
+  var hi = items.filter(function(i){ return i.conf === 'h'; }).length;
+  var confScore = items.length === 0 ? '−' : Math.round(hi / items.length * 100) + '%';
+
+  return { channel: channel, channelIcon: channelIcon, sender: sender, delivery: delivery, items: items, confScore: confScore };
+}
+
+/* ═══════════════════════════════════════════════
+   チャネル別の処理ログ定義
+═══════════════════════════════════════════════ */
+var LOG_STEPS = {
+  email: [
+    { pct: 15, text: '📧 メール本文を受信・テキスト抽出中...' },
+    { pct: 35, text: '🔍 品番パターンを解析中...' },
+    { pct: 55, text: '📦 数量・単位を抽出中...' },
+    { pct: 72, text: '📅 希望納期を認識中...' },
+    { pct: 88, text: '🏭 商品マスターと照合中...' },
+    { pct: 100, text: '✅ 正規化完了' },
+  ],
+  fax: [
+    { pct: 12, text: '📠 FAX画像をOCR処理中...' },
+    { pct: 28, text: '✏️ 手書き・印字文字を認識中...' },
+    { pct: 48, text: '🔍 品番・数量パターンを解析中...' },
+    { pct: 66, text: '⚠️ 読み取り信頼度の低い行をフラグ中...' },
+    { pct: 84, text: '🏭 商品マスターで補完中...' },
+    { pct: 100, text: '✅ 正規化完了（要確認フラグあり）' },
+  ],
+  csv: [
+    { pct: 20, text: '📊 Excelファイルを読み込み中...' },
+    { pct: 42, text: '🔍 カラム構造を自動判定中...' },
+    { pct: 65, text: '📦 全行を一括抽出中...' },
+    { pct: 85, text: '🏭 商品マスターと照合中...' },
+    { pct: 100, text: '✅ 正規化完了' },
+  ],
+  file: [
+    { pct: 10, text: '📂 ファイルを受信中...' },
+    { pct: 25, text: '🔍 フォーマットを自動判定中...' },
+    { pct: 45, text: '🤖 OCR＋AI解析を実行中...' },
+    { pct: 65, text: '📦 品番・数量・納期を抽出中...' },
+    { pct: 82, text: '🏭 商品マスターと照合中...' },
+    { pct: 100, text: '✅ 正規化完了' },
+  ],
 };
 
 function runDemo() {
-  const val = document.getElementById('demoInput').value.trim();
-  if (!val) { alert('注文書のテキストを入力してください。'); return; }
+  var val = document.getElementById('demoInput').value.trim();
+  var hasFile = !!selectedFile;
+  if (!val && !hasFile) { alert('注文書をドロップするか、テキストを貼り付けてください。'); return; }
 
-  const btn    = document.getElementById('demoBtn');
-  const wrap   = document.getElementById('demoResult');
-  const proc   = document.getElementById('demoProc');
-  const ok     = document.getElementById('demoOk');
+  var btn  = document.getElementById('demoBtn');
+  var wrap = document.getElementById('demoResult');
+  var proc = document.getElementById('demoProc');
+  var ok   = document.getElementById('demoOk');
 
   btn.disabled = true;
   wrap.classList.add('show');
   proc.style.display = 'flex';
   ok.style.display   = 'none';
+  document.getElementById('dpMainCta').style.display = 'none';
 
-  let key = 'default';
-  if (val.includes('196-10021') || (val.includes('PBS') && val.includes('DMSO'))) key = 'email';
-  else if (val.includes('T9281') || val.includes('KEN-20234') || val.includes('FAX注文書')) key = 'fax';
-  else if (val.includes('4A0806') || val.includes('DMEM') || val.includes('注文番号')) key = 'excel';
+  // チャネル判定 → ログ選択
+  var logKey = 'email';
+  if (hasFile) {
+    logKey = 'file';
+    val = 'FILE:' + selectedFile.name; // 解析用テキストにファイル名を埋め込む
+  } else if (/FAX|発注書/.test(val)) {
+    logKey = 'fax';
+  } else if (/,/.test(val) && val.split('\n').filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2) {
+    logKey = 'csv';
+  }
 
-  const data = RESULTS[key];
+  var steps = LOG_STEPS[logKey];
+  var totalMs = hasFile ? 3200 : logKey === 'fax' ? 2400 : logKey === 'csv' ? 1600 : 2000;
+  var stepMs  = totalMs / (steps.length + 0.5);
 
-  setTimeout(() => {
+  // ログエリア初期化
+  var logArea = document.getElementById('logLines');
+  logArea.innerHTML = '';
+  var fill = document.getElementById('progFill');
+  var pct  = document.getElementById('progPct');
+  fill.style.width = '0%';
+  pct.textContent  = '0%';
+  document.getElementById('procLabel').textContent = hasFile
+    ? 'ORDIA AI — ' + selectedFile.name + ' を解析中...'
+    : 'ORDIA AI — 解析中...';
+
+  // ログを順番に表示
+  steps.forEach(function(step, i) {
+    setTimeout(function() {
+      // 前の行を「done」に
+      var prev = logArea.querySelector('.dp-log-line.pending');
+      if (prev) { prev.classList.remove('pending'); prev.classList.add('done'); }
+
+      var line = document.createElement('div');
+      line.className = 'dp-log-line pending';
+      line.innerHTML = '<span class="l-dot"></span><span>' + step.text + '</span>';
+      logArea.appendChild(line);
+      requestAnimationFrame(function(){ line.classList.add('show'); });
+
+      fill.style.width = step.pct + '%';
+      pct.textContent  = step.pct + '%';
+    }, stepMs * i);
+  });
+
+  // 解析完了 → 結果表示
+  var delay = totalMs + 300;
+  setTimeout(function() {
+    var result = parseOrderText(val);
     proc.style.display = 'none';
     ok.style.display   = 'block';
 
-    const tbody = document.getElementById('resultBody');
+    // 受信トレイヘッダー
+    var now = new Date();
+    var timeStr = now.getHours() + ':' + ('0'+now.getMinutes()).slice(-2);
+    var inboxHdr = document.getElementById('inboxHeader');
+    if (inboxHdr) {
+      inboxHdr.innerHTML =
+        '<div class="ib-row">' +
+          '<span class="ib-icon">' + result.channelIcon + '</span>' +
+          '<span class="ib-channel">' + result.channel + '</span>' +
+          '<span class="ib-badge">新着 1件</span>' +
+          '<span class="ib-time">受信：本日 ' + timeStr + '</span>' +
+        '</div>' +
+        '<div class="ib-row2">' +
+          '<span><strong>From：</strong>' + result.sender + '</span>' +
+          '<span><strong>希望納期：</strong>' + result.delivery + '</span>' +
+          '<span class="ib-status">✅ 解析完了</span>' +
+        '</div>';
+    }
+
+    // 明細テーブル
+    var tbody = document.getElementById('resultBody');
     tbody.innerHTML = '';
-    data.rows.forEach(r => {
-      const cb = r.c === 'h'
-        ? '<span class="cb cb-h">● 高</span>'
-        : '<span class="cb cb-m">● 中</span>';
-      tbody.innerHTML += `<tr>
-        <td style="font-family:monospace;font-weight:800;">${r.code}</td>
-        <td>${r.name}</td>
-        <td style="text-align:center;font-weight:800;">${r.qty}</td>
-        <td style="text-align:center;">${r.unit}</td>
-        <td>${r.del}</td>
-        <td>${cb}</td>
-      </tr>`;
-    });
+    if (result.items.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#718096;padding:16px;">⚠ 明細を自動抽出できませんでした。品番・数量を含む形式でご入力ください。</td></tr>';
+    } else {
+      result.items.forEach(function(r) {
+        var cb = r.conf === 'h'
+          ? '<span class="cb cb-h">● 高</span>'
+          : '<span class="cb cb-m">● 中</span>';
+        tbody.innerHTML +=
+          '<tr>' +
+            '<td style="font-family:monospace;font-weight:800;">' + r.code + '</td>' +
+            '<td>' + r.name + '</td>' +
+            '<td style="text-align:center;font-weight:800;">' + r.qty + '</td>' +
+            '<td style="text-align:center;">' + r.unit + '</td>' +
+            '<td>' + r.del + '</td>' +
+            '<td>' + cb + '</td>' +
+          '</tr>';
+      });
+    }
 
     document.getElementById('dpMeta').innerHTML =
-      `<strong>解析元：</strong>${data.src}　` +
-      `<strong>検出明細数：</strong>${data.rows.length}件　` +
-      `<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">${data.conf}</span>`;
+      '<strong>解析元：</strong>' + result.channel + '　' +
+      '<strong>検出明細数：</strong>' + result.items.length + '件　' +
+      '<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">' + result.confScore + '</span>' +
+      '<div class="dp-demo-note">※デモ用フロントエンド解析。本番サービスでは専用AIモデルが処理します。</div>';
+
+    // 解析後メインCTAを遅延表示（主CV誘導）
+    setTimeout(function() {
+      var cta = document.getElementById('dpMainCta');
+      cta.style.display = 'block';
+      cta.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 600);
 
     btn.disabled = false;
-  }, 1800);
+  }, delay);
 }
 </script>
 
