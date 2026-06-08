@@ -893,10 +893,10 @@
       <!-- left info -->
       <div>
         <span class="chip green">無料体験</span>
-        <h2 class="h2">今すぐ注文書を<br>AI解析してみる</h2>
+        <h2 class="h2">御社の注文書を<br>そのまま貼り付けてみてください</h2>
         <p class="lead" style="margin-bottom:20px;">
-          実際の注文書（メール本文・FAX OCRテキスト・Excelデータなど）を
-          貼り付けて、ORDIAのAIがどのように読み取るかをその場で体験できます。
+          メール本文・FAXの文字起こし・Excelのコピペ、どんな形式でも構いません。
+          AIが形式を自動判別して品番・数量・納期を読み取ります。
         </p>
 
         <div class="scope-list">
@@ -945,16 +945,10 @@
               </div>
             </div>
 
-            <!-- ② テキスト貼り付け（オルタネート） -->
+            <!-- ② テキスト貼り付け -->
             <div class="dp-or">── またはテキストを貼り付け ──</div>
-            <div class="dp-samples">
-              <span style="font-size:11px;font-weight:700;color:var(--gray-400);">サンプル：</span>
-              <button class="dp-sample" onclick="loadSample('email',this)">📧 メール注文</button>
-              <button class="dp-sample" onclick="loadSample('fax',this)">📠 FAX注文書</button>
-              <button class="dp-sample" onclick="loadSample('excel',this)">📊 Excel形式</button>
-            </div>
             <textarea class="dp-textarea" id="demoInput"
-              placeholder="注文書のテキストをここに貼り付けてください...&#10;&#10;（例）&#10;品番：W3500-100ML  数量：5本&#10;品番：A3156-5G     数量：2個&#10;納期：2026年9月末まで"></textarea>
+              placeholder="注文書のテキストをそのまま貼り付けてください&#10;&#10;メール本文・FAXの文字起こし・ExcelコピペなどOK&#10;どんな形式でも自動判別して解析します"></textarea>
 
             <!-- ③ 解析ボタン -->
             <button class="dp-run" id="demoBtn" onclick="runDemo()">
