@@ -937,6 +937,7 @@
                 <div class="dp-drop-icon">📂</div>
                 <div class="dp-drop-text">PDFやExcel・FAX画像をここにドロップ</div>
                 <div class="dp-drop-sub">PDF / Excel / PNG・JPG（FAXスキャン）対応</div>
+                <div class="dp-drop-sub" style="margin-top:5px;color:#b45309;">※ファイルは外部送信されません</div>
               </div>
               <div class="dp-drop-file" id="dropSelected">
                 <i class="fas fa-file-alt" style="color:var(--blue-mid)"></i>
@@ -949,6 +950,25 @@
             <div class="dp-or">── またはテキストを貼り付け ──</div>
             <textarea class="dp-textarea" id="demoInput"
               placeholder="注文書のテキストをそのまま貼り付けてください&#10;&#10;メール本文・FAXの文字起こし・ExcelコピペなどOK&#10;どんな形式でも自動判別して解析します"></textarea>
+
+            <!-- セキュリティ注意書き -->
+            <div style="
+              margin-top: 10px;
+              padding: 10px 14px;
+              background: #fffbeb;
+              border: 1px solid #fcd34d;
+              border-radius: 7px;
+              display: flex;
+              gap: 9px;
+              align-items: flex-start;
+            ">
+              <span style="font-size:15px;flex-shrink:0;margin-top:1px;">⚠️</span>
+              <div style="font-size:11.5px;color:#78350f;line-height:1.7;">
+                <strong>入力データの取り扱いについて</strong><br>
+                このデモはブラウザ内のみで動作します。入力したテキストは外部サーバーへ送信されず、ページを閉じると消去されます。<br>
+                ただし、実際の取引先名・品番・価格などの機密情報を含む場合は、社内規定のデータ取り扱いポリシーに従ってご利用ください。
+              </div>
+            </div>
 
             <!-- ③ 解析ボタン -->
             <button class="dp-run" id="demoBtn" onclick="runDemo()">
