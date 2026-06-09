@@ -89,6 +89,7 @@
     .nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
     .nav-logo { display: flex; align-items: center; gap: 10px; }
     .nav-logo .brand { font-size: 22px; font-weight: 900; color: var(--blue-dark); letter-spacing: -.02em; }
+    .nav-logo img { height: 38px; width: auto; }
     .nav-logo .badge-by {
       font-size: 10px; font-weight: 800; background: var(--blue-dark); color: #fff;
       padding: 2px 8px; border-radius: 5px; letter-spacing: .04em;
@@ -582,8 +583,8 @@
   <div class="container">
     <nav class="nav">
       <div class="nav-logo">
-        <span class="brand">ORDIA</span>
-        <span class="badge-by">by Onevio</span>
+        <img src="ordia-logo.png" alt="ORDIA おまかせ受注クラウド" style="height:38px;width:auto;display:block;">
+        <span class="badge-by" style="margin-left:4px;">by Onevio</span>
       </div>
       <ul class="nav-links">
         <li><a href="#about">ORDIAとは</a></li>
@@ -612,16 +613,23 @@
           <span class="dot"></span>
           2026年8月 ローンチ予定・先行無料体験受付中
         </div>
+        <!-- product category chip -->
+        <div style="margin-bottom:16px;">
+          <span class="chip">バイオ業界 販売店・代理店向け</span>
+          <span class="chip green" style="margin-left:6px;">注文書 AI 自動化クラウド</span>
+        </div>
         <h1>
-          お客様のやり方は<br>
-          変えなくていい。<br>
-          <em>変わるのは</em><br>
-          貴社の受け方だけ。
+          FAX・メール・PDFの<br>
+          注文書を、<em>AIが3秒で</em><br>
+          受注データへ変換。
         </h1>
         <p class="hero-sub">
-          FAX・メール・PDF・XML・CSV――<br>
-          どんな形式の注文書も、AIが自動で読み取り、<br>
-          正規化された受注データへ変換します。
+          お客様の送り方はそのままで OK。<br>
+          どんな形式の注文書も自動で読み取り、<br>
+          正規化・システム登録まで一気に完了します。<br>
+          <span style="font-size:14px;color:var(--blue-mid);font-weight:700;display:block;margin-top:8px;">
+            ――お客様のやり方は変えなくていい。変わるのは貴社の受け方だけ。
+          </span>
         </p>
         <div class="hero-btns">
           <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>注文書を無料で解析してみる</a>
