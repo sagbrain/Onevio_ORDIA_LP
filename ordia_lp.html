@@ -311,6 +311,17 @@
     .rs-arrow { color: rgba(255,255,255,.4); font-size: 18px; }
     .rs-or { color: rgba(255,255,255,.4); font-size: 12px; font-weight: 700; }
     .rs-note { font-size: 11.5px; color: rgba(255,255,255,.45); margin-top: 10px; text-align: center; }
+    /* 縦組みロードマップ（Step2をどちらが先でも可の2択で縦に） */
+    .rs-down { color: rgba(255,255,255,.4); font-size: 18px; text-align: center; margin: 4px 0; }
+    .rs-step2-group {
+      border: 1px dashed rgba(255,255,255,.25); border-radius: var(--r);
+      padding: 16px; max-width: 560px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .rs-step2-label { font-size: 11px; color: rgba(255,255,255,.5); text-align: center; font-weight: 700; }
+    .rs.block { display: block; text-align: center; }
+    .syn-note { margin-top: 16px; text-align: center; font-size: 13px; color: rgba(255,255,255,.7); }
+    .syn-note a { color: #fff; font-weight: 700; text-decoration: underline; }
 
     /* ===== Pricing ===== */
     .price-top { text-align: center; margin-bottom: 46px; }
@@ -322,7 +333,7 @@
     }
     .price-table { background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-md); overflow: hidden; margin-bottom: 14px; }
     .pt-head { background: var(--blue-dark); color: #fff; padding: 15px 28px; font-size: 15px; font-weight: 800; }
-    .pt-row { display: grid; grid-template-columns: 130px 1fr 1fr 1fr; border-bottom: 1px solid var(--gray-100); }
+    .pt-row { display: grid; grid-template-columns: 150px 1.4fr 1fr; border-bottom: 1px solid var(--gray-100); }
     .pt-row.th { background: var(--gray-50); }
     .pt-row:last-child { border-bottom: none; }
     .pt-cell {
@@ -334,6 +345,55 @@
     .pt-cell.th-c  { font-weight: 800; font-size: 11.5px; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; }
     .pt-hi { font-weight: 900; color: var(--blue-mid); font-size: 15px; }
     .price-note { font-size: 12.5px; color: var(--gray-600); text-align: center; background: var(--gray-50); padding: 14px 20px; border-radius: 8px; }
+
+    /* ===== ROI Calculator ===== */
+    .calc {
+      max-width: 860px; margin: 40px auto 0;
+      background: #fff; border-radius: var(--r-lg); box-shadow: var(--sh-md);
+      border: 1.5px solid var(--gray-200); overflow: hidden;
+    }
+    .calc-head {
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      color: #fff; padding: 20px 28px;
+    }
+    .calc-head h3 { font-size: 19px; font-weight: 900; margin-bottom: 3px; }
+    .calc-head p  { font-size: 12.5px; color: rgba(255,255,255,.8); }
+    .calc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .calc-inputs { padding: 28px; border-right: 1px solid var(--gray-100); }
+    .calc-field { margin-bottom: 22px; }
+    .calc-field:last-child { margin-bottom: 0; }
+    .calc-field label { display: block; font-size: 13px; font-weight: 800; margin-bottom: 8px; }
+    .calc-field .unit { font-size: 11px; color: var(--gray-400); font-weight: 600; margin-left: 4px; }
+    .calc-inrow { display: flex; align-items: center; gap: 10px; }
+    .calc-inrow input[type="range"] { flex: 1; accent-color: var(--blue-mid); }
+    .calc-num {
+      width: 110px; padding: 9px 12px; border: 1.5px solid var(--gray-200); border-radius: 8px;
+      font-size: 15px; font-weight: 800; text-align: right; color: var(--blue-dark); outline: none;
+      font-family: inherit;
+    }
+    .calc-num:focus { border-color: var(--blue-mid); }
+    .calc-assumptions { font-size: 11px; color: var(--gray-400); line-height: 1.7; margin-top: 18px; }
+    .calc-out {
+      padding: 28px; background: linear-gradient(160deg, #f0f5ff, #f0fff5);
+      display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    }
+    .calc-out-main { text-align: center; }
+    .calc-out-label { font-size: 12.5px; font-weight: 800; color: var(--gray-600); margin-bottom: 4px; }
+    .calc-out-val { font-size: clamp(34px, 5vw, 46px); font-weight: 900; color: var(--green-dk); line-height: 1; }
+    .calc-out-val .yen { font-size: 22px; }
+    .calc-out-sub { font-size: 12px; color: var(--gray-600); margin-top: 6px; }
+    .calc-breakdown { display: flex; gap: 10px; }
+    .calc-bd {
+      flex: 1; background: #fff; border: 1px solid var(--gray-200); border-radius: 9px;
+      padding: 12px; text-align: center;
+    }
+    .calc-bd .bd-label { font-size: 10.5px; color: var(--gray-600); margin-bottom: 4px; }
+    .calc-bd .bd-val { font-size: 17px; font-weight: 900; color: var(--blue-dark); }
+    .calc-bd .bd-val.down { color: var(--green-dk); }
+    @media (max-width: 640px) {
+      .calc-body { grid-template-columns: 1fr; }
+      .calc-inputs { border-right: none; border-bottom: 1px solid var(--gray-100); }
+    }
 
     /* ===== Demo ===== */
     .demo-sec { background: linear-gradient(138deg, #f0f5ff, #e8f8ef); padding: 84px 0; }
@@ -595,7 +655,7 @@
         <li><a href="#contact">お問い合わせ</a></li>
       </ul>
       <div class="nav-cta">
-        <a href="#contact" class="btn btn-outline">資料請求</a>
+        <a href="shiryou.html" class="btn btn-outline">資料請求</a>
         <a href="#demo"    class="btn btn-green">無料で試す</a>
       </div>
     </nav>
@@ -633,7 +693,7 @@
         </p>
         <div class="hero-btns">
           <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>注文書を無料で解析してみる</a>
-          <a href="#contact" class="btn btn-outline btn-xl">資料請求・デモ申込</a>
+          <a href="shiryou.html" class="btn btn-outline btn-xl">資料請求（PDF）</a>
         </div>
         <div class="hero-kpis">
           <div class="kpi">
@@ -755,7 +815,7 @@
   <div class="container">
     <div class="tc">
       <span class="chip">ORDIAの仕組み</span>
-      <h2 class="h2">AIが「下書き・調査」を行い、<br>人が「判断・承認」する5ステップ</h2>
+      <h2 class="h2">AIが「下書き・調査」を行い、<br>人が「判断・承認」する4ステップ</h2>
       <p class="lead">お客様の発注方法はそのまま。貴社の受け方だけをAIが自動化します。</p>
     </div>
     <div class="process-wrap">
@@ -775,20 +835,13 @@
       </div>
       <div class="proc-step">
         <div class="proc-no">3</div>
-        <span class="proc-icon">🔄</span>
-        <h4>FMTマッピング</h4>
-        <p>顧客別フォーマットに<br>自動適用。AI追加学習<br>で精度向上</p>
-        <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
-      </div>
-      <div class="proc-step">
-        <div class="proc-no">4</div>
         <span class="proc-icon">🏪</span>
         <h4>在庫・納期照会</h4>
         <p>メーカーWebサイトから<br>RPAで自動取得。<br>問い合わせ作業を削減</p>
         <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
       </div>
       <div class="proc-step">
-        <div class="proc-no">5</div>
+        <div class="proc-no">4</div>
         <span class="proc-icon">✅</span>
         <h4>受注登録</h4>
         <p>確認・承認後に<br>受注データを自動作成。<br>基幹システムへ連携</p>
@@ -821,7 +874,7 @@
         <div class="imp-desc">従量課金制（使った分だけ）で<br>リスクゼロのスモールスタートが可能。</div>
       </div>
     </div>
-    <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:18px;">※算出根拠：時給1,200円×1.20（法定福利費等）＝24円/分。業界の注文書は2〜3明細が大半。Cap適用で実質固定価格運用も可。</p>
+    <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:18px;">※算出根拠：時給1,200円×1.20（法定福利費等）＝24円/分。従来は手入力5分＝120円/件、ORDIA導入後は確認1分＋標準解析50円＝74円/件として試算（標準解析プラン・1ファイルあたり）。</p>
   </div>
 </section>
 
@@ -844,7 +897,7 @@
         <div class="feat-ic"><i class="fas fa-brain"></i></div>
         <div class="feat-body">
           <h3>AI解析 ＋ 継続的な追加学習</h3>
-          <p>OCR＋自然言語処理で品番・数量・納期を自動抽出。FMTプロンプトで顧客別フォーマットに対応し、運用を重ねるほど精度が向上する仕組み。</p>
+          <p>OCR＋自然言語処理で品番・数量・納期を自動抽出。顧客別の発注フォーマットをAIが学習し、運用を重ねるほど読み取り精度が向上する仕組み。</p>
         </div>
       </div>
       <div class="feat-card">
@@ -916,13 +969,13 @@
         </div>
 
         <div class="trial-box">
-          <div class="t-title"><i class="fas fa-gift"></i> 先行無料トライアル特典（2026年8月ローンチ前）</div>
-          <div class="t-body">ローンチ前の先行登録で、<strong>3ヶ月間・最大1,000明細まで無料</strong>でお試しいただけます。</div>
-          <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※初回AIチューニングのため、過去の受注データ（約500件）のご提供をお願いしております。</div>
+          <div class="t-title"><i class="fas fa-gift"></i> お問い合わせで、すぐ無料トライアル開始</div>
+          <div class="t-body">期間・件数の制限はありません。まずは<strong>貴社の注文書サンプルをご提供いただき、AIプロンプトを一緒に設定</strong>するところから始めます。読み取り精度にご納得いただいてから、ご契約にお進みいただけます。</div>
+          <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※精度を高めるため、できるだけ多くの注文書サンプルのご提供をお願いしております（共同チューニング）。</div>
         </div>
 
         <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
-          <i class="fas fa-rocket"></i> 無料トライアルに申し込む
+          <i class="fas fa-rocket"></i> 無料トライアルを申し込む
         </a>
       </div>
 
@@ -1018,9 +1071,9 @@
                   <div class="cta-lead">いかがでしょうか？</div>
                   <div class="cta-title">自社の注文書でも、<span>同じことができます。</span></div>
                   <a href="#contact" class="btn btn-green btn-lg" style="width:100%;">
-                    <i class="fas fa-rocket"></i> 無料トライアルを始める（3ヶ月・1,000明細まで無料）
+                    <i class="fas fa-rocket"></i> 無料トライアルを始める（期間・件数制限なし）
                   </a>
-                  <div class="cta-note">初期費用¥0 · 基本月額¥0 · いつでも解約可能</div>
+                  <div class="cta-note">初期費用¥0 · 基本月額¥0 · 精度に納得してから契約 · いつでも解約可能</div>
                 </div>
 
               </div>
@@ -1065,15 +1118,18 @@
     </div>
     <div class="roadmap">
       <div class="roadmap-label">段階導入のロードマップ</div>
-      <div class="roadmap-steps">
-        <div class="rs active">Step 1 ： ORDIA 導入</div>
-        <div class="rs-arrow">→</div>
-        <div class="rs next">Step 2-A ： DOG 導入（受発注 EDI ゲートウェイ）</div>
-        <div class="rs-or">or</div>
-        <div class="rs next">Step 2-B ： エリアパートナー化（BPM連携）</div>
+      <div style="text-align:center;">
+        <div class="rs active" style="display:inline-block;">Step 1 ： ORDIA 導入</div>
+      </div>
+      <div class="rs-down">↓</div>
+      <div class="rs-step2-group">
+        <div class="rs-step2-label">Step 2（A・B どちらが先でも可）</div>
+        <div class="rs next block">Step 2-A ： DOG 導入（受発注 EDI ゲートウェイ）</div>
+        <div class="rs next block">Step 2-B ： エリアパートナー化</div>
       </div>
       <div class="rs-note">Step 1 の期間目安：1〜2ヶ月 / CSV運用から開始可 / 月額0円の従量課金</div>
     </div>
+    <p class="syn-note">※ Onevioとの連携の詳細は<a href="#contact">お問い合わせ</a>ください。</p>
   </div>
 </section>
 
@@ -1086,7 +1142,7 @@
     </div>
     <div class="price-top">
       <div class="price-badge"><i class="fas fa-check-circle"></i>プラットフォーム共通の基盤料金はかかりません</div>
-      <p class="lead" style="margin-top:10px;">1pt ＝ 1円相当。注文書の種類とチャネルに応じた従量制で、固定費ゼロからスタートできます。</p>
+      <p class="lead" style="margin-top:10px;">1pt ＝ 1円相当。注文書1ファイル（1通）ごとのシンプルな単価制で、固定費ゼロからスタートできます。</p>
     </div>
 
     <div class="price-table">
@@ -1094,41 +1150,79 @@
       <div class="pt-row th">
         <div class="pt-cell th-c">プラン</div>
         <div class="pt-cell th-c">対象チャネル</div>
-        <div class="pt-cell th-c">従量単価</div>
-        <div class="pt-cell th-c">Cap（明細あたり上限）</div>
+        <div class="pt-cell th-c">単価 / 1ファイル</div>
       </div>
       <div class="pt-row">
         <div class="pt-cell name">標準解析</div>
         <div class="pt-cell">Excel / PDF（テキスト）</div>
-        <div class="pt-cell"><span class="pt-hi">30 pt</span> / 明細</div>
-        <div class="pt-cell">50 pt</div>
+        <div class="pt-cell"><span class="pt-hi">50 pt</span> / ファイル</div>
       </div>
       <div class="pt-row">
         <div class="pt-cell name">高度解析</div>
         <div class="pt-cell">FAX / 画像スキャン</div>
-        <div class="pt-cell"><span class="pt-hi">40 pt</span> / 明細</div>
-        <div class="pt-cell">80 pt</div>
+        <div class="pt-cell"><span class="pt-hi">80 pt</span> / ファイル</div>
       </div>
       <div class="pt-row">
         <div class="pt-cell name">データ連携</div>
         <div class="pt-cell">他社ECサイト連携</div>
-        <div class="pt-cell"><span class="pt-hi">25 pt</span> / 明細</div>
-        <div class="pt-cell">40 pt</div>
-      </div>
-      <div class="pt-row">
-        <div class="pt-cell name">BPM連携</div>
-        <div class="pt-cell">弊社ECシステム（BPM）</div>
-        <div class="pt-cell"><span class="pt-hi">5 pt</span> / 明細</div>
-        <div class="pt-cell">なし（最安プラン）</div>
+        <div class="pt-cell"><span class="pt-hi">40 pt</span> / ファイル</div>
       </div>
     </div>
     <div class="price-note">
-      ※ 価格はすべて税別。最終はお見積もりにて確定。業界の注文書は2〜3明細が大半のため、Cap適用で実質固定価格運用も可能です。
+      ※ 価格はすべて税別。最終はお見積もりにて確定。注文書1ファイル（1通）あたりの単価のため、明細数が多くても料金は変わりません。
     </div>
-    <div style="text-align:center;margin-top:32px;">
-      <a href="#contact" class="btn btn-primary btn-xl">
-        <i class="fas fa-calculator"></i> 自社の利用料を試算する（無料相談）
-      </a>
+    <!-- 自社ケース自動試算 -->
+    <div class="calc">
+      <div class="calc-head">
+        <h3><i class="fas fa-calculator"></i> 自社のケースを試算する</h3>
+        <p>月間の注文書件数と時給を入力すると、人件費削減効果を自動計算します。</p>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label>月間の注文書件数<span class="unit">件 / 月（＝処理ファイル数）</span></label>
+            <div class="calc-inrow">
+              <input type="range" id="calcCount" min="50" max="3000" step="10" value="300" oninput="updateCalc()">
+              <input type="number" class="calc-num" id="calcCountNum" min="0" value="300" oninput="syncCalc('count')">
+            </div>
+          </div>
+          <div class="calc-field">
+            <label>担当者の時給<span class="unit">円 / 時</span></label>
+            <div class="calc-inrow">
+              <input type="range" id="calcWage" min="1000" max="3000" step="50" value="1200" oninput="updateCalc()">
+              <input type="number" class="calc-num" id="calcWageNum" min="0" value="1200" oninput="syncCalc('wage')">
+            </div>
+          </div>
+          <div class="calc-assumptions">
+            ※ 前提：法定福利費等を時給×1.20で計上。手入力 5分/件 → ORDIA確認 1分/件。<br>
+            ORDIA利用料は標準解析プラン 50円/ファイル（仮）として試算。実際の効果はお見積もり時に精査します。
+          </div>
+        </div>
+        <div class="calc-out">
+          <div class="calc-out-main">
+            <div class="calc-out-label">年間の人件費削減効果（概算）</div>
+            <div class="calc-out-val"><span id="calcYear">1,656,000</span><span class="yen">円</span></div>
+            <div class="calc-out-sub">月間 約 <strong id="calcMonth">138,000</strong> 円の削減</div>
+          </div>
+          <div class="calc-breakdown">
+            <div class="calc-bd">
+              <div class="bd-label">従来コスト/件</div>
+              <div class="bd-val" id="calcBefore">120円</div>
+            </div>
+            <div class="calc-bd">
+              <div class="bd-label">ORDIA後/件</div>
+              <div class="bd-val down" id="calcAfter">74円</div>
+            </div>
+            <div class="calc-bd">
+              <div class="bd-label">削減率</div>
+              <div class="bd-val down" id="calcRate">38%</div>
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-primary" style="width:100%;">
+            <i class="fas fa-paper-plane"></i> この試算をもとに無料相談する
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1137,32 +1231,32 @@
 <section class="sec sec-dark">
   <div class="container tc">
     <span class="chip white">無料トライアル</span>
-    <h2 class="h2 white">3ヶ月間・最大1,000明細まで<br>完全無料でお試しいただけます</h2>
-    <p class="lead white">ローンチ前の先行登録特典。お申し込みから最短1週間でご利用開始可能です。</p>
+    <h2 class="h2 white">お問い合わせいただければ、<br>すぐに無料トライアルを開始できます</h2>
+    <p class="lead white">期間・件数の制限はありません。注文書サンプルをもとにAIを一緒に育て、<br>読み取り精度にご納得いただいてからご契約へ。</p>
     <div class="trial-steps">
       <div class="ts">
         <div class="ts-no">STEP 01</div>
         <div class="ts-ico">📝</div>
-        <h4>お申し込み</h4>
-        <p>フォームに必要事項を入力</p>
+        <h4>お問い合わせ</h4>
+        <p>フォームから送信。<br>すぐに無料トライアル開始</p>
       </div>
       <div class="ts">
         <div class="ts-no">STEP 02</div>
-        <div class="ts-ico">📞</div>
-        <h4>ヒアリング</h4>
-        <p>担当者が受注フローを確認（30分程度）</p>
+        <div class="ts-ico">📄</div>
+        <h4>サンプル提供</h4>
+        <p>貴社の注文書サンプルを<br>できるだけ多くご提供</p>
       </div>
       <div class="ts">
         <div class="ts-no">STEP 03</div>
-        <div class="ts-ico">⚙️</div>
-        <h4>初期設定</h4>
-        <p>メール転送設定・マスターCSV連携のみ</p>
+        <div class="ts-ico">🤖</div>
+        <h4>AIプロンプト設定</h4>
+        <p>サンプルをもとに、<br>担当と一緒に精度を調整</p>
       </div>
       <div class="ts">
         <div class="ts-no">STEP 04</div>
-        <div class="ts-ico">🚀</div>
-        <h4>運用開始</h4>
-        <p>3ヶ月間・1,000明細まで無料</p>
+        <div class="ts-ico">🤝</div>
+        <h4>納得して契約</h4>
+        <p>精度を確認いただいてから<br>本契約・本運用へ</p>
       </div>
     </div>
     <a href="#contact" class="btn btn-green btn-xl">
@@ -1193,7 +1287,7 @@
           導入時に社内で準備するものは何ですか？
           <span class="ico"><i class="fas fa-plus"></i></span>
         </div>
-        <div class="faq-a">最低限必要なものは①利用者のメールアドレス、②注文受信チャネルからのメール転送設定、③商品・得意先マスターのCSV、④AI学習用の受注原本ファイル（約500件）です。専任のIT担当者は不要で、業務担当者のみで導入を進められます。</div>
+        <div class="faq-a">最低限必要なものは①利用者のメールアドレス、②注文受信チャネルからのメール転送設定、③商品・得意先マスターのCSV、④AIチューニング用の注文書サンプル（できるだけ多くご提供いただくほど精度が向上します）です。専任のIT担当者は不要で、業務担当者のみで導入を進められます。</div>
       </div>
 
       <div class="faq-item">
@@ -1201,7 +1295,7 @@
           FAXの注文書にも対応できますか？
           <span class="ico"><i class="fas fa-plus"></i></span>
         </div>
-        <div class="faq-a">はい、対応しています。FAX受信したPDF・画像をOCR処理し、AIが内容を解析します。高度解析プラン（40pt/明細、Cap:80pt）でご利用可能です。手書きのFAXにも対応していますが、活字に比べ精度が低下する場合があります。</div>
+        <div class="faq-a">はい、対応しています。FAX受信したPDF・画像をOCR処理し、AIが内容を解析します。高度解析プラン（80pt / 1ファイル）でご利用可能です。手書きのFAXにも対応していますが、活字に比べ精度が低下する場合があります。</div>
       </div>
 
       <div class="faq-item">
@@ -1209,7 +1303,7 @@
           AI解析の精度はどの程度ですか？
           <span class="ico"><i class="fas fa-plus"></i></span>
         </div>
-        <div class="faq-a">顧客ごとの定型フォーマットに対しては95%以上の精度を実現しています。初期導入時はAI学習用データ（約500件）を使ったトレーニングとFMTプロンプトの最適化を行います。その後も運用を通じて継続的に精度が向上する仕組みです。精度管理画面から顧客別の解析品質をリアルタイムに確認できます。</div>
+        <div class="faq-a">顧客ごとの定型フォーマットに対しては95%以上の精度を実現しています。初期導入時は、いただいた注文書サンプルをもとにAIプロンプトを設定・チューニングします。その後も運用を通じて継続的に精度が向上する仕組みです。精度管理画面から顧客別の解析品質をリアルタイムに確認できます。</div>
       </div>
 
       <div class="faq-item">
@@ -1292,7 +1386,7 @@
     <p>登録不要・無料。貼り付けるだけでAIの精度を実感できます。</p>
     <div class="cta-btns">
       <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>今すぐ無料で試す</a>
-      <a href="#contact" class="btn btn-outline-w btn-xl">資料請求・デモ申込</a>
+      <a href="shiryou.html" class="btn btn-outline-w btn-xl">資料請求（PDF）</a>
     </div>
   </div>
 </section>
@@ -1324,7 +1418,7 @@
         <ul>
           <li><a href="#">Onevioとは</a></li>
           <li><a href="#">DOG（受発注 EDI ゲートウェイ）</a></li>
-          <li><a href="#">BPM（エリアパートナー）</a></li>
+          <li><a href="#">エリアパートナー</a></li>
           <li><a href="#">Lab Partner AI + CLIMS</a></li>
         </ul>
       </div>
@@ -1351,6 +1445,56 @@
 function toggleFaq(el) {
   el.parentElement.classList.toggle('open');
 }
+
+/* ═══════════════════════════════════════════════
+   ROI 自動計算（自社ケース試算）
+═══════════════════════════════════════════════ */
+var ORDIA_FEE = 50;        // 標準解析 1ファイルあたり利用料（円・仮）
+var BENEFIT_MULT = 1.20;   // 法定福利費等の係数
+var MIN_BEFORE = 5;        // 従来：手入力 分/件
+var MIN_AFTER  = 1;        // ORDIA後：確認 分/件
+
+function yen(n) { return Math.round(n).toLocaleString('ja-JP'); }
+
+function syncCalc(which) {
+  if (which === 'count') document.getElementById('calcCount').value = document.getElementById('calcCountNum').value || 0;
+  if (which === 'wage')  document.getElementById('calcWage').value  = document.getElementById('calcWageNum').value  || 0;
+  updateCalc();
+}
+
+function updateCalc() {
+  var count = Number(document.getElementById('calcCount').value) || 0;
+  var wage  = Number(document.getElementById('calcWage').value) || 0;
+  // スライダー → 数値入力欄へ反映
+  document.getElementById('calcCountNum').value = count;
+  document.getElementById('calcWageNum').value  = wage;
+
+  var perMin = (wage * BENEFIT_MULT) / 60;       // 法定福利込みの分単価
+  var before = perMin * MIN_BEFORE;               // 従来コスト/件
+  var after  = perMin * MIN_AFTER + ORDIA_FEE;    // ORDIA後コスト/件
+  var savePer = before - after;                   // 削減額/件
+  var month = savePer * count;                    // 月間削減
+  var year  = month * 12;                          // 年間削減
+  var rate  = before > 0 ? Math.round((before - after) / before * 100) : 0;
+
+  document.getElementById('calcBefore').textContent = yen(before) + '円';
+  document.getElementById('calcAfter').textContent  = yen(after) + '円';
+  document.getElementById('calcRate').textContent   = rate + '%';
+  document.getElementById('calcMonth').textContent  = yen(month);
+  document.getElementById('calcYear').textContent   = yen(year);
+
+  // 削減額がマイナス（件数が少なく利用料が上回る）場合の注意表示
+  var rateEl = document.getElementById('calcRate');
+  var afterEl = document.getElementById('calcAfter');
+  if (savePer < 0) {
+    rateEl.style.color = '#c88200';
+    afterEl.style.color = '#c88200';
+  } else {
+    rateEl.style.color = '';
+    afterEl.style.color = '';
+  }
+}
+document.addEventListener('DOMContentLoaded', updateCalc);
 
 /* Demo samples */
 const SAMPLES = {

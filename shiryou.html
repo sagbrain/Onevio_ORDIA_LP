@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>資料請求 | ORDIA | AI受注自動化 for バイオ業界</title>
+  <meta name="description" content="ORDIAの紹介資料（PDF）を無料でダウンロードいただけます。お名前とメールアドレスをご入力ください。">
+  <meta name="robots" content="noindex">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --blue-dark:#1B4F8C; --blue-mid:#2B72CB; --green:#2EA84A; --green-dk:#23883B;
+      --gray-50:#F5F7FA; --gray-200:#DDE4EF; --gray-400:#9EB0C8; --gray-600:#5A6E85;
+      --text:#1A2A3A; --r:12px; --r-lg:20px;
+      --sh-md:0 4px 18px rgba(27,79,140,.12); --sh-lg:0 8px 36px rgba(27,79,140,.18);
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Noto Sans JP','Inter',sans-serif; color:var(--text); line-height:1.65;
+      background:linear-gradient(138deg,#f0f5ff 0%,#e8f3ff 55%,#f0fff5 100%);
+      min-height:100vh; display:flex; flex-direction:column;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    .wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px; }
+    .card {
+      background:#fff; border-radius:var(--r-lg); box-shadow:var(--sh-lg);
+      max-width:920px; width:100%; overflow:hidden;
+      display:grid; grid-template-columns:1fr 1fr;
+    }
+    /* 左：訴求 */
+    .card-info { padding:40px 38px; background:linear-gradient(160deg,var(--blue-dark),var(--blue-mid)); color:#fff; }
+    .card-info .back { font-size:13px; color:rgba(255,255,255,.8); display:inline-flex; align-items:center; gap:6px; margin-bottom:28px; }
+    .card-info .back:hover { color:#fff; }
+    .card-info .logo { height:34px; margin-bottom:22px; background:#fff; border-radius:6px; padding:5px 9px; display:inline-block; }
+    .card-info h1 { font-size:24px; font-weight:900; line-height:1.35; margin-bottom:14px; }
+    .card-info p { font-size:13.5px; color:rgba(255,255,255,.82); line-height:1.7; margin-bottom:22px; }
+    .doc-list { list-style:none; }
+    .doc-list li { font-size:13px; color:rgba(255,255,255,.9); margin-bottom:10px; display:flex; gap:9px; align-items:flex-start; }
+    .doc-list i { color:#7be3a0; margin-top:3px; }
+    /* 右：フォーム */
+    .card-form { padding:40px 38px; }
+    .card-form h2 { font-size:19px; font-weight:900; margin-bottom:6px; }
+    .card-form .sub { font-size:13px; color:var(--gray-600); margin-bottom:24px; }
+    .fg { display:flex; flex-direction:column; gap:6px; margin-bottom:18px; }
+    .fg label { font-size:13px; font-weight:800; }
+    .fg label .req { color:#e53e3e; margin-left:3px; }
+    .fg input {
+      padding:12px 14px; border:1.5px solid var(--gray-200); border-radius:8px;
+      font-size:14px; font-family:inherit; outline:none; transition:border-color .2s;
+    }
+    .fg input:focus { border-color:var(--blue-mid); }
+    .fg .err { font-size:11.5px; color:#e53e3e; display:none; }
+    .fg.invalid input { border-color:#e53e3e; }
+    .fg.invalid .err { display:block; }
+    .btn {
+      width:100%; padding:14px; background:var(--green); color:#fff; border:none; border-radius:9px;
+      font-size:15px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center;
+      justify-content:center; gap:8px; transition:all .2s; font-family:inherit;
+    }
+    .btn:hover { background:var(--green-dk); }
+    .btn:disabled { background:var(--gray-400); cursor:not-allowed; }
+    .privacy { font-size:11.5px; color:var(--gray-600); margin-top:14px; text-align:center; }
+    .privacy a { color:var(--blue-mid); text-decoration:underline; }
+    /* 完了表示 */
+    .done { display:none; text-align:center; padding:20px 0; }
+    .done.show { display:block; }
+    .done .ic { font-size:46px; color:var(--green); margin-bottom:14px; }
+    .done h2 { font-size:20px; font-weight:900; margin-bottom:10px; }
+    .done p { font-size:13.5px; color:var(--gray-600); line-height:1.75; margin-bottom:20px; }
+    .done .dl { font-size:13px; color:var(--blue-mid); font-weight:700; text-decoration:underline; }
+    footer { text-align:center; font-size:11.5px; color:var(--gray-600); padding:18px; }
+    @media (max-width:760px) {
+      .card { grid-template-columns:1fr; }
+      .card-info { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <!-- 左：訴求 -->
+      <div class="card-info">
+        <a href="ordia_lp.html" class="back"><i class="fas fa-arrow-left"></i> ORDIA トップへ戻る</a>
+        <img src="ordia-logo.png" alt="ORDIA おまかせ受注クラウド" class="logo">
+        <h1>ORDIA 紹介資料を<br>無料でお届けします</h1>
+        <p>バイオ業界の販売店・代理店向け AI受注自動化サービス「ORDIA」のサービス概要・導入効果・料金体系をまとめた資料（PDF）です。</p>
+        <ul class="doc-list">
+          <li><i class="fas fa-check"></i> サービス概要と4ステップの仕組み</li>
+          <li><i class="fas fa-check"></i> 導入効果（人件費削減シミュレーション）</li>
+          <li><i class="fas fa-check"></i> 料金プラン（1ファイル単価制）</li>
+          <li><i class="fas fa-check"></i> 対応メーカー・導入の流れ</li>
+        </ul>
+      </div>
+
+      <!-- 右：フォーム -->
+      <div class="card-form">
+        <!-- 入力フォーム -->
+        <form id="dlForm" novalidate>
+          <h2>資料ダウンロード</h2>
+          <p class="sub">お名前とメールアドレスをご入力ください。ご入力先に資料PDFをお送りします。</p>
+
+          <div class="fg" id="fgName">
+            <label>お名前<span class="req">*</span></label>
+            <input type="text" id="name" placeholder="山田 太郎" autocomplete="name">
+            <span class="err">お名前をご入力ください。</span>
+          </div>
+          <div class="fg" id="fgEmail">
+            <label>メールアドレス<span class="req">*</span></label>
+            <input type="email" id="email" placeholder="taro.yamada@example.com" autocomplete="email">
+            <span class="err">正しいメールアドレスをご入力ください。</span>
+          </div>
+          <div class="fg" id="fgCompany">
+            <label>会社名<span style="font-size:11px;color:var(--gray-400);font-weight:600;margin-left:4px;">（任意）</span></label>
+            <input type="text" id="company" placeholder="株式会社○○" autocomplete="organization">
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">
+            <i class="fas fa-file-pdf"></i> 資料をダウンロード（PDF）
+          </button>
+          <p class="privacy">送信することで<a href="#">プライバシーポリシー</a>に同意したものとみなします。</p>
+        </form>
+
+        <!-- 完了 -->
+        <div class="done" id="doneBox">
+          <div class="ic"><i class="fas fa-circle-check"></i></div>
+          <h2>ありがとうございます！</h2>
+          <p>
+            ご入力いただいたメールアドレス宛に資料（PDF）をお送りしました。<br>
+            自動でダウンロードが始まらない場合は、下のリンクからご取得ください。
+          </p>
+          <a href="assets/ORDIA_紹介資料.pdf" class="dl" id="manualDl" download>
+            <i class="fas fa-download"></i> 資料PDFをダウンロード
+          </a>
+          <div style="margin-top:24px;">
+            <a href="ordia_lp.html" class="btn" style="background:var(--blue-mid);">
+              <i class="fas fa-arrow-left"></i> ORDIA トップへ戻る
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2002-2026 SAGBRAIN CORPORATION. All Rights Reserved.</footer>
+
+  <script>
+  /* ─────────────────────────────────────────────
+     資料請求フォーム
+     ※ 自動メール送信は静的ホスティング単体では不可。
+        下記 FORM_ENDPOINT に、フォーム送信サービス
+        （Formspree / Google Apps Script / 自社API 等）の
+        URLを設定すると、入力内容が送信され、
+        サーバー側で資料PDFを自動メール送付できます。
+        未設定の場合はPDFの即時ダウンロードのみ行います。
+     ───────────────────────────────────────────── */
+  var FORM_ENDPOINT = ''; // 例: 'https://formspree.io/f/xxxxxxxx'
+  var PDF_PATH = 'assets/ORDIA_紹介資料.pdf';
+
+  var form = document.getElementById('dlForm');
+  var doneBox = document.getElementById('doneBox');
+
+  function setInvalid(id, bad) {
+    document.getElementById(id).classList.toggle('invalid', bad);
+  }
+  function validEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var company = document.getElementById('company').value.trim();
+
+    var okName = name.length > 0;
+    var okEmail = validEmail(email);
+    setInvalid('fgName', !okName);
+    setInvalid('fgEmail', !okEmail);
+    if (!okName || !okEmail) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
+
+    var payload = { name: name, email: email, company: company, source: 'ordia_lp_shiryou' };
+
+    function finish() {
+      // 完了表示へ切替
+      form.style.display = 'none';
+      doneBox.classList.add('show');
+      // PDFを即時ダウンロード
+      var a = document.createElement('a');
+      a.href = PDF_PATH;
+      a.download = 'ORDIA_紹介資料.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    if (FORM_ENDPOINT) {
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(finish).catch(finish);
+    } else {
+      // エンドポイント未設定：即時ダウンロードのみ
+      finish();
+    }
+  });
+  </script>
+</body>
+</html>
