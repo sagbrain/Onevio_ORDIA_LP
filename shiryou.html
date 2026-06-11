@@ -128,10 +128,14 @@
           <h2>ありがとうございます！</h2>
           <p>
             ご入力いただいたメールアドレス宛に資料（PDF）をお送りしました。<br>
-            自動でダウンロードが始まらない場合は、下のリンクからご取得ください。
+            別タブで資料が開かない場合は、下のリンクからご覧ください。
           </p>
-          <a href="assets/ORDIA_紹介資料.pdf" class="dl" id="manualDl" download>
-            <i class="fas fa-download"></i> 資料PDFをダウンロード
+          <a href="assets/ORDIA_紹介資料.pdf" class="dl" id="manualDl" target="_blank" rel="noopener">
+            <i class="fas fa-file-pdf"></i> 資料PDFを閲覧する
+          </a>
+          <span style="display:inline-block;margin:0 8px;color:var(--gray-400);">/</span>
+          <a href="assets/ORDIA_紹介資料.pdf" class="dl" download>
+            <i class="fas fa-download"></i> ダウンロード
           </a>
           <div style="margin-top:24px;">
             <a href="ordia_lp.html" class="btn" style="background:var(--blue-mid);">
@@ -190,13 +194,8 @@
       // 完了表示へ切替
       form.style.display = 'none';
       doneBox.classList.add('show');
-      // PDFを即時ダウンロード
-      var a = document.createElement('a');
-      a.href = PDF_PATH;
-      a.download = 'ORDIA_紹介資料.pdf';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // PDFを別タブで開いて即閲覧（ポップアップブロック時は完了画面のリンクから閲覧可）
+      window.open(PDF_PATH, '_blank', 'noopener');
     }
 
     if (FORM_ENDPOINT) {
