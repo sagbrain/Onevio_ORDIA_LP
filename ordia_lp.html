@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORDIA | AI受注自動化 for バイオ業界 | Onevio</title>
-  <meta name="description" content="ORDIAはバイオ業界の販売店・代理店・商社向けAI受注自動化サービスです。FAX・メール・PDF・XMLなど多様な注文書を自動読み取り、受注データを正規化します。">
+  <title>ORDIA | AI受注自動化クラウド | Onevio</title>
+  <meta name="description" content="ORDIAは、あらゆる業界の受注業務向けAI受注自動化サービスです。FAX・メール・PDF・EDIなど多様な注文書を自動読み取り、商品・顧客マスターと照合し、基幹システムへ連携。バイオ業界向けの専用機能も提供します。">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -276,6 +276,62 @@
     .feat-ic.c { background: linear-gradient(135deg, #0089c0, var(--cyan)); }
     .feat-body h3 { font-size: 16px; font-weight: 900; margin-bottom: 6px; }
     .feat-body p  { font-size: 13.5px; color: var(--gray-600); line-height: 1.68; }
+
+    /* ===== Differentiator (master + core integration) ===== */
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; }
+    .diff-col {
+      background: #fff; border-radius: var(--r-lg); border: 1.5px solid var(--gray-200);
+      box-shadow: var(--sh-sm); padding: 30px 28px; transition: all .2s;
+    }
+    .diff-col:hover { border-color: var(--blue-light); box-shadow: var(--sh-md); }
+    .diff-head { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+    .diff-ic {
+      width: 50px; height: 50px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+    }
+    .diff-ic.g { background: linear-gradient(135deg, #1a8a33, var(--green)); }
+    .diff-col h3 { font-size: 18px; font-weight: 900; }
+    .diff-col .diff-sub { font-size: 12.5px; color: var(--gray-600); margin-bottom: 18px; }
+    .diff-row { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--gray-100); font-size: 13px; }
+    .diff-row .k { font-weight: 800; color: var(--blue-dark); min-width: 92px; flex-shrink: 0; }
+    .diff-row .v { color: var(--gray-600); }
+    .diff-close {
+      max-width: 760px; margin: 28px auto 0; text-align: center;
+      font-size: 15px; font-weight: 800; color: var(--blue-dark);
+      background: rgba(43,114,203,.06); border-radius: var(--r); padding: 18px 24px;
+    }
+
+    /* ===== Bio section divider band ===== */
+    .bio-divider {
+      background: linear-gradient(135deg, #0e3b6b, var(--blue-mid));
+      padding: 64px 0; text-align: center; color: #fff;
+      border-top: 4px solid var(--green);
+    }
+    .bio-divider .chip { background: rgba(255,255,255,.14); color: #fff; }
+    .bio-divider h2 { font-size: clamp(24px,4vw,36px); font-weight: 900; margin-bottom: 12px; }
+    .bio-divider p { font-size: 15px; color: rgba(255,255,255,.82); max-width: 640px; margin: 0 auto; }
+
+    /* ===== Bio strengths (numbered) ===== */
+    .bio-num { font-size: 13px; font-weight: 900; color: var(--green); letter-spacing: .08em; margin-bottom: 10px; }
+
+    /* ===== Service map ===== */
+    .svc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px; }
+    .svc-card {
+      background: #fff; border: 1.5px solid var(--gray-200); border-radius: var(--r);
+      padding: 18px 20px; transition: all .2s;
+    }
+    .svc-card:hover { border-color: var(--blue-light); box-shadow: var(--sh-sm); }
+    .svc-card.hl { border-color: var(--green); background: rgba(46,168,74,.04); }
+    .svc-card .svc-name { font-size: 15px; font-weight: 900; color: var(--blue-dark); }
+    .svc-card .svc-name .yr { font-size: 11px; font-weight: 700; color: var(--gray-400); margin-left: 6px; }
+    .svc-card .svc-desc { font-size: 12px; color: var(--gray-600); margin-top: 5px; line-height: 1.6; }
+    .svc-card .svc-tgt { font-size: 10.5px; font-weight: 700; color: var(--blue-mid); margin-top: 8px; }
+    .svc-badge-new { font-size: 9.5px; font-weight: 800; background: var(--green); color: #fff; padding: 1px 7px; border-radius: 4px; margin-left: 6px; }
+    @media (max-width: 960px) {
+      .diff-grid { grid-template-columns: 1fr; }
+      .svc-grid  { grid-template-columns: 1fr; }
+    }
 
     /* ===== Makers ===== */
     .maker-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; justify-content: center; }
@@ -651,7 +707,7 @@
         <li><a href="#features">機能</a></li>
         <li><a href="#pricing">料金</a></li>
         <li><a href="#demo">無料体験</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#bio">バイオ業界向け</a></li>
         <li><a href="#contact">お問い合わせ</a></li>
       </ul>
       <div class="nav-cta">
@@ -675,8 +731,8 @@
         </div>
         <!-- product category chip -->
         <div style="margin-bottom:16px;">
-          <span class="chip">バイオ業界 販売店・代理店向け</span>
-          <span class="chip green" style="margin-left:6px;">注文書 AI 自動化クラウド</span>
+          <span class="chip">あらゆる業界の受注業務へ</span>
+          <span class="chip green" style="margin-left:6px;">AI受注自動化クラウド</span>
         </div>
         <h1>
           FAX・メール・PDFの<br>
@@ -685,8 +741,8 @@
         </h1>
         <p class="hero-sub">
           お客様の送り方はそのままで OK。<br>
-          どんな形式の注文書も自動で読み取り、<br>
-          正規化・システム登録まで一気に完了します。<br>
+          どんな形式・どんな業界の注文書も自動で読み取り、<br>
+          商品・顧客マスターと照合し、基幹システムへ登録まで一気に完了。<br>
           <span style="font-size:14px;color:var(--blue-mid);font-weight:700;display:block;margin-top:8px;">
             ――お客様のやり方は変えなくていい。変わるのは貴社の受け方だけ。
           </span>
@@ -712,8 +768,8 @@
           </div>
           <div class="kpi-divider"></div>
           <div class="kpi">
-            <div class="kpi-num">20<sub>社+</sub></div>
-            <div class="kpi-label">RPA対応メーカー</div>
+            <div class="kpi-num">ゼロ</div>
+            <div class="kpi-label">二重入力（基幹連携）</div>
           </div>
         </div>
       </div>
@@ -753,7 +809,7 @@
             <div class="fl-ic c"><i class="fas fa-sync-alt"></i></div>
             <div>
               <div style="font-size:12px;font-weight:800;">在庫・納期照会</div>
-              <div style="font-size:11px;color:var(--gray-400);">メーカーRPA連携</div>
+              <div style="font-size:11px;color:var(--gray-400);">仕入先サイト・在庫DB照会</div>
             </div>
             <span class="fl-badge proc">処理中</span>
           </div>
@@ -780,32 +836,32 @@
   <div class="container">
     <div class="tc">
       <span class="chip">課題</span>
-      <h2 class="h2">バイオ業界の受注現場、<br>こんな問題を抱えていませんか？</h2>
-      <p class="lead">試薬・消耗品流通の現場では、3つの構造的課題が同時に進行しています。</p>
+      <h2 class="h2">受注業務の現場、<br>こんな問題を抱えていませんか？</h2>
+      <p class="lead">業界を問わず、顧客からの注文フォーマットがバラバラで人力に頼る現場には、3つの共通課題があります。</p>
     </div>
     <div class="pain-grid">
       <div class="pain-card">
         <div class="pain-emoji">📬</div>
         <div class="pain-no">ISSUE 01</div>
-        <h3>受注チャネルのバラツキ</h3>
-        <p>電話・FAX・メール・顧客書式・購買システム・EDIが顧客ごとに混在。チャネル別の手入力による品番ミスや数量の取り違えが頻発し、受注業務が特定担当者に集中しやすい構造。</p>
+        <h3>受注方法のバラツキ</h3>
+        <p>電話・FAX・メール・各社独自Web・購買システム・EDIが顧客ごとに混在。チャネル別の手入力による品番ミスや数量の取り違えが頻発し、受注業務が特定担当者に集中しやすい構造。</p>
       </div>
       <div class="pain-card">
-        <div class="pain-emoji">🏭</div>
+        <div class="pain-emoji">⌨️</div>
         <div class="pain-no">ISSUE 02</div>
-        <h3>メーカーEDIの乱立</h3>
-        <p>JD-NET（AS2）/ cXML / CSV / メーカー独自仕様 / FAX。仕入先が増えるほど書式・プロトコルがバラバラになり、担当者の経験と暗黙知に依存しがちな状況が続く。</p>
+        <h3>手入力と業務の属人化</h3>
+        <p>注文内容の確認・転記・調査に時間がかかり、特定の担当者に依存。退職・異動でノウハウが失われ、新人の習熟にも時間がかかる。夜間・休日対応の不可も顧客満足度を下げる要因に。</p>
       </div>
       <div class="pain-card">
-        <div class="pain-emoji">👥</div>
+        <div class="pain-emoji">🔗</div>
         <div class="pain-no">ISSUE 03</div>
-        <h3>人手不足と業務の属人化</h3>
-        <p>受発注処理が特定担当者の経験に依存。退職・異動でノウハウが失われ、新人の習熟にも時間がかかる。夜間・休日の対応不可も顧客満足度を下げる要因に。</p>
+        <h3>マスター・基幹の分断</h3>
+        <p>商品・顧客マスターや基幹システムと受注がつながらず、二重入力やミスが起きやすい。表記ゆれ・重複したマスターの二重メンテナンスも、現場の見えない負担になっている。</p>
       </div>
     </div>
     <div class="insight-box">
-      <strong>「自前主義」から、「業界共通インフラの活用」へ。</strong>
-      <p>単独で対応するには複雑になりすぎた業務を、業界全体で標準化されたインフラに載せ替える時代へ。</p>
+      <strong>受注業務は、もう"人海戦術"の限界。</strong>
+      <p>バラバラな注文を、人が読み解いて手入力する時代から。AIが受け取り・データ化・マスター照合・基幹連携まで担う時代へ。</p>
     </div>
   </div>
 </section>
@@ -837,7 +893,7 @@
         <div class="proc-no">3</div>
         <span class="proc-icon">🏪</span>
         <h4>在庫・納期照会</h4>
-        <p>メーカーWebサイトから<br>RPAで自動取得。<br>問い合わせ作業を削減</p>
+        <p>仕入先サイト・在庫DBから<br>自動取得。<br>問い合わせ作業を削減</p>
         <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
       </div>
       <div class="proc-step">
@@ -878,12 +934,95 @@
   </div>
 </section>
 
+<!-- ======= SMART AI ======= -->
+<section class="sec">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">使うほど賢くなる</span>
+      <h2 class="h2">汎用AI-OCRとは違う。<br>貴社専用ルールで精度が上がり続ける</h2>
+      <p class="lead">ORDIAは貴社専用の読み取りルールを蓄積。使うほど・取引先が増えるほど、自動化率が高まります。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-ic"><i class="fas fa-graduation-cap"></i></div>
+        <div class="feat-body">
+          <h3>業務知識がAIに移転</h3>
+          <p>「この品番は自社の商品」「自社名は宛先で仕入先ではない」といった業務知識をAIに登録。担当者が変わっても、同じ知識で安定して動きます。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic"><i class="fas fa-arrow-trend-up"></i></div>
+        <div class="feat-body">
+          <h3>指摘するたびに賢くなる</h3>
+          <p>修正やフィードバックをルールに反映（最長2週間）。未知の書式や例外も順次カバーされ、自動化率が高まり続けます。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic c"><i class="fas fa-eye"></i></div>
+        <div class="feat-body">
+          <h3>透明で信頼できるAI</h3>
+          <p>どの注文書にどのルールが効いたかをバッジ表示。登録ルールも閲覧できるため、「中身が見えない」という不安を解消します。</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-ic g"><i class="fas fa-hands-helping"></i></div>
+        <div class="feat-body">
+          <h3>貴社の作業はゼロ</h3>
+          <p>ルールの設計・テスト・登録・改善はすべてサグブレインが担当。普段どおりの修正が、そのままAIの改善につながります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= DIFFERENTIATOR: MASTER + CORE ======= -->
+<section class="sec sec-bg">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">差別化ポイント</span>
+      <h2 class="h2">AI読み取りで終わらない。<br>マスター統合と基幹システム連携</h2>
+      <p class="lead">商品・顧客マスターの統合と、既存の基幹システムとの連携。だから受注業務を“まるごと”自動化できます。</p>
+    </div>
+    <div class="diff-grid">
+      <!-- 商品・顧客マスター統合 -->
+      <div class="diff-col">
+        <div class="diff-head">
+          <div class="diff-ic"><i class="fas fa-database"></i></div>
+          <h3>商品・顧客マスターの統合</h3>
+        </div>
+        <p class="diff-sub">受注を、正しい品目・取引条件に結びつける。</p>
+        <div class="diff-row"><span class="k">統合する対象</span><span class="v">商品・顧客・取引条件（単価・掛率）</span></div>
+        <div class="diff-row"><span class="k">仕組み</span><span class="v">AIが受注内容を統合マスターに自動照合</span></div>
+        <div class="diff-row"><span class="k">解決する課題</span><span class="v">表記ゆれ・重複・二重メンテナンス</span></div>
+        <div class="diff-row"><span class="k">効果</span><span class="v">正しい品目・単価で受注データ化／属人化を解消</span></div>
+        <div class="diff-row"><span class="k">導入</span><span class="v">既存マスターを取り込み、段階的に整備</span></div>
+      </div>
+      <!-- 基幹システム連携 -->
+      <div class="diff-col">
+        <div class="diff-head">
+          <div class="diff-ic g"><i class="fas fa-plug"></i></div>
+          <h3>基幹システムとの連携</h3>
+        </div>
+        <p class="diff-sub">既存システムは載せ替え不要。受注データを自動連携。</p>
+        <div class="diff-row"><span class="k">連携対象</span><span class="v">既存の販売・基幹システム</span></div>
+        <div class="diff-row"><span class="k">連携方式</span><span class="v">受注データをCSV / API / SFTPで自動連携</span></div>
+        <div class="diff-row"><span class="k">解決する課題</span><span class="v">受注の再入力・転記ミス</span></div>
+        <div class="diff-row"><span class="k">効果</span><span class="v">二重入力ゼロ／受注〜計上のリードタイム短縮</span></div>
+        <div class="diff-row"><span class="k">導入</span><span class="v">基幹は載せ替え不要、そのまま連携</span></div>
+      </div>
+    </div>
+    <div class="diff-close">
+      AI読み取り ＋ マスター統合 ＋ 基幹連携。<br>3つが揃って、受注業務はまるごと自動化できる。
+    </div>
+  </div>
+</section>
+
 <!-- ======= FEATURES ======= -->
 <section class="sec" id="features">
   <div class="container">
     <div class="tc">
       <span class="chip">機能</span>
-      <h2 class="h2">ORDIAの5つの強み</h2>
+      <h2 class="h2">ORDIAの主な機能</h2>
     </div>
     <div class="feat-grid">
       <div class="feat-card">
@@ -896,15 +1035,15 @@
       <div class="feat-card">
         <div class="feat-ic"><i class="fas fa-brain"></i></div>
         <div class="feat-body">
-          <h3>AI解析 ＋ 継続的な追加学習</h3>
-          <p>OCR＋自然言語処理で品番・数量・納期を自動抽出。顧客別の発注フォーマットをAIが学習し、運用を重ねるほど読み取り精度が向上する仕組み。</p>
+          <h3>AI解析・自動データ化</h3>
+          <p>OCR＋自然言語処理で品番・数量・納期を自動抽出。読み取り内容を裏付け調査し、確認待ちの受注ドラフトとして自動でデータ化します。</p>
         </div>
       </div>
       <div class="feat-card">
         <div class="feat-ic g"><i class="fas fa-warehouse"></i></div>
         <div class="feat-body">
           <h3>在庫・納期の自動照会</h3>
-          <p>主要メーカー20社超でRPA設定済み。富士フィルム和光純薬、シグマアルドリッチ、メルク、フナコシ、タカラバイオなど。問い合わせ作業を大幅削減。</p>
+          <p>仕入先サイト・在庫DBを品番で自動照会し、在庫・出荷日を取得。納期回答のドラフトを自動生成し、問い合わせ・折り返しの手間を削減します。</p>
         </div>
       </div>
       <div class="feat-card">
@@ -918,30 +1057,9 @@
         <div class="feat-ic c"><i class="fas fa-plug"></i></div>
         <div class="feat-body">
           <h3>既存基幹システムとの連携 ＆ Onevioプラットフォームへの発展</h3>
-          <p>CSV出力・標準API・RPAによる連携で、現在の基幹システムと並行稼働が可能。さらにOnevioのプラットフォーム上では、<strong>BRPcode（商品マスター）・DealerOrder（受注・出荷・請求管理）・LDB（受注データ分析）・DOG（受発注 EDI ゲートウェイ）</strong>との連携により、受注業務全体の省力化と高度化が実現できます。</p>
+          <p>CSV出力・標準API・SFTPによる連携で、現在の基幹システムと並行稼働が可能。受注の再入力をなくし、二重入力ゼロを実現します。さらにOnevioプラットフォーム上では、販売管理（受注〜請求）・発注EDI統合などと連携し、受注業務全体の省力化と高度化へ拡張できます。</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======= MAKERS ======= -->
-<section class="sec-sm sec-bg">
-  <div class="container tc">
-    <span class="chip">対応メーカー</span>
-    <h2 class="h2" style="font-size:22px;">在庫・納期 自動取得が可能なメーカー（主要20社超対応）</h2>
-    <p class="lead" style="margin:4px auto 0;">RPA設定済み。対応メーカーは随時追加中。</p>
-    <div class="maker-tags">
-      <span class="maker-tag">富士フィルム和光純薬</span>
-      <span class="maker-tag">シグマアルドリッチ（メルク）</span>
-      <span class="maker-tag">コスモ・バイオ</span>
-      <span class="maker-tag">フナコシ</span>
-      <span class="maker-tag">アブカム</span>
-      <span class="maker-tag">東京化成</span>
-      <span class="maker-tag">三商</span>
-      <span class="maker-tag">ケニス</span>
-      <span class="maker-tag">タカラバイオ</span>
-      <span class="maker-tag more">＋その他各社</span>
     </div>
   </div>
 </section>
@@ -1086,53 +1204,6 @@
   </div>
 </section>
 
-<!-- ======= ONEVIO SYNERGY ======= -->
-<section class="sec sec-dark">
-  <div class="container">
-    <div class="tc">
-      <span class="chip white">Onevioとの連携</span>
-      <h2 class="h2 white">ORDIAから始まる、<br>受発注業務の全体最適化</h2>
-      <p class="lead white">ORDIAはOnevioプラットフォームの入口。必要に応じて機能を段階的に拡張できます。</p>
-    </div>
-    <div class="syn-grid">
-      <div class="syn-card">
-        <div class="syn-ic">📦</div>
-        <h3>商品マスター自動照合</h3>
-        <p>BRPcode（業界共通商品マスター）と連携。自社でマスタを整備する必要なく、AI解析した品番を正確な商品情報に紐づけます。</p>
-      </div>
-      <div class="syn-card">
-        <div class="syn-ic">📊</div>
-        <h3>LDB連携 — 受注データの横串分析</h3>
-        <p>受注データ × LDB（全国研究機関DB）で横串分析。得意先別・エンドユーザー別・ABC分析を即時可視化し、経営判断のスピードが向上します。</p>
-      </div>
-      <div class="syn-card">
-        <div class="syn-ic">🔗</div>
-        <h3>DOG（受発注 EDI ゲートウェイ）との連携</h3>
-        <p>メーカーへの発注 EDI も DOG が一元管理。既存の各種 EDI プロトコル（JD-NET / cXML / CSV 等）を自動変換し、仕入先ごとの手作業から解放されます。</p>
-      </div>
-      <div class="syn-card">
-        <div class="syn-ic">🏗️</div>
-        <h3>既存システムはそのまま</h3>
-        <p>マルチテナントSaaSで貴社基幹を載せ替えず並行稼働可能。月額0円の従量課金でリスクなくスモールスタート。使いながら拡張できます。</p>
-      </div>
-    </div>
-    <div class="roadmap">
-      <div class="roadmap-label">段階導入のロードマップ</div>
-      <div style="text-align:center;">
-        <div class="rs active" style="display:inline-block;">Step 1 ： ORDIA 導入</div>
-      </div>
-      <div class="rs-down">↓</div>
-      <div class="rs-step2-group">
-        <div class="rs-step2-label">Step 2（A・B どちらが先でも可）</div>
-        <div class="rs next block">Step 2-A ： DOG 導入（受発注 EDI ゲートウェイ）</div>
-        <div class="rs next block">Step 2-B ： エリアパートナー化</div>
-      </div>
-      <div class="rs-note">Step 1 の期間目安：1〜2ヶ月 / CSV運用から開始可 / 月額0円の従量課金</div>
-    </div>
-    <p class="syn-note">※ Onevioとの連携の詳細は<a href="#contact">お問い合わせ</a>ください。</p>
-  </div>
-</section>
-
 <!-- ======= PRICING ======= -->
 <section class="sec" id="pricing">
   <div class="container">
@@ -1265,8 +1336,112 @@
   </div>
 </section>
 
+<!-- ======= BIO SECTION DIVIDER ======= -->
+<section class="bio-divider" id="bio">
+  <div class="container">
+    <span class="chip">For Bioscience Industry</span>
+    <h2>バイオ業界の皆様へ</h2>
+    <p>ここからは、サグブレインならではのバイオサイエンス業界向けの強みをご紹介します。<br>20年以上の業界実績が、ORDIAを“すぐ効く”サービスにします。</p>
+  </div>
+</section>
+
+<!-- ======= BIO STRENGTHS ======= -->
+<section class="sec">
+  <div class="container">
+    <div class="tc">
+      <span class="chip green">サグブレインの強み</span>
+      <h2 class="h2">バイオ研究支援の受発注を<br>知り尽くした、3つの強み</h2>
+      <p class="lead">試薬・消耗品の受発注に必要な「商品マスタ・メーカー連携・研究機関データ」を、ひとつの基盤で提供します。</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="bio-num">STRENGTH 01</div>
+        <div class="imp-title" style="font-size:17px;margin-bottom:8px;">業界共通の商品マスタ<br>BRP-Code</div>
+        <div class="imp-desc">3,000万件超の業界共通商品マスタを当社がメンテナンス。品番照合・カタログ整備の負担を解消し、AI解析した品番を正確な商品情報に紐づけます。</div>
+      </div>
+      <div class="impact-card">
+        <div class="bio-num">STRENGTH 02</div>
+        <div class="imp-title" style="font-size:17px;margin-bottom:8px;">主要メーカー20社に<br>RPA対応</div>
+        <div class="imp-desc">富士フイルム和光純薬・シグマアルドリッチ・メルク等の在庫・納期をWebサイトから自動取得。問い合わせ作業を大幅に削減します。</div>
+      </div>
+      <div class="impact-card">
+        <div class="bio-num">STRENGTH 03</div>
+        <div class="imp-title" style="font-size:17px;margin-bottom:8px;">全国研究機関DB<br>LDB</div>
+        <div class="imp-desc">11万機関・25万人の研究者データベース。受発注データと統合し、エンドユーザー別の分析・案件管理が可能になります。</div>
+      </div>
+    </div>
+
+    <!-- 対応メーカー -->
+    <div class="tc" style="margin-top:56px;">
+      <h3 style="font-size:18px;font-weight:900;margin-bottom:6px;">在庫・納期 自動取得が可能なメーカー（主要20社超）</h3>
+      <p class="lead" style="margin:0 auto;">RPA設定済み。対応メーカーは随時追加中。</p>
+    </div>
+    <div class="maker-tags">
+      <span class="maker-tag">富士フイルム和光純薬</span>
+      <span class="maker-tag">シグマアルドリッチ（メルク）</span>
+      <span class="maker-tag">コスモ・バイオ</span>
+      <span class="maker-tag">フナコシ</span>
+      <span class="maker-tag">アブカム</span>
+      <span class="maker-tag">東京化成</span>
+      <span class="maker-tag">三商</span>
+      <span class="maker-tag">ケニス</span>
+      <span class="maker-tag">タカラバイオ</span>
+      <span class="maker-tag more">＋その他各社</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= BIO SERVICE MAP ======= -->
+<section class="sec sec-bg">
+  <div class="container">
+    <div class="tc">
+      <span class="chip green">サービス全体像</span>
+      <h2 class="h2">バイオ業界を支える、<br>サグブレインのサービス群</h2>
+      <p class="lead">バイオサイエンス研究支援業界向けに、20年以上にわたり複数のサービスを展開してきました。</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-name">LDB<span class="yr">2005〜</span></div>
+        <div class="svc-desc">全国研究機関・研究者・予算データベース</div>
+        <div class="svc-tgt">対象：メーカー</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">DOG<span class="yr">2012〜</span></div>
+        <div class="svc-desc">販売店⇄仕入先 受発注EDIプラットフォーム</div>
+        <div class="svc-tgt">対象：販売店 / 仕入先</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">BPM<span class="yr">2018〜</span></div>
+        <div class="svc-desc">エンドカスタマー⇄販売店 ECサイト</div>
+        <div class="svc-tgt">対象：エンドカスタマー / 販売店</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">BRP-Code</div>
+        <div class="svc-desc">業界共通商品マスタ（3,000万件超・横断基盤）</div>
+        <div class="svc-tgt">対象：全ステークホルダー</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-name">CLIMS<span class="yr">2025〜</span></div>
+        <div class="svc-desc">エンドカスタマー向け試薬・在庫管理</div>
+        <div class="svc-tgt">対象：エンドカスタマー</div>
+      </div>
+      <div class="svc-card hl">
+        <div class="svc-name">ORDIA<span class="svc-badge-new">NEW</span><span class="yr">2026〜</span></div>
+        <div class="svc-desc">販売店向け AI受注エージェント</div>
+        <div class="svc-tgt">対象：販売店</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:13.5px;color:var(--gray-600);margin-top:28px;">
+      → <strong>Onevio</strong> は、これらサービスを次世代の統合プラットフォームへ進化させたものです。
+    </p>
+    <p class="tc" style="margin-top:8px;font-size:13px;color:var(--gray-600);">
+      ※ バイオ業界向けの連携（DOG／BPM・認定エリアパートナー制度 等）の詳細は<a href="#contact" style="color:var(--blue-mid);text-decoration:underline;font-weight:700;">お問い合わせ</a>ください。
+    </p>
+  </div>
+</section>
+
 <!-- ======= FAQ ======= -->
-<section class="sec sec-bg" id="faq">
+<section class="sec" id="faq">
   <div class="container">
     <div class="tc">
       <span class="chip">よくあるご質問</span>
@@ -1346,9 +1521,11 @@
             <label>業種</label>
             <select>
               <option value="">選択してください</option>
-              <option>バイオ試薬・機器 販売店</option>
-              <option>代理店・商社</option>
-              <option>メーカー（サプライヤー）</option>
+              <option>卸・商社・販売店</option>
+              <option>製造・メーカー</option>
+              <option>建材・住宅設備</option>
+              <option>食品・飲料</option>
+              <option>医療・医薬・バイオ試薬</option>
               <option>その他</option>
             </select>
           </div>
@@ -1397,7 +1574,7 @@
     <div class="footer-grid">
       <div class="f-brand">
         <div class="logo">ORDIA <span style="font-size:13px;font-weight:400;opacity:.55;">by Onevio</span></div>
-        <p>バイオ業界の販売店・代理店・商社向け<br>AI受注自動化サービス。<br>「入力業務ゼロ」を目指す受注インフラ。</p>
+        <p>あらゆる業界の受注業務向け<br>AI受注自動化サービス。<br>「入力業務ゼロ」を目指す受注インフラ。</p>
         <div class="addr">
           株式会社サグブレイン<br>
           〒135-0034 東京都江東区永代2-31-15 ベルウッド永代ビル5階<br>
