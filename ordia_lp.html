@@ -245,6 +245,20 @@
       .bb-cta { width: 100%; justify-content: center; }
     }
 
+    /* ===== Onevio passive banner ===== */
+    .onevio-banner {
+      display: flex; align-items: center; gap: 16px; margin-top: 24px;
+      background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: var(--r);
+      padding: 18px 24px; transition: all .2s;
+    }
+    .onevio-banner:hover { border-color: var(--blue-light); background: #fff; box-shadow: var(--sh-sm); }
+    .ob-ic { font-size: 22px; color: var(--blue-mid); flex-shrink: 0; }
+    .ob-body { flex: 1; min-width: 0; }
+    .ob-title { font-size: 14.5px; font-weight: 900; color: var(--blue-dark); }
+    .ob-sub { font-size: 12.5px; color: var(--gray-600); margin-top: 2px; }
+    .ob-arrow { flex-shrink: 0; color: var(--blue-mid); font-weight: 800; font-size: 13px; white-space: nowrap; }
+    @media (max-width: 640px) { .onevio-banner { flex-direction: column; align-items: flex-start; text-align: left; } }
+
     /* ===== Pain ===== */
     .pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 48px; }
     .pain-card {
@@ -565,6 +579,25 @@
       line-height: 1.7; color: var(--gray-800); background: var(--gray-50);
       border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 14px; margin-bottom: 10px;
     }
+    /* プレゼン字幕（ナレーション） */
+    .dp-caption {
+      display: flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid)); color: #fff;
+      border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; min-height: 56px;
+    }
+    .dp-caption .cap-step {
+      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px;
+    }
+    .dp-caption .cap-text { font-size: 13px; font-weight: 700; line-height: 1.5; transition: opacity .25s; }
+    /* BEFORE / AFTER タグ */
+    .stage-tag {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: .08em;
+      padding: 2px 9px; border-radius: 5px; margin-bottom: 6px;
+    }
+    .stage-tag.before { background: rgba(90,110,133,.12); color: var(--gray-600); }
+    .stage-tag.after  { background: rgba(46,168,74,.12); color: var(--green-dk); }
 
     .dp-textarea {
       width: 100%; height: 130px; border: 1.5px solid var(--gray-200); border-radius: 8px;
@@ -1142,6 +1175,14 @@
         </div>
       </div>
     </div>
+    <a href="#onevio" class="onevio-banner">
+      <span class="ob-ic"><i class="fas fa-layer-group"></i></span>
+      <span class="ob-body">
+        <span class="ob-title">ORDIAは、統合プラットフォーム「Onevio」の一部です</span>
+        <span class="ob-sub">受注から販売管理・発注EDIまで、必要に応じて段階的に拡張できます。</span>
+      </span>
+      <span class="ob-arrow">Onevioについて見る ↓</span>
+    </a>
   </div>
 </section>
 
@@ -1188,8 +1229,14 @@
           </div>
           <div class="dp-body">
 
+            <!-- プレゼン字幕（ナレーション） -->
+            <div class="dp-caption">
+              <span class="cap-step" id="capStep">1</span>
+              <span class="cap-text" id="capText">届いた注文書を、そのまま AI に渡します。「再生」を押してください。</span>
+            </div>
+
             <!-- 入力サンプル（読み取り対象のイメージ） -->
-            <div class="dp-label">受信した注文書（サンプル）</div>
+            <span class="stage-tag before">BEFORE｜人が読んで手入力していた注文書</span>
             <div class="dp-sample-doc" id="demoSampleDoc">
 件名：ご注文の件
 お世話になっております。○○商事 株式会社です。
@@ -1223,6 +1270,7 @@ C-3391  潤滑オイル 1L              12 本
 
               <!-- 解析完了 -->
               <div class="dp-ok" id="demoOk">
+                <span class="stage-tag after">AFTER｜AIが自動でデータ化した受注データ</span>
                 <div class="dp-inbox-hdr" id="inboxHeader"></div>
                 <div class="dp-ok-head">
                   <i class="fas fa-check-circle"></i> 解析完了 — 受注データを正規化しました
@@ -1633,7 +1681,7 @@ C-3391  潤滑オイル 1L              12 本
           <li><a href="#demo">解析の流れ（動画）</a></li>
         </ul>
       </div>
-      <div class="f-col">
+      <div class="f-col" id="onevio">
         <h4>Onevio</h4>
         <ul>
           <li><a href="#">Onevioとは</a></li>
@@ -1771,6 +1819,19 @@ var DEMO_FIXED = {
 
 var _demoPlayed = false;
 
+// ナレーション字幕の更新（フェード）
+function setCap(step, text) {
+  var s = document.getElementById('capStep');
+  var t = document.getElementById('capText');
+  if (!s || !t) return;
+  t.style.opacity = '0';
+  setTimeout(function() {
+    s.textContent = step;
+    t.textContent = text;
+    t.style.opacity = '1';
+  }, 200);
+}
+
 function playDemo() {
   var btn  = document.getElementById('demoBtn');
   var wrap = document.getElementById('demoResult');
@@ -1784,8 +1845,12 @@ function playDemo() {
   ok.style.display   = 'none';
   document.getElementById('dpMainCta').style.display = 'none';
 
+  // プレゼン字幕（これをこうすると、こうなります）
+  setCap('2', 'AIが注文書を読み取り、品番・数量・納期を抽出しています…');
+  setTimeout(function(){ setCap('3', '商品・顧客マスターと自動で照合しています…'); }, 1100);
+
   var steps   = LOG_STEPS.email;
-  var totalMs = 2200;
+  var totalMs = 2600;
   var stepMs  = totalMs / (steps.length + 0.5);
 
   var logArea = document.getElementById('logLines');
@@ -1814,6 +1879,7 @@ function playDemo() {
     var r = DEMO_FIXED;
     proc.style.display = 'none';
     ok.style.display   = 'block';
+    setCap('4', '完了！ 数分かかっていた入力が「確認するだけ」に。受注データが完成しました。');
 
     var now = new Date();
     var timeStr = now.getHours() + ':' + ('0'+now.getMinutes()).slice(-2);
