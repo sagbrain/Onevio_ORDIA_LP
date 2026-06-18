@@ -125,6 +125,18 @@
     }
     @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
 
+    /* hero category（大きく視認させる） */
+    .hero-cat { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; margin-bottom: 16px; }
+    .hero-cat-main {
+      font-size: clamp(17px, 2.4vw, 22px); font-weight: 900; color: var(--blue-dark);
+      border-bottom: 3px solid var(--green); padding-bottom: 2px; letter-spacing: .01em;
+    }
+    .hero-cat-sub {
+      font-size: clamp(13px, 1.6vw, 15px); font-weight: 800; color: #fff;
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      padding: 4px 12px; border-radius: 100px;
+    }
+
     .hero h1 {
       font-size: clamp(30px, 4.2vw, 50px); font-weight: 900;
       line-height: 1.22; color: var(--text); margin-bottom: 18px;
@@ -548,6 +560,11 @@
       font-size: 13px; font-weight: 700; color: var(--blue-mid);
     }
     .dp-or { text-align: center; font-size: 11px; color: var(--gray-400); margin: 8px 0; }
+    .dp-sample-doc {
+      white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 11.5px;
+      line-height: 1.7; color: var(--gray-800); background: var(--gray-50);
+      border: 1.5px solid var(--gray-200); border-radius: 8px; padding: 14px; margin-bottom: 10px;
+    }
 
     .dp-textarea {
       width: 100%; height: 130px; border: 1.5px solid var(--gray-200); border-radius: 8px;
@@ -746,13 +763,13 @@
         <li><a href="#about">ORDIAとは</a></li>
         <li><a href="#features">機能</a></li>
         <li><a href="#pricing">料金</a></li>
-        <li><a href="#demo">無料体験</a></li>
-        <li><a href="#bio">バイオ業界向け</a></li>
+        <li><a href="#demo">解析の流れ</a></li>
+        <li><a href="#bio">バイオ業界の皆様へ</a></li>
         <li><a href="#contact">お問い合わせ</a></li>
       </ul>
       <div class="nav-cta">
         <a href="shiryou.html" class="btn btn-outline">資料請求</a>
-        <a href="#demo"    class="btn btn-green">無料で試す</a>
+        <a href="#contact"    class="btn btn-green">無料トライアル</a>
       </div>
     </nav>
   </div>
@@ -767,12 +784,12 @@
       <div>
         <div class="hero-live">
           <span class="dot"></span>
-          2026年8月 ローンチ予定・先行無料体験受付中
+          2026年 ローンチ予定・先行トライアル受付中
         </div>
-        <!-- product category chip -->
-        <div style="margin-bottom:16px;">
-          <span class="chip">あらゆる業界の受注業務へ</span>
-          <span class="chip green" style="margin-left:6px;">AI受注自動化クラウド</span>
+        <!-- product category（大きく視認） -->
+        <div class="hero-cat">
+          <span class="hero-cat-main">あらゆる業界の受注業務へ</span>
+          <span class="hero-cat-sub">AI受注自動化クラウド</span>
         </div>
         <h1>
           FAX・メール・PDFの<br>
@@ -788,8 +805,9 @@
           </span>
         </p>
         <div class="hero-btns">
-          <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>注文書を無料で解析してみる</a>
-          <a href="shiryou.html" class="btn btn-outline btn-xl">資料請求（PDF）</a>
+          <a href="#contact" class="btn btn-green btn-xl"><i class="fas fa-rocket"></i>無料トライアルに申し込む</a>
+          <a href="shiryou.html" class="btn btn-outline btn-xl"><i class="fas fa-file-pdf"></i>資料請求（PDF）</a>
+          <a href="#demo" class="btn btn-outline btn-xl"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
         </div>
         <div class="hero-kpis">
           <div class="kpi">
@@ -1134,90 +1152,62 @@
 
       <!-- left info -->
       <div>
-        <span class="chip green">無料体験</span>
-        <h2 class="h2">御社の注文書を<br>そのまま貼り付けてみてください</h2>
+        <span class="chip green">解析イメージ（動画）</span>
+        <h2 class="h2">貼るだけで、受注データに。<br>解析の流れを動画でご覧ください</h2>
         <p class="lead" style="margin-bottom:20px;">
-          メール本文・FAXの文字起こし・Excelのコピペ、どんな形式でも構いません。
-          AIが形式を自動判別して品番・数量・納期を読み取ります。
+          メール・FAX・PDF・Excel――どんな形式の注文書でも、
+          AIが品番・数量・納期を読み取り、正規化された受注データに変換します。
+          その一連の流れを、サンプルでご覧いただけます。
         </p>
 
         <div class="scope-list">
-          <h4>無料体験でできること</h4>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 注文書テキストのAI解析（品番・数量・納期の自動抽出）</div>
+          <h4>ORDIA が行うこと</h4>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 注文書のAI解析（品番・数量・納期の自動抽出）</div>
           <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 読み取り精度・信頼スコアの確認</div>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 正規化後の受注データプレビュー</div>
-          <div class="scope-item"><span class="ic" style="color:var(--gray-400);">○</span> 在庫・納期照会連携は本登録後にご利用可能</div>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 正規化後の受注データへの変換</div>
+          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 商品・顧客マスターとの自動照合</div>
         </div>
 
         <div class="trial-box">
-          <div class="t-title"><i class="fas fa-gift"></i> お問い合わせで、すぐ無料トライアル開始</div>
-          <div class="t-body">期間・件数の制限はありません。まずは<strong>貴社の注文書サンプルをご提供いただき、AIプロンプトを一緒に設定</strong>するところから始めます。読み取り精度にご納得いただいてから、ご契約にお進みいただけます。</div>
+          <div class="t-title"><i class="fas fa-gift"></i> 気になったら、無料トライアル（先行エントリー）</div>
+          <div class="t-body">基本料0円・期間/件数の制限なし。まずは<strong>貴社の注文書サンプルをご提供いただき、AIを一緒に設定</strong>するところから始めます。読み取り精度にご納得いただいてから、ご契約にお進みいただけます。</div>
           <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※精度を高めるため、できるだけ多くの注文書サンプルのご提供をお願いしております（共同チューニング）。</div>
         </div>
 
         <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
-          <i class="fas fa-rocket"></i> 無料トライアルを申し込む
+          <i class="fas fa-rocket"></i> 無料トライアルに申し込む
         </a>
       </div>
 
-      <!-- right panel -->
+      <!-- right panel：自動再生デモ（本体非接続・サンプル固定） -->
       <div>
         <div class="dp">
           <div class="dp-head">
             <div class="dp-dots"><span></span><span></span><span></span></div>
-            <div class="dp-title">ORDIA AI解析デモ</div>
+            <div class="dp-title">ORDIA 解析イメージ（サンプル）</div>
           </div>
           <div class="dp-body">
 
-            <!-- ① ファイルドロップゾーン -->
-            <div class="dp-label">注文書ファイルをドロップ</div>
-            <div class="dp-drop" id="dropZone"
-              ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
-              <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.png,.jpg,.jpeg,.tiff"
-                onchange="onFileSelect(this)">
-              <div id="dropDefault">
-                <div class="dp-drop-icon">📂</div>
-                <div class="dp-drop-text">PDFやExcel・FAX画像をここにドロップ</div>
-                <div class="dp-drop-sub">PDF / Excel / PNG・JPG（FAXスキャン）対応</div>
-                <div class="dp-drop-sub" style="margin-top:5px;color:#b45309;">※ファイルは外部送信されません</div>
-              </div>
-              <div class="dp-drop-file" id="dropSelected">
-                <i class="fas fa-file-alt" style="color:var(--blue-mid)"></i>
-                <span id="selectedFileName"></span>
-                <span style="font-size:10px;color:var(--gray-400);margin-left:4px;">選択済み</span>
-              </div>
+            <!-- 入力サンプル（読み取り対象のイメージ） -->
+            <div class="dp-label">受信した注文書（サンプル）</div>
+            <div class="dp-sample-doc" id="demoSampleDoc">
+件名：ご注文の件
+お世話になっております。○○商事 株式会社です。
+下記の通り注文いたします。
+
+A-1024  ステンレスボルト M6×20     50 箱
+B-2087  パッキンシール             20 個
+C-3391  潤滑オイル 1L              12 本
+
+希望納期：2026年9月10日
             </div>
 
-            <!-- ② テキスト貼り付け -->
-            <div class="dp-or">── またはテキストを貼り付け ──</div>
-            <textarea class="dp-textarea" id="demoInput"
-              placeholder="注文書のテキストをそのまま貼り付けてください&#10;&#10;メール本文・FAXの文字起こし・ExcelコピペなどOK&#10;どんな形式でも自動判別して解析します"></textarea>
-
-            <!-- セキュリティ注意書き -->
-            <div style="
-              margin-top: 10px;
-              padding: 10px 14px;
-              background: #fffbeb;
-              border: 1px solid #fcd34d;
-              border-radius: 7px;
-              display: flex;
-              gap: 9px;
-              align-items: flex-start;
-            ">
-              <span style="font-size:15px;flex-shrink:0;margin-top:1px;">⚠️</span>
-              <div style="font-size:11.5px;color:#78350f;line-height:1.7;">
-                <strong>入力データの取り扱いについて</strong><br>
-                このデモはブラウザ内のみで動作します。入力したテキストは外部サーバーへ送信されず、ページを閉じると消去されます。<br>
-                ただし、実際の取引先名・品番・価格などの機密情報を含む場合は、社内規定のデータ取り扱いポリシーに従ってご利用ください。
-              </div>
-            </div>
-
-            <!-- ③ 解析ボタン -->
-            <button class="dp-run" id="demoBtn" onclick="runDemo()">
-              <i class="fas fa-magic"></i> AIで解析する
+            <!-- ▶ 再生ボタン -->
+            <button class="dp-run" id="demoBtn" onclick="playDemo()">
+              <i class="fas fa-play"></i> 解析の流れを再生する
             </button>
 
-            <!-- ④ 結果エリア -->
+            <!-- 結果エリア -->
             <div class="dp-result" id="demoResult">
 
               <!-- 解析中：ログアニメーション -->
@@ -1247,18 +1237,20 @@
                 </table>
                 <div class="dp-meta" id="dpMeta"></div>
 
-                <!-- 解析後メインCTA（マイクロCV → 主CV） -->
+                <!-- 解析後メインCTA（動画 → 無料トライアルへ引き込み） -->
                 <div class="dp-main-cta" id="dpMainCta" style="display:none;">
                   <div class="cta-lead">いかがでしょうか？</div>
-                  <div class="cta-title">自社の注文書でも、<span>同じことができます。</span></div>
+                  <div class="cta-title">貴社の注文書でも、<span>同じことができます。</span></div>
                   <a href="#contact" class="btn btn-green btn-lg" style="width:100%;">
-                    <i class="fas fa-rocket"></i> 無料トライアルを始める（期間・件数制限なし）
+                    <i class="fas fa-rocket"></i> 無料トライアルに申し込む（基本料0円）
                   </a>
                   <div class="cta-note">初期費用¥0 · 基本月額¥0 · 精度に納得してから契約 · いつでも解約可能</div>
                 </div>
 
               </div>
             </div>
+
+            <div class="dp-demo-note" style="margin-top:10px;">※サンプルデータによる解析イメージです。実際の注文書による解析体験は順次提供予定です。</div>
           </div>
         </div>
       </div>
@@ -1295,11 +1287,6 @@
         <div class="pt-cell name">高度解析</div>
         <div class="pt-cell">FAX / 画像スキャン</div>
         <div class="pt-cell"><span class="pt-hi">80 pt</span> / ファイル</div>
-      </div>
-      <div class="pt-row">
-        <div class="pt-cell name">データ連携</div>
-        <div class="pt-cell">他社ECサイト連携</div>
-        <div class="pt-cell"><span class="pt-hi">40 pt</span> / ファイル</div>
       </div>
     </div>
     <div class="price-note">
@@ -1614,11 +1601,12 @@
 <!-- ======= CTA BAND ======= -->
 <section class="cta-band">
   <div class="container">
-    <h2>まず、注文書を1枚<br>解析してみてください。</h2>
-    <p>登録不要・無料。貼り付けるだけでAIの精度を実感できます。</p>
+    <h2>まずは、お気軽に。<br>基本料0円で始められます。</h2>
+    <p>無料トライアル（先行エントリー）・資料請求・お問い合わせを受付中です。</p>
     <div class="cta-btns">
-      <a href="#demo"    class="btn btn-green btn-xl"><i class="fas fa-play-circle"></i>今すぐ無料で試す</a>
-      <a href="shiryou.html" class="btn btn-outline-w btn-xl">資料請求（PDF）</a>
+      <a href="#contact" class="btn btn-green btn-xl"><i class="fas fa-rocket"></i>無料トライアルに申し込む</a>
+      <a href="shiryou.html" class="btn btn-outline-w btn-xl"><i class="fas fa-file-pdf"></i>資料請求（PDF）</a>
+      <a href="#contact" class="btn btn-outline-w btn-xl"><i class="fas fa-envelope"></i>お問い合わせ</a>
     </div>
   </div>
 </section>
@@ -1642,7 +1630,7 @@
           <li><a href="#about">ORDIAとは</a></li>
           <li><a href="#features">機能一覧</a></li>
           <li><a href="#pricing">料金プラン</a></li>
-          <li><a href="#demo">無料体験</a></li>
+          <li><a href="#demo">解析の流れ（動画）</a></li>
         </ul>
       </div>
       <div class="f-col">
@@ -1728,225 +1716,6 @@ function updateCalc() {
 }
 document.addEventListener('DOMContentLoaded', updateCalc);
 
-/* Demo samples */
-const SAMPLES = {
-  email: `件名：注文書のご送付
-お世話になっております。○○大学 理学研究科 山田研究室です。
-下記の通りご注文申し上げます。
-
-品番：196-10021　和光純薬 エタノール（特級）500mL　2本
-品番：31212-34　 和光純薬 PBS(-) 500mL　　　　　　 5本
-品番：W3500-100ML　Sigma DMSO　　　　　　　　　　 10本
-
-希望納期：2026年9月10日まで
-お支払い：月末締め翌月末払い
-
-よろしくお願いいたします。`,
-
-  fax: `FAX注文書
-
-注　文　書
-                        2026年8月28日
-
-株式会社○○ 御中
-
-品番         品名                  数量  単位
-----------   -------------------   ----  ----
-T9281-1G     Trypsin porcine          3   本
-A6003-100MG  Albumin bovine           2   本
-D8662-500ML  D-Glucose solution       1   本
-M2128-10G    Mannitol                 5   本
-
-希望納期：2026年9月末まで
-取引先番号：KEN-20234
-
-以上`,
-
-  excel: `注文番号,品番,品名,数量,単位,希望納期
-PO-2026-0891,4A0806,DMEM/F12 培地 500mL,10,本,2026/09/15
-PO-2026-0891,11965092,Opti-MEM 培地 500mL,5,本,2026/09/15
-PO-2026-0891,15140122,ペニシリン/ストレプトマイシン,3,本,2026/09/15
-PO-2026-0891,10010023,FBS（ウシ胎児血清）500mL,2,本,2026/09/15`
-};
-
-// サンプルボタンのアクティブ管理
-function loadSample(t, btn) {
-  document.getElementById('demoInput').value = SAMPLES[t];
-  // ファイル選択をリセット
-  clearFileSelection();
-  // ボタンハイライト
-  document.querySelectorAll('.dp-sample').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-}
-
-/* ═══════════════════
-   ファイルドロップ処理
-═══════════════════ */
-var selectedFile = null;
-
-function onDragOver(e) {
-  e.preventDefault();
-  document.getElementById('dropZone').classList.add('drag-over');
-}
-function onDragLeave(e) {
-  document.getElementById('dropZone').classList.remove('drag-over');
-}
-function onDrop(e) {
-  e.preventDefault();
-  document.getElementById('dropZone').classList.remove('drag-over');
-  var file = e.dataTransfer.files[0];
-  if (file) applyFile(file);
-}
-function onFileSelect(input) {
-  if (input.files[0]) applyFile(input.files[0]);
-}
-function applyFile(file) {
-  selectedFile = file;
-  document.getElementById('dropDefault').style.display = 'none';
-  var sel = document.getElementById('dropSelected');
-  sel.style.display = 'flex';
-  document.getElementById('selectedFileName').textContent = file.name;
-  // テキストエリアをクリア・サンプルボタンをリセット
-  document.getElementById('demoInput').value = '';
-  document.querySelectorAll('.dp-sample').forEach(function(b){ b.classList.remove('active'); });
-}
-function clearFileSelection() {
-  selectedFile = null;
-  document.getElementById('dropDefault').style.display = 'block';
-  document.getElementById('dropSelected').style.display = 'none';
-  document.getElementById('fileInput').value = '';
-}
-
-/* ═══════════════════════════════════════════════
-   ORDIA デモ — フロントエンド解析エンジン
-   入力テキストを実際に解析して動的に結果を生成します
-   ═══════════════════════════════════════════════ */
-
-function parseOrderText(text) {
-  var lines = text.split(/\r?\n/);
-
-  // ── チャネル判定 ──
-  var channel = 'テキスト', channelIcon = '📄';
-  if (/From:|Subject:|件名[：:]|お世話になっております/.test(text)) {
-    channel = 'メール'; channelIcon = '📧';
-  } else if (/FAX|注\s*文\s*書|発注書/.test(text) && !/^[^,\n]+,[^,\n]+,/.test(text)) {
-    channel = 'FAX / 画像PDF'; channelIcon = '📠';
-  } else if (lines.filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2) {
-    channel = 'CSV / Excel'; channelIcon = '📊';
-  }
-
-  // ── 送信元判定 ──
-  var sender = '不明';
-  var mFrom    = text.match(/From:\s*([^\n<]+)/i);
-  var mHonor   = text.match(/([゠-ヿ぀-ゟ一-鿿\w（）　]+)\s*御中/);
-  var mCo1     = text.match(/(?:株式会社|有限会社|合同会社)([゠-ヿ぀-ゟ一-鿿\w]+)/);
-  var mCo2     = text.match(/([゠-ヿ぀-ゟ一-鿿\w]+)(?:株式会社|有限会社)/);
-  var mUniv    = text.match(/([一-鿿]+(?:大学|研究所|研究室|センター))/);
-  if      (mFrom)  sender = mFrom[1].trim();
-  else if (mHonor) sender = mHonor[1].trim();
-  else if (mCo1)   sender = '株式会社' + mCo1[1];
-  else if (mCo2)   sender = mCo2[1] + '株式会社';
-  else if (mUniv)  sender = mUniv[1];
-
-  // ── 納期判定 ──
-  var delivery = '記載なし';
-  var mDlLabel = text.match(/(?:希望納期|納期)[：:]\s*([^\n,]{2,25})/);
-  var mDate    = text.match(/(\d{4})[\/\-年](\d{1,2})[\/\-月](\d{1,2})/);
-  var mMEnd    = text.match(/(\d{1,2})月末/);
-  if (/至急|できるだけ早く|ASAP|急ぎ/.test(text)) {
-    delivery = '至急';
-  } else if (mDlLabel) {
-    var dl = mDlLabel[1].trim();
-    var md = dl.match(/(\d{4})[\/\-年](\d{1,2})[\/\-月](\d{1,2})/);
-    var me = dl.match(/(\d{1,2})月末/);
-    if      (md) delivery = md[1] + '/' + ('0'+md[2]).slice(-2) + '/' + ('0'+md[3]).slice(-2);
-    else if (me) delivery = me[1] + '月末';
-    else         delivery = dl.replace(/まで|迄/,'').trim();
-  } else if (mDate) {
-    delivery = mDate[1] + '/' + ('0'+mDate[2]).slice(-2) + '/' + ('0'+mDate[3]).slice(-2);
-  } else if (mMEnd) {
-    delivery = mMEnd[1] + '月末';
-  }
-
-  var items = [];
-  var isCsv = lines.filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2;
-
-  // ─ Mode A: CSV / Excel ─
-  if (isCsv) {
-    var headerIdx = -1, colCode = 1, colName = 2, colQty = 3, colUnit = 4, colDel = 5;
-    lines.forEach(function(line, i) {
-      if (/品番|code|item/i.test(line) && /,/.test(line)) {
-        headerIdx = i;
-        line.split(',').forEach(function(c, j) {
-          if (/品番|code|item/i.test(c)) colCode = j;
-          else if (/品名|name|desc/i.test(c)) colName = j;
-          else if (/数量|qty|count/i.test(c)) colQty  = j;
-          else if (/単位|unit/i.test(c))      colUnit = j;
-          else if (/納期|delivery|date/i.test(c)) colDel = j;
-        });
-      }
-    });
-    lines.slice(headerIdx + 1).forEach(function(line) {
-      var cols = line.split(',');
-      if (cols.length < 3) return;
-      var code = (cols[colCode] || '').trim();
-      if (!code || /^PO|^\d{4}$/.test(code)) return;
-      var name = (cols[colName] || '（品名不明）').trim();
-      var qty  = (cols[colQty]  || '?').trim();
-      var unit = (cols[colUnit] || '−').trim();
-      var del  = (cols[colDel]  || delivery).trim() || delivery;
-      items.push({ code: code, name: name, qty: qty, unit: unit, del: del, conf: 'h' });
-    });
-  }
-
-  // ─ Mode B: 品番ラベル形式（品番：XXX） ─
-  else if (/品番[：:]/.test(text)) {
-    lines.forEach(function(line) {
-      var m = line.match(/品番[：:]\s*([A-Za-z0-9\-（）]+)/);
-      if (!m) return;
-      var code = m[1].trim();
-      // 個数単位（本/個/枚…）を優先し、容量・質量単位（mL/g…）は後退
-      var qtyPiece  = line.match(/(\d+)\s*(本|個|枚|袋|セット|vial)/);
-      var qtyVolume = line.match(/(\d+)\s*(mL|μL|L|g|kg)/);
-      var qtyM = qtyPiece || qtyVolume;
-      var qty  = qtyM ? qtyM[1] : '?';
-      var unit = qtyM ? qtyM[2] : '−';
-      var after = line.slice(line.indexOf(code) + code.length).trim();
-      var name  = after.replace(/\d+\s*(?:本|個|mL|μL|L|g|kg|vial|枚|袋|セット).*/,'').trim() || '（品名解析中）';
-      items.push({ code: code, name: name, qty: qty, unit: unit, del: delivery, conf: qtyM ? 'h' : 'm' });
-    });
-  }
-
-  // ─ Mode C: FAX スタイル表（行頭に品番、スペース区切り） ─
-  else {
-    var partRow = /^([A-Z][A-Z0-9\-]{3,})\s+(.+?)\s+(\d+)\s*(本|個|mL|μL|L|g|kg|vial|枚|袋)?/;
-    lines.forEach(function(line) {
-      var t = line.trim();
-      if (!t || /^[-─=\s]{3,}$/.test(t)) return;
-      if (/品番|品名|数量|単位|納期/.test(t)) return;
-      var m = t.match(partRow);
-      if (!m) return;
-      items.push({ code: m[1], name: m[2].trim(), qty: m[3], unit: m[4]||'−', del: delivery, conf: 'h' });
-    });
-    // Fallback: extract any product-code-like tokens
-    if (items.length === 0) {
-      var seen = {};
-      var re = /\b([A-Z][A-Z0-9\-]{4,})\b/g, hit;
-      while ((hit = re.exec(text)) !== null) {
-        if (!seen[hit[1]]) {
-          seen[hit[1]] = true;
-          items.push({ code: hit[1], name: '（品名解析中）', qty: '?', unit: '−', del: delivery, conf: 'm' });
-        }
-      }
-    }
-  }
-
-  // ── 信頼スコア計算 ──
-  var hi = items.filter(function(i){ return i.conf === 'h'; }).length;
-  var confScore = items.length === 0 ? '−' : Math.round(hi / items.length * 100) + '%';
-
-  return { channel: channel, channelIcon: channelIcon, sender: sender, delivery: delivery, items: items, confScore: confScore };
-}
 
 /* ═══════════════════════════════════════════════
    チャネル別の処理ログ定義
@@ -1985,130 +1754,133 @@ var LOG_STEPS = {
   ],
 };
 
-function runDemo() {
-  var val = document.getElementById('demoInput').value.trim();
-  var hasFile = !!selectedFile;
-  if (!val && !hasFile) { alert('注文書をドロップするか、テキストを貼り付けてください。'); return; }
+/* ═══════════════════════════════════════════════
+   自動再生デモ（A案・本体非接続・サンプル固定）
+   既存の解析アニメ（ログ→プログレス→明細）を、
+   固定サンプルで自動再生する「動画的」演出に転用。
+═══════════════════════════════════════════════ */
+var DEMO_FIXED = {
+  channel: 'メール', channelIcon: '📧', sender: '○○商事 株式会社', delivery: '2026/09/10',
+  items: [
+    { code: 'A-1024', name: 'ステンレスボルト M6×20', qty: '50', unit: '箱', del: '2026/09/10', conf: 'h' },
+    { code: 'B-2087', name: 'パッキンシール',          qty: '20', unit: '個', del: '2026/09/10', conf: 'h' },
+    { code: 'C-3391', name: '潤滑オイル 1L',            qty: '12', unit: '本', del: '2026/09/10', conf: 'm' }
+  ],
+  confScore: '96%'
+};
 
+var _demoPlayed = false;
+
+function playDemo() {
   var btn  = document.getElementById('demoBtn');
   var wrap = document.getElementById('demoResult');
   var proc = document.getElementById('demoProc');
   var ok   = document.getElementById('demoOk');
 
   btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 解析中...';
   wrap.classList.add('show');
   proc.style.display = 'flex';
   ok.style.display   = 'none';
   document.getElementById('dpMainCta').style.display = 'none';
 
-  // チャネル判定 → ログ選択
-  var logKey = 'email';
-  if (hasFile) {
-    logKey = 'file';
-    val = 'FILE:' + selectedFile.name; // 解析用テキストにファイル名を埋め込む
-  } else if (/FAX|発注書/.test(val)) {
-    logKey = 'fax';
-  } else if (/,/.test(val) && val.split('\n').filter(function(l){ return (l.match(/,/g)||[]).length >= 2; }).length >= 2) {
-    logKey = 'csv';
-  }
-
-  var steps = LOG_STEPS[logKey];
-  var totalMs = hasFile ? 3200 : logKey === 'fax' ? 2400 : logKey === 'csv' ? 1600 : 2000;
+  var steps   = LOG_STEPS.email;
+  var totalMs = 2200;
   var stepMs  = totalMs / (steps.length + 0.5);
 
-  // ログエリア初期化
   var logArea = document.getElementById('logLines');
   logArea.innerHTML = '';
   var fill = document.getElementById('progFill');
   var pct  = document.getElementById('progPct');
   fill.style.width = '0%';
   pct.textContent  = '0%';
-  document.getElementById('procLabel').textContent = hasFile
-    ? 'ORDIA AI — ' + selectedFile.name + ' を解析中...'
-    : 'ORDIA AI — 解析中...';
+  document.getElementById('procLabel').textContent = 'ORDIA AI — 解析中...';
 
-  // ログを順番に表示
   steps.forEach(function(step, i) {
     setTimeout(function() {
-      // 前の行を「done」に
       var prev = logArea.querySelector('.dp-log-line.pending');
       if (prev) { prev.classList.remove('pending'); prev.classList.add('done'); }
-
       var line = document.createElement('div');
       line.className = 'dp-log-line pending';
       line.innerHTML = '<span class="l-dot"></span><span>' + step.text + '</span>';
       logArea.appendChild(line);
       requestAnimationFrame(function(){ line.classList.add('show'); });
-
       fill.style.width = step.pct + '%';
       pct.textContent  = step.pct + '%';
     }, stepMs * i);
   });
 
-  // 解析完了 → 結果表示
-  var delay = totalMs + 300;
   setTimeout(function() {
-    var result = parseOrderText(val);
+    var r = DEMO_FIXED;
     proc.style.display = 'none';
     ok.style.display   = 'block';
 
-    // 受信トレイヘッダー
     var now = new Date();
     var timeStr = now.getHours() + ':' + ('0'+now.getMinutes()).slice(-2);
     var inboxHdr = document.getElementById('inboxHeader');
     if (inboxHdr) {
       inboxHdr.innerHTML =
         '<div class="ib-row">' +
-          '<span class="ib-icon">' + result.channelIcon + '</span>' +
-          '<span class="ib-channel">' + result.channel + '</span>' +
+          '<span class="ib-icon">' + r.channelIcon + '</span>' +
+          '<span class="ib-channel">' + r.channel + '</span>' +
           '<span class="ib-badge">新着 1件</span>' +
           '<span class="ib-time">受信：本日 ' + timeStr + '</span>' +
         '</div>' +
         '<div class="ib-row2">' +
-          '<span><strong>From：</strong>' + result.sender + '</span>' +
-          '<span><strong>希望納期：</strong>' + result.delivery + '</span>' +
+          '<span><strong>From：</strong>' + r.sender + '</span>' +
+          '<span><strong>希望納期：</strong>' + r.delivery + '</span>' +
           '<span class="ib-status">✅ 解析完了</span>' +
         '</div>';
     }
 
-    // 明細テーブル
     var tbody = document.getElementById('resultBody');
     tbody.innerHTML = '';
-    if (result.items.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#718096;padding:16px;">⚠ 明細を自動抽出できませんでした。品番・数量を含む形式でご入力ください。</td></tr>';
-    } else {
-      result.items.forEach(function(r) {
-        var cb = r.conf === 'h'
-          ? '<span class="cb cb-h">● 高</span>'
-          : '<span class="cb cb-m">● 中</span>';
-        tbody.innerHTML +=
-          '<tr>' +
-            '<td style="font-family:monospace;font-weight:800;">' + r.code + '</td>' +
-            '<td>' + r.name + '</td>' +
-            '<td style="text-align:center;font-weight:800;">' + r.qty + '</td>' +
-            '<td style="text-align:center;">' + r.unit + '</td>' +
-            '<td>' + r.del + '</td>' +
-            '<td>' + cb + '</td>' +
-          '</tr>';
-      });
-    }
+    r.items.forEach(function(it) {
+      var cb = it.conf === 'h'
+        ? '<span class="cb cb-h">● 高</span>'
+        : '<span class="cb cb-m">● 中</span>';
+      tbody.innerHTML +=
+        '<tr>' +
+          '<td style="font-family:monospace;font-weight:800;">' + it.code + '</td>' +
+          '<td>' + it.name + '</td>' +
+          '<td style="text-align:center;font-weight:800;">' + it.qty + '</td>' +
+          '<td style="text-align:center;">' + it.unit + '</td>' +
+          '<td>' + it.del + '</td>' +
+          '<td>' + cb + '</td>' +
+        '</tr>';
+    });
 
     document.getElementById('dpMeta').innerHTML =
-      '<strong>解析元：</strong>' + result.channel + '　' +
-      '<strong>検出明細数：</strong>' + result.items.length + '件　' +
-      '<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">' + result.confScore + '</span>' +
-      '<div class="dp-demo-note">※デモ用フロントエンド解析。本番サービスでは専用AIモデルが処理します。</div>';
+      '<strong>解析元：</strong>' + r.channel + '　' +
+      '<strong>検出明細数：</strong>' + r.items.length + '件　' +
+      '<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">' + r.confScore + '</span>' +
+      '<div class="dp-demo-note">※サンプルデータによる解析イメージです。</div>';
 
-    // 解析後メインCTAを遅延表示（主CV誘導）
+    // 視聴後 → 無料トライアルへ引き込み
     setTimeout(function() {
-      var cta = document.getElementById('dpMainCta');
-      cta.style.display = 'block';
-      cta.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 600);
+      document.getElementById('dpMainCta').style.display = 'block';
+    }, 500);
 
     btn.disabled = false;
-  }, delay);
+    btn.innerHTML = '<i class="fas fa-redo"></i> もう一度再生する';
+  }, totalMs + 300);
 }
+
+// 画面に入ったら一度だけ自動再生
+document.addEventListener('DOMContentLoaded', function() {
+  var demo = document.getElementById('demo');
+  if (!demo || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting && !_demoPlayed) {
+        _demoPlayed = true;
+        playDemo();
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  io.observe(demo);
+});
 </script>
 
 </body>
