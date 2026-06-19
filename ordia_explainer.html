@@ -74,6 +74,30 @@
   }
   .field.in{opacity:1;transform:none;}
 
+  /* ===== 解析実演（注文書 → 受注データ） ===== */
+  .xform{display:flex;align-items:center;gap:2vh;justify-content:center;width:100%;}
+  .xform-doc{position:relative;flex:1;max-width:37%;background:#0d1117;border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:2.4vh 2vh;font-family:'Courier New',monospace;font-size:1.65vh;text-align:left;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.45);}
+  .xform-cap{font-size:1.35vh;font-weight:800;letter-spacing:.06em;color:var(--gray2);margin-bottom:1.6vh;}
+  .xform-cap.green{color:#9af3b6;}
+  .scan-line{position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 16px var(--cyan);opacity:0;z-index:3;}
+  .scan-line.run{animation:scan 3s ease-in-out forwards;}
+  @keyframes scan{0%{top:6%;opacity:1}92%{opacity:1}100%{top:94%;opacity:0}}
+  .xline{padding:.55vh .8vh;border-radius:5px;color:#cfe3ff;transition:background .3s,color .3s;}
+  .xline.lit{background:rgba(0,168,232,.20);color:#fff;}
+  .xline.meta{color:var(--gray2);margin-top:.6vh;}
+  .xform-arrow{color:var(--cyan);font-size:3vh;flex-shrink:0;}
+  .xform-table{flex:1;max-width:48%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14);border-radius:10px;padding:2.4vh 2vh;}
+  .xt{width:100%;border-collapse:collapse;font-size:1.55vh;}
+  .xt th{text-align:left;color:var(--gray2);font-weight:700;padding:.7vh .6vh;border-bottom:1px solid rgba(255,255,255,.15);font-size:1.3vh;}
+  .xt td{padding:.7vh .6vh;border-bottom:1px solid rgba(255,255,255,.08);}
+  .xt tbody tr{opacity:0;transform:translateX(10px);}
+  .xt tbody tr.in{opacity:1;transform:none;transition:all .45s;}
+  .xt .code{font-family:'Courier New',monospace;font-weight:800;color:#cfe3ff;}
+  .cbx{font-weight:800;font-size:1.25vh;}
+  .cbx.h{color:#9af3b6;} .cbx.m{color:#ffcf7a;}
+  .xt-status{margin-top:1.6vh;font-size:1.7vh;font-weight:800;color:#9af3b6;opacity:0;transition:opacity .4s;}
+  .xt-status.in{opacity:1;}
+
   /* before / after */
   .ba{display:flex;align-items:center;gap:3vh;justify-content:center;margin-top:2vh;flex-wrap:wrap;}
   .ba-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:3vh 3.6vh;min-width:30%;}
@@ -176,16 +200,29 @@
       <div class="sub">お客様のやり方は、変えなくていい。</div>
     </div>
 
-    <!-- Scene 4: AI解析 -->
+    <!-- Scene 4: AI解析（実演） -->
     <div class="scene" data-scene="3">
-      <div class="eyebrow">STEP 1 — AI解析</div>
-      <div class="headline" style="margin-bottom:1vh;">AIが、<span class="hl">品番・数量・納期</span>を自動で読み取る。</div>
-      <div class="fields" id="fields4">
-        <div class="field">✓ 品番を認識</div>
-        <div class="field">✓ 数量・単位を抽出</div>
-        <div class="field">✓ 希望納期を判定</div>
+      <div class="eyebrow">STEP 1 — AI解析（実演）</div>
+      <div class="headline" style="margin-bottom:2.4vh;font-size:3.4vh;">注文書が、その場で<span class="hl">受注データ</span>に変わります。</div>
+      <div class="xform">
+        <div class="xform-doc">
+          <div class="xform-cap">📨 受信した注文書</div>
+          <div class="scan-line" id="scanLine"></div>
+          <div class="xline" data-row="0">A-1024　ステンレスボルト M6×20　50 箱</div>
+          <div class="xline" data-row="1">B-2087　パッキンシール　20 個</div>
+          <div class="xline" data-row="2">C-3391　潤滑オイル 1L　12 本</div>
+          <div class="xline meta" data-row="3">希望納期：2026/09/10</div>
+        </div>
+        <div class="xform-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="xform-table">
+          <div class="xform-cap green">✅ ORDIA 受注データ</div>
+          <table class="xt">
+            <thead><tr><th>品番</th><th>品名</th><th>数量</th><th>納期</th><th>精度</th></tr></thead>
+            <tbody id="xtbody"></tbody>
+          </table>
+          <div class="xt-status" id="xtStatus"></div>
+        </div>
       </div>
-      <div class="sub">OCR＋自然言語処理で、形式を問わず読み取り・正規化。</div>
     </div>
 
     <!-- Scene 5: マスター照合 -->
@@ -262,8 +299,8 @@ var SCENES = [
     narr: 'ファックス、メール、ピーディーエフ、エクセル。お客様ごとにバラバラの注文書を、担当者が一件ずつ手入力していませんか。ミスや属人化の原因になります。' },
   { dur: 6000, sub: 'ORDIA なら、届いた注文書を、そのまま渡すだけ。お客様のやり方は変えません。',
     narr: 'オルディアなら、届いた注文書を、そのまま渡すだけ。お客様のやり方を変える必要はありません。' },
-  { dur: 6000, sub: 'AIが、品番・数量・希望納期を自動で読み取り、正規化します。',
-    narr: 'エーアイが、品番、数量、希望納期を自動で読み取り、正規化します。', fx: 'fields' },
+  { dur: 9000, sub: 'AIが注文書をスキャン。品番・数量・納期を1行ずつ読み取り、受注データに変換していきます。',
+    narr: 'エーアイが注文書をスキャンします。品番、数量、希望納期を、一行ずつ読み取り、受注データに変換していきます。', fx: 'transform' },
   { dur: 5500, sub: '商品・顧客マスターと自動照合。正しい品目・単価に結びつけ、二重入力をなくします。',
     narr: 'さらに、商品と顧客のマスターを自動で照合。正しい品目と単価に結びつけ、二重入力をなくします。' },
   { dur: 6000, sub: '手入力5分が、確認1分に。受注データが完成し、基幹システムへ連携します。',
@@ -318,12 +355,51 @@ function show(i){
   subtitleEl.style.opacity='0';
   setTimeout(function(){ subtitleEl.textContent = SCENES[i].sub; subtitleEl.style.opacity='1'; }, 250);
 
-  // fx: fields pop-in
-  if(SCENES[i].fx==='fields'){
-    var fs = el.querySelectorAll('.field');
-    fs.forEach(function(f){ f.classList.remove('in'); });
-    fs.forEach(function(f,k){ setTimeout(function(){ f.classList.add('in'); }, 500 + k*450); });
-  }
+  // fx: 解析実演（注文書 → 受注データ）
+  if(SCENES[i].fx==='transform'){ runTransform(el); }
+}
+
+/* 注文書スキャン → 受注データ表が1行ずつ埋まる実演 */
+var XROWS = [
+  { code:'A-1024', name:'ステンレスボルト M6×20', qty:'50 箱', date:'2026/09/10', conf:'h' },
+  { code:'B-2087', name:'パッキンシール',          qty:'20 個', date:'2026/09/10', conf:'h' },
+  { code:'C-3391', name:'潤滑オイル 1L',            qty:'12 本', date:'2026/09/10', conf:'m' }
+];
+var _xformTimers = [];
+function runTransform(el){
+  _xformTimers.forEach(clearTimeout); _xformTimers = [];
+  var scan   = el.querySelector('#scanLine');
+  var lines  = el.querySelectorAll('.xline');
+  var tbody  = el.querySelector('#xtbody');
+  var status = el.querySelector('#xtStatus');
+
+  // reset
+  lines.forEach(function(l){ l.classList.remove('lit'); });
+  tbody.innerHTML = '';
+  status.classList.remove('in'); status.textContent = '';
+
+  // スキャンライン再生（reflowで再起動）
+  scan.classList.remove('run'); void scan.offsetWidth; scan.classList.add('run');
+
+  // 1行ずつ：原本をハイライト → 表に行を追加
+  XROWS.forEach(function(r, k){
+    var t = setTimeout(function(){
+      if(lines[k]) lines[k].classList.add('lit');
+      var cb = r.conf==='h' ? '<span class="cbx h">● 高</span>' : '<span class="cbx m">● 中</span>';
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="code">'+r.code+'</td><td>'+r.name+'</td><td>'+r.qty+'</td><td>'+r.date+'</td><td>'+cb+'</td>';
+      tbody.appendChild(tr);
+      requestAnimationFrame(function(){ tr.classList.add('in'); });
+    }, 700 + k*800);
+    _xformTimers.push(t);
+  });
+
+  // 納期行ハイライト → 完了ステータス
+  _xformTimers.push(setTimeout(function(){ if(lines[3]) lines[3].classList.add('lit'); }, 700 + XROWS.length*800));
+  _xformTimers.push(setTimeout(function(){
+    status.innerHTML = '✓ 解析完了　検出 '+XROWS.length+'明細　信頼スコア 96%';
+    status.classList.add('in');
+  }, 900 + XROWS.length*800));
 }
 
 function go(i){
