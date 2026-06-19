@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORDIA 説明ビデオ</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+  :root{
+    --blue-dark:#1B4F8C; --blue-mid:#2B72CB; --blue-light:#5B9BD5;
+    --green:#2EA84A; --green-dk:#23883B; --cyan:#00A8E8;
+    --ink:#0d1b2a; --gray:#5A6E85; --gray2:#9EB0C8;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{font-family:'Noto Sans JP',sans-serif;background:#05070d;color:#fff;overflow:hidden;}
+  img{max-width:100%;display:block;}
+
+  /* 16:9 stage（レターボックス） */
+  .stage-wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#05070d;}
+  .stage{
+    position:relative;width:min(100vw,177.78vh);height:min(56.25vw,100vh);
+    background:radial-gradient(120% 120% at 70% 0%, #133a66 0%, #0a1929 55%, #060d18 100%);
+    overflow:hidden;
+  }
+  .stage::before{ /* subtle grid glow */
+    content:'';position:absolute;top:-20%;right:-10%;width:55%;height:80%;border-radius:50%;
+    background:radial-gradient(circle, rgba(0,168,232,.18) 0%, transparent 70%);pointer-events:none;
+  }
+
+  /* scene container */
+  .scene{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:6% 8% 16%;opacity:0;transform:translateY(18px);
+    transition:opacity .6s ease, transform .6s ease;pointer-events:none;text-align:center;
+  }
+  .scene.show{opacity:1;transform:none;}
+
+  .eyebrow{font-size:1.6vh;font-weight:800;letter-spacing:.22em;color:var(--cyan);margin-bottom:2.2vh;text-transform:uppercase;}
+  .headline{font-size:4.2vh;font-weight:900;line-height:1.3;letter-spacing:.01em;}
+  .headline .hl{color:var(--cyan);}
+  .sub{font-size:2.1vh;color:rgba(255,255,255,.78);margin-top:2.4vh;line-height:1.7;font-weight:500;}
+
+  /* logo scene */
+  .logo-box{background:#fff;border-radius:14px;padding:2.4vh 3vh;display:inline-block;margin-bottom:3.5vh;box-shadow:0 12px 50px rgba(0,168,232,.25);}
+  .logo-box img{height:7vh;width:auto;}
+
+  /* channel chips (課題) */
+  .chips{display:flex;flex-wrap:wrap;gap:1.4vh;justify-content:center;margin-bottom:3vh;}
+  .chip{
+    display:flex;align-items:center;gap:1vh;background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:1.6vh 2.4vh;
+    font-size:2vh;font-weight:700;
+  }
+  .chip i{color:var(--cyan);font-size:2.4vh;}
+  .chip.bad{border-color:rgba(255,120,120,.4);}
+  .chip.bad i{color:#ff8a8a;}
+
+  /* order doc card */
+  .doc{
+    background:#0d1117;border:1.5px solid rgba(255,255,255,.14);border-radius:12px;
+    padding:2.6vh 3vh;font-family:'Courier New',monospace;font-size:1.9vh;line-height:1.9;
+    text-align:left;white-space:pre-wrap;color:#cfe3ff;max-width:80%;box-shadow:0 16px 50px rgba(0,0,0,.5);
+  }
+
+  /* extracted fields */
+  .fields{display:flex;gap:2vh;flex-wrap:wrap;justify-content:center;margin-top:3vh;}
+  .field{
+    background:rgba(46,168,74,.12);border:1.5px solid rgba(46,168,74,.45);border-radius:10px;
+    padding:1.4vh 2.4vh;font-size:2vh;font-weight:800;color:#9af3b6;
+    opacity:0;transform:scale(.85);transition:all .4s;
+  }
+  .field.in{opacity:1;transform:none;}
+
+  /* before / after */
+  .ba{display:flex;align-items:center;gap:3vh;justify-content:center;margin-top:2vh;flex-wrap:wrap;}
+  .ba-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:3vh 3.6vh;min-width:30%;}
+  .ba-card .lab{font-size:1.5vh;font-weight:800;letter-spacing:.1em;margin-bottom:1.2vh;}
+  .ba-card.before .lab{color:var(--gray2);}
+  .ba-card.after  .lab{color:#9af3b6;}
+  .ba-card .big{font-size:5vh;font-weight:900;line-height:1;}
+  .ba-card .note{font-size:1.6vh;color:rgba(255,255,255,.6);margin-top:1vh;}
+  .ba-arrow{font-size:4vh;color:var(--cyan);}
+
+  /* stats */
+  .stats{display:flex;gap:3vh;justify-content:center;flex-wrap:wrap;margin-top:1vh;}
+  .stat{min-width:24%;}
+  .stat .num{font-size:6.5vh;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--cyan),#7ef0a6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .stat .lab{font-size:1.8vh;color:rgba(255,255,255,.8);margin-top:1.2vh;font-weight:700;}
+
+  /* CTA scene */
+  .cta-actions{display:flex;gap:1.6vh;justify-content:center;margin-top:3.5vh;flex-wrap:wrap;}
+  .cta-btn{background:var(--green);color:#fff;font-weight:800;font-size:2vh;padding:1.8vh 3.2vh;border-radius:12px;}
+  .cta-btn.ghost{background:transparent;border:2px solid rgba(255,255,255,.5);}
+  .cta-url{font-size:1.8vh;color:var(--cyan);margin-top:3vh;font-weight:700;}
+
+  /* subtitle bar */
+  .subtitle{
+    position:absolute;left:0;right:0;bottom:8.5%;display:flex;justify-content:center;padding:0 8%;
+    pointer-events:none;
+  }
+  .subtitle span{
+    background:rgba(5,9,16,.72);backdrop-filter:blur(4px);border-radius:10px;
+    padding:1.4vh 2.6vh;font-size:2.1vh;font-weight:700;line-height:1.5;max-width:90%;
+    border:1px solid rgba(255,255,255,.12);transition:opacity .3s;
+  }
+
+  /* progress */
+  .progress{position:absolute;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--blue-mid),var(--cyan));width:0;transition:width .3s linear;z-index:5;}
+
+  /* controls */
+  .controls{
+    position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:2vh;
+    padding:2vh 3vh;background:linear-gradient(0deg, rgba(5,7,13,.85), transparent);
+    opacity:0;transition:opacity .3s;z-index:6;
+  }
+  .stage:hover .controls,.controls.force{opacity:1;}
+  .ctrl-btn{background:rgba(255,255,255,.14);border:none;color:#fff;width:5vh;height:5vh;border-radius:50%;cursor:pointer;font-size:2vh;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .ctrl-btn:hover{background:rgba(255,255,255,.28);}
+  .ctrl-spacer{flex:1;}
+  .ctrl-label{font-size:1.6vh;color:rgba(255,255,255,.7);font-weight:600;}
+  .dots{display:flex;gap:1vh;}
+  .dot{width:1.1vh;height:1.1vh;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:background .2s;}
+  .dot.active{background:var(--cyan);}
+
+  /* big play overlay (initial) */
+  .play-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,9,16,.55);cursor:pointer;z-index:10;transition:opacity .4s;}
+  .play-overlay.hide{opacity:0;pointer-events:none;}
+  .play-overlay .pbtn{width:11vh;height:11vh;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:5vh;color:#fff;box-shadow:0 12px 50px rgba(46,168,74,.5);margin-bottom:2.5vh;}
+  .play-overlay .ptext{font-size:2.2vh;font-weight:800;}
+  .play-overlay .psub{font-size:1.6vh;color:rgba(255,255,255,.7);margin-top:1vh;}
+
+  .badge-end{margin-top:2vh;font-size:1.5vh;color:rgba(255,255,255,.55);}
+</style>
+</head>
+<body>
+<div class="stage-wrap">
+  <div class="stage" id="stage">
+    <div class="progress" id="progress"></div>
+
+    <!-- Scene 1: Title -->
+    <div class="scene" data-scene="0">
+      <div class="logo-box"><img src="ordia-logo.png" alt="ORDIA"></div>
+      <div class="eyebrow">あらゆる業界の受注業務へ</div>
+      <div class="headline">注文書を、<span class="hl">AIが自動で</span>受注データへ。</div>
+      <div class="sub">AI受注自動化クラウド「ORDIA」</div>
+    </div>
+
+    <!-- Scene 2: 課題 -->
+    <div class="scene" data-scene="1">
+      <div class="eyebrow">こんなお悩みはありませんか？</div>
+      <div class="headline" style="margin-bottom:3vh;">バラバラの注文書を、<br>人が手入力していませんか？</div>
+      <div class="chips">
+        <div class="chip bad"><i class="fas fa-fax"></i>FAX</div>
+        <div class="chip bad"><i class="fas fa-envelope"></i>メール</div>
+        <div class="chip bad"><i class="fas fa-file-pdf"></i>PDF</div>
+        <div class="chip bad"><i class="fas fa-file-excel"></i>Excel</div>
+      </div>
+      <div class="sub">転記ミス・属人化・夜間休日の対応漏れ――受注業務の見えない負担。</div>
+    </div>
+
+    <!-- Scene 3: 渡すだけ -->
+    <div class="scene" data-scene="2">
+      <div class="eyebrow">ORDIA なら</div>
+      <div class="headline" style="margin-bottom:3vh;">届いた注文書を、<span class="hl">そのまま渡すだけ。</span></div>
+      <div class="doc">件名：ご注文の件
+○○商事 株式会社 です。下記の通り注文いたします。
+
+ A-1024  ステンレスボルト M6×20   50 箱
+ B-2087  パッキンシール           20 個
+ C-3391  潤滑オイル 1L            12 本
+
+希望納期：2026年9月10日</div>
+      <div class="sub">お客様のやり方は、変えなくていい。</div>
+    </div>
+
+    <!-- Scene 4: AI解析 -->
+    <div class="scene" data-scene="3">
+      <div class="eyebrow">STEP 1 — AI解析</div>
+      <div class="headline" style="margin-bottom:1vh;">AIが、<span class="hl">品番・数量・納期</span>を自動で読み取る。</div>
+      <div class="fields" id="fields4">
+        <div class="field">✓ 品番を認識</div>
+        <div class="field">✓ 数量・単位を抽出</div>
+        <div class="field">✓ 希望納期を判定</div>
+      </div>
+      <div class="sub">OCR＋自然言語処理で、形式を問わず読み取り・正規化。</div>
+    </div>
+
+    <!-- Scene 5: マスター照合 -->
+    <div class="scene" data-scene="4">
+      <div class="eyebrow">STEP 2 — マスター照合</div>
+      <div class="headline" style="margin-bottom:1vh;">商品・顧客マスターと<br><span class="hl">自動照合。</span></div>
+      <div class="sub">表記ゆれを吸収し、正しい品目・単価・取引条件に結びつけます。<br>属人化を解消し、二重入力をなくします。</div>
+    </div>
+
+    <!-- Scene 6: Before/After -->
+    <div class="scene" data-scene="5">
+      <div class="eyebrow">STEP 3 — 受注データ完成</div>
+      <div class="headline" style="margin-bottom:3vh;">手入力5分が、<span class="hl">確認1分</span>に。</div>
+      <div class="ba">
+        <div class="ba-card before"><div class="lab">BEFORE</div><div class="big">5<span style="font-size:2.4vh;">分/件</span></div><div class="note">人が読んで手入力</div></div>
+        <div class="ba-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="ba-card after"><div class="lab">AFTER</div><div class="big">1<span style="font-size:2.4vh;">分/件</span></div><div class="note">AIの結果を確認するだけ</div></div>
+      </div>
+      <div class="sub">完成した受注データは、基幹システムへ自動連携。</div>
+    </div>
+
+    <!-- Scene 7: 効果 -->
+    <div class="scene" data-scene="6">
+      <div class="eyebrow">導入効果</div>
+      <div class="stats">
+        <div class="stat"><div class="num">38<span style="font-size:3vh;">%</span></div><div class="lab">人件費 削減</div></div>
+        <div class="stat"><div class="num">80<span style="font-size:3vh;">%</span></div><div class="lab">処理時間 削減</div></div>
+        <div class="stat"><div class="num">0<span style="font-size:3vh;">円</span></div><div class="lab">基本料金</div></div>
+      </div>
+      <div class="sub" style="margin-top:4vh;">使った分だけのシンプルな料金。スモールスタートできます。</div>
+    </div>
+
+    <!-- Scene 8: CTA -->
+    <div class="scene" data-scene="7">
+      <div class="logo-box" style="margin-bottom:2.5vh;"><img src="ordia-logo.png" alt="ORDIA"></div>
+      <div class="headline">まずは、<span class="hl">無料トライアル</span>から。</div>
+      <div class="sub">基本料0円・先行受付中。注文書サンプルからAIを一緒に設定します。</div>
+      <div class="cta-actions">
+        <span class="cta-btn"><i class="fas fa-rocket"></i> 無料トライアル</span>
+        <span class="cta-btn ghost"><i class="fas fa-file-pdf"></i> 資料請求</span>
+      </div>
+      <div class="cta-url">onevio.net/ordia</div>
+    </div>
+
+    <!-- subtitle -->
+    <div class="subtitle"><span id="subtitle"></span></div>
+
+    <!-- big play overlay -->
+    <div class="play-overlay" id="playOverlay">
+      <div class="pbtn"><i class="fas fa-play"></i></div>
+      <div class="ptext">ORDIA 説明ビデオを再生</div>
+      <div class="psub">約60秒 ・ ナレーション／字幕付き</div>
+    </div>
+
+    <!-- controls -->
+    <div class="controls" id="controls">
+      <button class="ctrl-btn" id="playBtn" onclick="togglePlay()"><i class="fas fa-pause"></i></button>
+      <button class="ctrl-btn" onclick="go(cur-1)"><i class="fas fa-backward-step"></i></button>
+      <button class="ctrl-btn" onclick="go(cur+1)"><i class="fas fa-forward-step"></i></button>
+      <button class="ctrl-btn" id="soundBtn" onclick="toggleSound()"><i class="fas fa-volume-high"></i></button>
+      <div class="dots" id="dots"></div>
+      <div class="ctrl-spacer"></div>
+      <button class="ctrl-btn" onclick="replay()"><i class="fas fa-rotate-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ───────── ORDIA 説明ビデオ・シーンエンジン ───────── */
+var SCENES = [
+  { dur: 4500, sub: 'ORDIA は、あらゆる業界の受注業務を自動化する、AI受注自動化クラウドです。',
+    narr: 'オルディアは、あらゆる業界の受注業務を自動化する、エーアイ受注自動化クラウドです。' },
+  { dur: 6500, sub: 'FAX・メール・PDF・Excel。バラバラの注文書を、担当者が一件ずつ手入力していませんか？',
+    narr: 'ファックス、メール、ピーディーエフ、エクセル。お客様ごとにバラバラの注文書を、担当者が一件ずつ手入力していませんか。ミスや属人化の原因になります。' },
+  { dur: 6000, sub: 'ORDIA なら、届いた注文書を、そのまま渡すだけ。お客様のやり方は変えません。',
+    narr: 'オルディアなら、届いた注文書を、そのまま渡すだけ。お客様のやり方を変える必要はありません。' },
+  { dur: 6000, sub: 'AIが、品番・数量・希望納期を自動で読み取り、正規化します。',
+    narr: 'エーアイが、品番、数量、希望納期を自動で読み取り、正規化します。', fx: 'fields' },
+  { dur: 5500, sub: '商品・顧客マスターと自動照合。正しい品目・単価に結びつけ、二重入力をなくします。',
+    narr: 'さらに、商品と顧客のマスターを自動で照合。正しい品目と単価に結びつけ、二重入力をなくします。' },
+  { dur: 6000, sub: '手入力5分が、確認1分に。受注データが完成し、基幹システムへ連携します。',
+    narr: 'これまで一件五分かかっていた入力が、確認するだけの一分に。受注データが完成し、基幹システムへ連携できます。' },
+  { dur: 6500, sub: '人件費 約38%減・処理時間 80%減・基本料0円。使った分だけのシンプルな料金。',
+    narr: '導入効果は、人件費およそ38パーセント削減、処理時間80パーセント削減。基本料金はゼロ円。使った分だけのシンプルな料金です。' },
+  { dur: 7000, sub: 'まずは無料トライアルから。基本料0円で先行受付中。お気軽にお問い合わせください。',
+    narr: 'まずは無料トライアルから。基本料ゼロ円で、先行受付中です。お気軽にお問い合わせください。' }
+];
+
+var cur = -1, playing = false, soundOn = true, timer = null, progTimer = null;
+var sceneEls = document.querySelectorAll('.scene');
+var subtitleEl = document.getElementById('subtitle');
+var progressEl = document.getElementById('progress');
+
+// dots
+var dotsWrap = document.getElementById('dots');
+SCENES.forEach(function(_, i){
+  var d = document.createElement('div'); d.className='dot'; d.onclick=function(){ go(i); };
+  dotsWrap.appendChild(d);
+});
+var dotEls = dotsWrap.querySelectorAll('.dot');
+
+function speak(text){
+  if(!soundOn || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang='ja-JP'; u.rate=1.0; u.pitch=1.0;
+  var vs = window.speechSynthesis.getVoices().filter(function(v){return /ja/i.test(v.lang);});
+  if(vs[0]) u.voice=vs[0];
+  window.speechSynthesis.speak(u);
+}
+
+function clearTimers(){ if(timer) clearTimeout(timer); if(progTimer) clearInterval(progTimer); }
+
+function runProgress(ms){
+  var start = 0;
+  progressEl.style.width = '0%';
+  var stepN = 60, intv = ms/stepN, n=0;
+  progTimer = setInterval(function(){
+    n++; progressEl.style.width = Math.min(100, n/stepN*100) + '%';
+    if(n>=stepN) clearInterval(progTimer);
+  }, intv);
+}
+
+function show(i){
+  sceneEls.forEach(function(el){ el.classList.remove('show'); });
+  dotEls.forEach(function(d){ d.classList.remove('active'); });
+  var el = sceneEls[i]; if(!el) return;
+  el.classList.add('show');
+  if(dotEls[i]) dotEls[i].classList.add('active');
+  subtitleEl.style.opacity='0';
+  setTimeout(function(){ subtitleEl.textContent = SCENES[i].sub; subtitleEl.style.opacity='1'; }, 250);
+
+  // fx: fields pop-in
+  if(SCENES[i].fx==='fields'){
+    var fs = el.querySelectorAll('.field');
+    fs.forEach(function(f){ f.classList.remove('in'); });
+    fs.forEach(function(f,k){ setTimeout(function(){ f.classList.add('in'); }, 500 + k*450); });
+  }
+}
+
+function go(i){
+  if(i<0) i=0;
+  if(i>=SCENES.length){ finish(); return; }
+  clearTimers();
+  cur=i; show(i); speak(SCENES[i].narr);
+  if(playing){ runProgress(SCENES[i].dur); timer=setTimeout(function(){ go(cur+1); }, SCENES[i].dur); }
+}
+
+function play(){
+  playing=true;
+  document.getElementById('playBtn').innerHTML='<i class="fas fa-pause"></i>';
+  if(cur<0||cur>=SCENES.length) cur=0;
+  go(cur);
+}
+function pause(){
+  playing=false; clearTimers();
+  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+  document.getElementById('playBtn').innerHTML='<i class="fas fa-play"></i>';
+}
+function togglePlay(){ playing?pause():play(); }
+function toggleSound(){
+  soundOn=!soundOn;
+  document.getElementById('soundBtn').innerHTML = soundOn?'<i class="fas fa-volume-high"></i>':'<i class="fas fa-volume-xmark"></i>';
+  if(!soundOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  else if(soundOn && playing && cur>=0) speak(SCENES[cur].narr);
+}
+function finish(){
+  playing=false; clearTimers(); progressEl.style.width='100%';
+  document.getElementById('playBtn').innerHTML='<i class="fas fa-play"></i>';
+  document.getElementById('controls').classList.add('force');
+}
+function replay(){ cur=0; document.getElementById('controls').classList.remove('force'); play(); }
+
+document.getElementById('playOverlay').onclick=function(){
+  this.classList.add('hide');
+  // warm up voices
+  if('speechSynthesis' in window) window.speechSynthesis.getVoices();
+  cur=0; play();
+};
+// voices may load async
+if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged=function(){}; }
+
+// keyboard: space toggle, arrows
+document.addEventListener('keydown', function(e){
+  if(e.code==='Space'){ e.preventDefault(); if(!document.getElementById('playOverlay').classList.contains('hide')){ document.getElementById('playOverlay').click(); } else togglePlay(); }
+  else if(e.code==='ArrowRight') go(cur+1);
+  else if(e.code==='ArrowLeft') go(cur-1);
+});
+</script>
+</body>
+</html>

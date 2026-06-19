@@ -685,6 +685,22 @@
     .ib-status { margin-left:auto; color:var(--green); font-weight:700; }
     .dp-demo-note { margin-top:6px; font-size:10px; color:#a0aec0; }
 
+    /* ===== 説明ビデオ モーダル ===== */
+    .vid-modal{
+      position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;
+      background:rgba(5,9,16,.82);padding:24px;
+    }
+    .vid-modal.open{display:flex;}
+    .vid-frame-wrap{position:relative;width:min(1000px,100%);}
+    .vid-ratio{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.55);background:#05070d;}
+    .vid-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+    .vid-close{
+      position:absolute;top:-14px;right:-14px;width:42px;height:42px;border-radius:50%;
+      background:#fff;color:var(--blue-dark);border:none;cursor:pointer;font-size:18px;
+      box-shadow:0 6px 20px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;
+    }
+    @media (max-width:640px){ .vid-close{top:-10px;right:-6px;width:36px;height:36px;} }
+
     /* ===== Trial Steps ===== */
     .trial-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 40px 0 46px; }
     .ts {
@@ -840,7 +856,7 @@
         <div class="hero-btns">
           <a href="#contact" class="btn btn-green btn-xl"><i class="fas fa-rocket"></i>無料トライアルに申し込む</a>
           <a href="shiryou.html" class="btn btn-outline btn-xl"><i class="fas fa-file-pdf"></i>資料請求（PDF）</a>
-          <a href="#demo" class="btn btn-outline btn-xl"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
+          <a href="#demo" class="btn btn-outline btn-xl" onclick="setTimeout(openVideo,400)"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
         </div>
         <div class="hero-kpis">
           <div class="kpi">
@@ -1215,6 +1231,9 @@
           <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※精度を高めるため、できるだけ多くの注文書サンプルのご提供をお願いしております（共同チューニング）。</div>
         </div>
 
+        <button type="button" class="btn btn-primary btn-lg" style="margin-top:8px;margin-right:8px;" onclick="openVideo()">
+          <i class="fas fa-circle-play"></i> 説明ビデオ（フル版）を見る
+        </button>
         <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
           <i class="fas fa-rocket"></i> 無料トライアルに申し込む
         </a>
@@ -1707,12 +1726,36 @@ C-3391  潤滑オイル 1L              12 本
   </div>
 </footer>
 
+<!-- ======= 説明ビデオ モーダル ======= -->
+<!-- ※将来MP4ができたら、iframe を <video src="..." controls> に差し替え可能 -->
+<div class="vid-modal" id="vidModal" onclick="if(event.target===this)closeVideo()">
+  <div class="vid-frame-wrap">
+    <button class="vid-close" onclick="closeVideo()" aria-label="閉じる"><i class="fas fa-xmark"></i></button>
+    <div class="vid-ratio"><iframe id="vidFrame" title="ORDIA 説明ビデオ" allow="autoplay"></iframe></div>
+  </div>
+</div>
+
 <!-- ======= JS ======= -->
 <script>
 /* FAQ */
 function toggleFaq(el) {
   el.parentElement.classList.toggle('open');
 }
+
+/* 説明ビデオ モーダル */
+function openVideo() {
+  var m = document.getElementById('vidModal');
+  document.getElementById('vidFrame').src = 'ordia_explainer.html';
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideo() {
+  var m = document.getElementById('vidModal');
+  m.classList.remove('open');
+  document.getElementById('vidFrame').src = '';  // 音声・再生を停止
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideo(); });
 
 /* ═══════════════════════════════════════════════
    ROI 自動計算（自社ケース試算）
