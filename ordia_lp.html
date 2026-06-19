@@ -685,6 +685,11 @@
     .ib-status { margin-left:auto; color:var(--green); font-weight:700; }
     .dp-demo-note { margin-top:6px; font-size:10px; color:#a0aec0; }
 
+    /* ===== 説明ビデオ 埋め込み（冒頭） ===== */
+    .video-embed{position:relative;max-width:920px;width:100%;margin:36px auto 0;border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);background:#05070d;}
+    .video-embed::before{content:'';display:block;padding-top:56.25%;}
+    .video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
     /* ===== 説明ビデオ モーダル ===== */
     .vid-modal{
       position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;
@@ -856,7 +861,7 @@
         <div class="hero-btns">
           <a href="#contact" class="btn btn-green btn-xl"><i class="fas fa-rocket"></i>無料トライアルに申し込む</a>
           <a href="shiryou.html" class="btn btn-outline btn-xl"><i class="fas fa-file-pdf"></i>資料請求（PDF）</a>
-          <a href="#demo" class="btn btn-outline btn-xl" onclick="setTimeout(openVideo,400)"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
+          <a href="#demo" class="btn btn-outline btn-xl"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
         </div>
         <div class="hero-kpis">
           <div class="kpi">
@@ -934,6 +939,24 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- ======= 説明ビデオ（冒頭） ======= -->
+<section class="sec" id="demo" style="background:var(--gray-50);">
+  <div class="container">
+    <div class="tc">
+      <span class="chip green">まずは1分でわかる</span>
+      <h2 class="h2">注文書が、AIで受注データに変わる。</h2>
+      <p class="lead">ORDIAが「どう受け取り、どう変換するのか」を、動画でご覧ください。</p>
+    </div>
+    <div class="video-embed">
+      <iframe src="ordia_explainer.html" title="ORDIA 説明ビデオ" allow="autoplay" loading="lazy"></iframe>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button type="button" class="btn btn-primary btn-lg" onclick="openVideo()"><i class="fas fa-expand"></i> 全画面で見る</button>
+      <a href="#contact" class="btn btn-green btn-lg"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
     </div>
   </div>
 </section>
@@ -1199,130 +1222,6 @@
       </span>
       <span class="ob-arrow">Onevioについて見る ↓</span>
     </a>
-  </div>
-</section>
-
-<!-- ======= DEMO ======= -->
-<section class="demo-sec" id="demo">
-  <div class="container">
-    <div class="demo-grid">
-
-      <!-- left info -->
-      <div>
-        <span class="chip green">解析イメージ（動画）</span>
-        <h2 class="h2">貼るだけで、受注データに。<br>解析の流れを動画でご覧ください</h2>
-        <p class="lead" style="margin-bottom:20px;">
-          メール・FAX・PDF・Excel――どんな形式の注文書でも、
-          AIが品番・数量・納期を読み取り、正規化された受注データに変換します。
-          その一連の流れを、サンプルでご覧いただけます。
-        </p>
-
-        <div class="scope-list">
-          <h4>ORDIA が行うこと</h4>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 注文書のAI解析（品番・数量・納期の自動抽出）</div>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 読み取り精度・信頼スコアの確認</div>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 正規化後の受注データへの変換</div>
-          <div class="scope-item"><span class="ic" style="color:var(--green);">✓</span> 商品・顧客マスターとの自動照合</div>
-        </div>
-
-        <div class="trial-box">
-          <div class="t-title"><i class="fas fa-gift"></i> 気になったら、無料トライアル（先行エントリー）</div>
-          <div class="t-body">基本料0円・期間/件数の制限なし。まずは<strong>貴社の注文書サンプルをご提供いただき、AIを一緒に設定</strong>するところから始めます。読み取り精度にご納得いただいてから、ご契約にお進みいただけます。</div>
-          <div style="font-size:11px;color:var(--gray-400);margin-top:6px;">※精度を高めるため、できるだけ多くの注文書サンプルのご提供をお願いしております（共同チューニング）。</div>
-        </div>
-
-        <button type="button" class="btn btn-primary btn-lg" style="margin-top:8px;margin-right:8px;" onclick="openVideo()">
-          <i class="fas fa-circle-play"></i> 説明ビデオ（フル版）を見る
-        </button>
-        <a href="#contact" class="btn btn-green btn-lg" style="margin-top:8px;">
-          <i class="fas fa-rocket"></i> 無料トライアルに申し込む
-        </a>
-      </div>
-
-      <!-- right panel：自動再生デモ（本体非接続・サンプル固定） -->
-      <div>
-        <div class="dp">
-          <div class="dp-head">
-            <div class="dp-dots"><span></span><span></span><span></span></div>
-            <div class="dp-title">ORDIA 解析イメージ（サンプル）</div>
-          </div>
-          <div class="dp-body">
-
-            <!-- プレゼン字幕（ナレーション） -->
-            <div class="dp-caption">
-              <span class="cap-step" id="capStep">1</span>
-              <span class="cap-text" id="capText">届いた注文書を、そのまま AI に渡します。「再生」を押してください。</span>
-            </div>
-
-            <!-- 入力サンプル（読み取り対象のイメージ） -->
-            <span class="stage-tag before">BEFORE｜人が読んで手入力していた注文書</span>
-            <div class="dp-sample-doc" id="demoSampleDoc">
-件名：ご注文の件
-お世話になっております。○○商事 株式会社です。
-下記の通り注文いたします。
-
-A-1024  ステンレスボルト M6×20     50 箱
-B-2087  パッキンシール             20 個
-C-3391  潤滑オイル 1L              12 本
-
-希望納期：2026年9月10日
-            </div>
-
-            <!-- ▶ 再生ボタン -->
-            <button class="dp-run" id="demoBtn" onclick="playDemo()">
-              <i class="fas fa-play"></i> 解析の流れを再生する
-            </button>
-
-            <!-- 結果エリア -->
-            <div class="dp-result" id="demoResult">
-
-              <!-- 解析中：ログアニメーション -->
-              <div class="dp-proc" id="demoProc">
-                <div class="dp-proc-title">
-                  <div class="spin"></div>
-                  <span id="procLabel">ORDIA AI — 解析中...</span>
-                </div>
-                <div id="logLines"></div>
-                <div class="dp-prog-bar"><div class="dp-prog-fill" id="progFill"></div></div>
-                <div class="dp-prog-pct" id="progPct">0%</div>
-              </div>
-
-              <!-- 解析完了 -->
-              <div class="dp-ok" id="demoOk">
-                <span class="stage-tag after">AFTER｜AIが自動でデータ化した受注データ</span>
-                <div class="dp-inbox-hdr" id="inboxHeader"></div>
-                <div class="dp-ok-head">
-                  <i class="fas fa-check-circle"></i> 解析完了 — 受注データを正規化しました
-                </div>
-                <table class="rt">
-                  <thead>
-                    <tr>
-                      <th>品番</th><th>品名（推定）</th><th>数量</th><th>単位</th><th>納期</th><th>精度</th>
-                    </tr>
-                  </thead>
-                  <tbody id="resultBody"></tbody>
-                </table>
-                <div class="dp-meta" id="dpMeta"></div>
-
-                <!-- 解析後メインCTA（動画 → 無料トライアルへ引き込み） -->
-                <div class="dp-main-cta" id="dpMainCta" style="display:none;">
-                  <div class="cta-lead">いかがでしょうか？</div>
-                  <div class="cta-title">貴社の注文書でも、<span>同じことができます。</span></div>
-                  <a href="#contact" class="btn btn-green btn-lg" style="width:100%;">
-                    <i class="fas fa-rocket"></i> 無料トライアルに申し込む（基本料0円）
-                  </a>
-                  <div class="cta-note">初期費用¥0 · 基本月額¥0 · 精度に納得してから契約 · いつでも解約可能</div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="dp-demo-note" style="margin-top:10px;">※サンプルデータによる解析イメージです。実際の注文書による解析体験は順次提供予定です。</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
   </div>
 </section>
 
@@ -1808,188 +1707,6 @@ function updateCalc() {
 document.addEventListener('DOMContentLoaded', updateCalc);
 
 
-/* ═══════════════════════════════════════════════
-   チャネル別の処理ログ定義
-═══════════════════════════════════════════════ */
-var LOG_STEPS = {
-  email: [
-    { pct: 15, text: '📧 メール本文を受信・テキスト抽出中...' },
-    { pct: 35, text: '🔍 品番パターンを解析中...' },
-    { pct: 55, text: '📦 数量・単位を抽出中...' },
-    { pct: 72, text: '📅 希望納期を認識中...' },
-    { pct: 88, text: '🏭 商品マスターと照合中...' },
-    { pct: 100, text: '✅ 正規化完了' },
-  ],
-  fax: [
-    { pct: 12, text: '📠 FAX画像をOCR処理中...' },
-    { pct: 28, text: '✏️ 手書き・印字文字を認識中...' },
-    { pct: 48, text: '🔍 品番・数量パターンを解析中...' },
-    { pct: 66, text: '⚠️ 読み取り信頼度の低い行をフラグ中...' },
-    { pct: 84, text: '🏭 商品マスターで補完中...' },
-    { pct: 100, text: '✅ 正規化完了（要確認フラグあり）' },
-  ],
-  csv: [
-    { pct: 20, text: '📊 Excelファイルを読み込み中...' },
-    { pct: 42, text: '🔍 カラム構造を自動判定中...' },
-    { pct: 65, text: '📦 全行を一括抽出中...' },
-    { pct: 85, text: '🏭 商品マスターと照合中...' },
-    { pct: 100, text: '✅ 正規化完了' },
-  ],
-  file: [
-    { pct: 10, text: '📂 ファイルを受信中...' },
-    { pct: 25, text: '🔍 フォーマットを自動判定中...' },
-    { pct: 45, text: '🤖 OCR＋AI解析を実行中...' },
-    { pct: 65, text: '📦 品番・数量・納期を抽出中...' },
-    { pct: 82, text: '🏭 商品マスターと照合中...' },
-    { pct: 100, text: '✅ 正規化完了' },
-  ],
-};
-
-/* ═══════════════════════════════════════════════
-   自動再生デモ（A案・本体非接続・サンプル固定）
-   既存の解析アニメ（ログ→プログレス→明細）を、
-   固定サンプルで自動再生する「動画的」演出に転用。
-═══════════════════════════════════════════════ */
-var DEMO_FIXED = {
-  channel: 'メール', channelIcon: '📧', sender: '○○商事 株式会社', delivery: '2026/09/10',
-  items: [
-    { code: 'A-1024', name: 'ステンレスボルト M6×20', qty: '50', unit: '箱', del: '2026/09/10', conf: 'h' },
-    { code: 'B-2087', name: 'パッキンシール',          qty: '20', unit: '個', del: '2026/09/10', conf: 'h' },
-    { code: 'C-3391', name: '潤滑オイル 1L',            qty: '12', unit: '本', del: '2026/09/10', conf: 'm' }
-  ],
-  confScore: '96%'
-};
-
-var _demoPlayed = false;
-
-// ナレーション字幕の更新（フェード）
-function setCap(step, text) {
-  var s = document.getElementById('capStep');
-  var t = document.getElementById('capText');
-  if (!s || !t) return;
-  t.style.opacity = '0';
-  setTimeout(function() {
-    s.textContent = step;
-    t.textContent = text;
-    t.style.opacity = '1';
-  }, 200);
-}
-
-function playDemo() {
-  var btn  = document.getElementById('demoBtn');
-  var wrap = document.getElementById('demoResult');
-  var proc = document.getElementById('demoProc');
-  var ok   = document.getElementById('demoOk');
-
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 解析中...';
-  wrap.classList.add('show');
-  proc.style.display = 'flex';
-  ok.style.display   = 'none';
-  document.getElementById('dpMainCta').style.display = 'none';
-
-  // プレゼン字幕（これをこうすると、こうなります）
-  setCap('2', 'AIが注文書を読み取り、品番・数量・納期を抽出しています…');
-  setTimeout(function(){ setCap('3', '商品・顧客マスターと自動で照合しています…'); }, 1100);
-
-  var steps   = LOG_STEPS.email;
-  var totalMs = 2600;
-  var stepMs  = totalMs / (steps.length + 0.5);
-
-  var logArea = document.getElementById('logLines');
-  logArea.innerHTML = '';
-  var fill = document.getElementById('progFill');
-  var pct  = document.getElementById('progPct');
-  fill.style.width = '0%';
-  pct.textContent  = '0%';
-  document.getElementById('procLabel').textContent = 'ORDIA AI — 解析中...';
-
-  steps.forEach(function(step, i) {
-    setTimeout(function() {
-      var prev = logArea.querySelector('.dp-log-line.pending');
-      if (prev) { prev.classList.remove('pending'); prev.classList.add('done'); }
-      var line = document.createElement('div');
-      line.className = 'dp-log-line pending';
-      line.innerHTML = '<span class="l-dot"></span><span>' + step.text + '</span>';
-      logArea.appendChild(line);
-      requestAnimationFrame(function(){ line.classList.add('show'); });
-      fill.style.width = step.pct + '%';
-      pct.textContent  = step.pct + '%';
-    }, stepMs * i);
-  });
-
-  setTimeout(function() {
-    var r = DEMO_FIXED;
-    proc.style.display = 'none';
-    ok.style.display   = 'block';
-    setCap('4', '完了！ 数分かかっていた入力が「確認するだけ」に。受注データが完成しました。');
-
-    var now = new Date();
-    var timeStr = now.getHours() + ':' + ('0'+now.getMinutes()).slice(-2);
-    var inboxHdr = document.getElementById('inboxHeader');
-    if (inboxHdr) {
-      inboxHdr.innerHTML =
-        '<div class="ib-row">' +
-          '<span class="ib-icon">' + r.channelIcon + '</span>' +
-          '<span class="ib-channel">' + r.channel + '</span>' +
-          '<span class="ib-badge">新着 1件</span>' +
-          '<span class="ib-time">受信：本日 ' + timeStr + '</span>' +
-        '</div>' +
-        '<div class="ib-row2">' +
-          '<span><strong>From：</strong>' + r.sender + '</span>' +
-          '<span><strong>希望納期：</strong>' + r.delivery + '</span>' +
-          '<span class="ib-status">✅ 解析完了</span>' +
-        '</div>';
-    }
-
-    var tbody = document.getElementById('resultBody');
-    tbody.innerHTML = '';
-    r.items.forEach(function(it) {
-      var cb = it.conf === 'h'
-        ? '<span class="cb cb-h">● 高</span>'
-        : '<span class="cb cb-m">● 中</span>';
-      tbody.innerHTML +=
-        '<tr>' +
-          '<td style="font-family:monospace;font-weight:800;">' + it.code + '</td>' +
-          '<td>' + it.name + '</td>' +
-          '<td style="text-align:center;font-weight:800;">' + it.qty + '</td>' +
-          '<td style="text-align:center;">' + it.unit + '</td>' +
-          '<td>' + it.del + '</td>' +
-          '<td>' + cb + '</td>' +
-        '</tr>';
-    });
-
-    document.getElementById('dpMeta').innerHTML =
-      '<strong>解析元：</strong>' + r.channel + '　' +
-      '<strong>検出明細数：</strong>' + r.items.length + '件　' +
-      '<strong>総合信頼スコア：</strong><span style="font-weight:900;color:var(--green)">' + r.confScore + '</span>' +
-      '<div class="dp-demo-note">※サンプルデータによる解析イメージです。</div>';
-
-    // 視聴後 → 無料トライアルへ引き込み
-    setTimeout(function() {
-      document.getElementById('dpMainCta').style.display = 'block';
-    }, 500);
-
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-redo"></i> もう一度再生する';
-  }, totalMs + 300);
-}
-
-// 画面に入ったら一度だけ自動再生
-document.addEventListener('DOMContentLoaded', function() {
-  var demo = document.getElementById('demo');
-  if (!demo || !('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting && !_demoPlayed) {
-        _demoPlayed = true;
-        playDemo();
-        io.disconnect();
-      }
-    });
-  }, { threshold: 0.4 });
-  io.observe(demo);
-});
 </script>
 
 </body>
