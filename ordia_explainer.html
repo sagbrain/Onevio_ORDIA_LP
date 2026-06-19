@@ -406,6 +406,12 @@ var SCENES = [
 ];
 
 var cur = -1, playing = false, soundOn = true, timer = null, progTimer = null;
+// サイレントモード（?silent=1）：画面録画用に内蔵音声をミュート。尺・進行は維持。
+if (new URLSearchParams(location.search).has('silent')) {
+  soundOn = false;
+  var _sb = document.getElementById('soundBtn');
+  if (_sb) _sb.innerHTML = '<i class="fas fa-volume-xmark"></i>';
+}
 var sceneEls = document.querySelectorAll('.scene');
 var subtitleEl = document.getElementById('subtitle');
 var progressEl = document.getElementById('progress');
