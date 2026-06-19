@@ -560,6 +560,16 @@ document.getElementById('playOverlay').onclick=function(){
   cur=0; play();
 };
 
+// 自動再生モード（?auto=1）：録画用。読み込み後すぐ最初から1回再生。
+// 例）?silent=1&auto=1 … 無音で自動再生（画面録画 → PowerDirector取り込み向け）
+if (new URLSearchParams(location.search).has('auto')) {
+  window.addEventListener('load', function(){
+    var ov = document.getElementById('playOverlay');
+    if (ov) ov.classList.add('hide');
+    setTimeout(function(){ cur = 0; play(); }, 600);
+  });
+}
+
 // keyboard: space toggle, arrows
 document.addEventListener('keydown', function(e){
   if(e.code==='Space'){ e.preventDefault(); if(!document.getElementById('playOverlay').classList.contains('hide')){ document.getElementById('playOverlay').click(); } else togglePlay(); }
