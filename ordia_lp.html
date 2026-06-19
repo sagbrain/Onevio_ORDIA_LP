@@ -952,11 +952,14 @@
       <p class="lead">ORDIAが「どう受け取り、どう変換するのか」を、動画でご覧ください。</p>
     </div>
     <div class="video-embed">
-      <iframe src="ordia_explainer.html" title="ORDIA 説明ビデオ" allow="autoplay" loading="lazy"></iframe>
+      <video controls preload="metadata" playsinline style="position:absolute;inset:0;width:100%;height:100%;background:#05070d;">
+        <source src="ordia_video.mp4" type="video/mp4">
+        お使いのブラウザは動画再生に対応していません。
+      </video>
     </div>
     <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button type="button" class="btn btn-primary btn-lg" onclick="openVideo()"><i class="fas fa-expand"></i> 全画面で見る</button>
       <a href="#contact" class="btn btn-green btn-lg"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
+      <a href="shiryou.html" class="btn btn-outline btn-lg"><i class="fas fa-file-pdf"></i> 資料請求（PDF）</a>
     </div>
   </div>
 </section>
