@@ -368,6 +368,9 @@
       <div class="psub">約60秒 ・ ナレーション／字幕付き</div>
     </div>
 
+    <!-- narration audio（生成済みナレーション） -->
+    <audio id="narr" preload="auto"></audio>
+
     <!-- controls -->
     <div class="controls" id="controls">
       <button class="ctrl-btn" id="playBtn" onclick="togglePlay()"><i class="fas fa-pause"></i></button>
@@ -493,47 +496,63 @@ function runTransform(el){
   }, 900 + XROWS.length*800));
 }
 
+/* ナレーション音声（生成済みWAV）を再生し、終了でシーンを進める */
+var narr = document.getElementById('narr');
+function sceneFile(i){ return 'audio/scene' + ('0'+(i+1)).slice(-2) + '.wav'; }
+
+// 音声の終了で次シーンへ
+narr.addEventListener('ended', function(){ if(playing) go(cur+1); });
+// 進捗バーを音声の再生位置に同期
+narr.addEventListener('timeupdate', function(){
+  if(narr.duration) progressEl.style.width = (narr.currentTime/narr.duration*100) + '%';
+});
+// 音声が無い/失敗時はSCENESのdurで進める（フォールバック）
+narr.addEventListener('error', function(){
+  if(!playing) return;
+  clearTimers(); runProgress(SCENES[cur].dur);
+  timer=setTimeout(function(){ go(cur+1); }, SCENES[cur].dur);
+});
+
 function go(i){
   if(i<0) i=0;
   if(i>=SCENES.length){ finish(); return; }
   clearTimers();
-  cur=i; show(i); speak(SCENES[i].narr);
-  if(playing){ runProgress(SCENES[i].dur); timer=setTimeout(function(){ go(cur+1); }, SCENES[i].dur); }
+  cur=i; show(i);
+  progressEl.style.width='0%';
+  narr.src = sceneFile(i);
+  narr.muted = !soundOn;
+  if(playing){ var p = narr.play(); if(p && p.catch) p.catch(function(){}); }
 }
 
 function play(){
   playing=true;
   document.getElementById('playBtn').innerHTML='<i class="fas fa-pause"></i>';
   if(cur<0||cur>=SCENES.length) cur=0;
-  go(cur);
+  // 途中一時停止からの再開
+  if(narr.src && !narr.ended && narr.currentTime>0){ narr.play(); }
+  else { go(cur); }
 }
 function pause(){
-  playing=false; clearTimers();
-  if('speechSynthesis' in window) window.speechSynthesis.cancel();
+  playing=false; clearTimers(); narr.pause();
   document.getElementById('playBtn').innerHTML='<i class="fas fa-play"></i>';
 }
 function togglePlay(){ playing?pause():play(); }
 function toggleSound(){
   soundOn=!soundOn;
+  narr.muted=!soundOn;
   document.getElementById('soundBtn').innerHTML = soundOn?'<i class="fas fa-volume-high"></i>':'<i class="fas fa-volume-xmark"></i>';
-  if(!soundOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
-  else if(soundOn && playing && cur>=0) speak(SCENES[cur].narr);
 }
 function finish(){
-  playing=false; clearTimers(); progressEl.style.width='100%';
+  playing=false; clearTimers(); narr.pause(); progressEl.style.width='100%';
   document.getElementById('playBtn').innerHTML='<i class="fas fa-play"></i>';
   document.getElementById('controls').classList.add('force');
 }
-function replay(){ cur=0; document.getElementById('controls').classList.remove('force'); play(); }
+function replay(){ cur=0; document.getElementById('controls').classList.remove('force'); narr.currentTime=0; play(); }
 
 document.getElementById('playOverlay').onclick=function(){
   this.classList.add('hide');
-  // warm up voices
-  if('speechSynthesis' in window) window.speechSynthesis.getVoices();
   cur=0; play();
 };
-// voices may load async
-if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged=function(){}; }
 
 // keyboard: space toggle, arrows
 document.addEventListener('keydown', function(e){
