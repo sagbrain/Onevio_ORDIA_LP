@@ -386,22 +386,23 @@
 
 <script>
 /* ───────── ORDIA 説明ビデオ・シーンエンジン ───────── */
+// dur: サイレント（音声なし）時の各シーン表示秒数。合計≈60秒の1分版。
 var SCENES = [
-  { dur: 4500, sub: 'ORDIA は、あらゆる業界の受注業務を自動化する、AI受注自動化クラウドです。',
+  { dur: 5000, sub: 'ORDIA は、あらゆる業界の受注業務を自動化する、AI受注自動化クラウドです。',
     narr: 'オルディアは、あらゆる業界の受注業務を自動化する、エーアイ受注自動化クラウドです。' },
-  { dur: 6500, sub: 'FAX・メール・PDF・Excel。バラバラの注文書を、担当者が一件ずつ手入力していませんか？',
+  { dur: 8000, sub: 'FAX・メール・PDF・Excel。バラバラの注文書を、担当者が一件ずつ手入力していませんか？',
     narr: 'ファックス、メール、ピーディーエフ、エクセル。お客様ごとにバラバラの注文書を、担当者が一件ずつ手入力していませんか。ミスや属人化の原因になります。' },
-  { dur: 6000, sub: 'ORDIA なら、届いた注文書を、そのまま渡すだけ。お客様のやり方は変えません。',
+  { dur: 6500, sub: 'ORDIA なら、届いた注文書を、そのまま渡すだけ。お客様のやり方は変えません。',
     narr: 'オルディアなら、届いた注文書を、そのまま渡すだけ。お客様のやり方を変える必要はありません。' },
-  { dur: 9000, sub: 'AIが注文書をスキャン。品番・数量・納期を1行ずつ読み取り、受注データに変換していきます。',
+  { dur: 10000, sub: 'AIが注文書をスキャン。品番・数量・納期を1行ずつ読み取り、受注データに変換していきます。',
     narr: 'エーアイが注文書をスキャンします。品番、数量、希望納期を、一行ずつ読み取り、受注データに変換していきます。', fx: 'transform' },
-  { dur: 5500, sub: '商品・顧客マスターと自動照合。正しい品目・単価に結びつけ、二重入力をなくします。',
+  { dur: 7000, sub: '商品・顧客マスターと自動照合。正しい品目・単価に結びつけ、二重入力をなくします。',
     narr: 'さらに、商品と顧客のマスターを自動で照合。正しい品目と単価に結びつけ、二重入力をなくします。' },
-  { dur: 6000, sub: '手入力5分が、確認1分に。受注データが完成し、基幹システムへ連携します。',
+  { dur: 7000, sub: '手入力5分が、確認1分に。受注データが完成し、基幹システムへ連携します。',
     narr: 'これまで一件五分かかっていた入力が、確認するだけの一分に。受注データが完成し、基幹システムへ連携できます。' },
-  { dur: 6500, sub: '人件費 約38%減・処理時間 80%減・基本料0円。使った分だけのシンプルな料金。',
+  { dur: 8000, sub: '人件費 約38%減・処理時間 80%減・基本料0円。使った分だけのシンプルな料金。',
     narr: '導入効果は、人件費およそ38パーセント削減、処理時間80パーセント削減。基本料金はゼロ円。使った分だけのシンプルな料金です。' },
-  { dur: 7000, sub: 'まずは無料トライアルから。基本料0円で先行受付中。お気軽にお問い合わせください。',
+  { dur: 8500, sub: 'まずは無料トライアルから。基本料0円で先行受付中。お気軽にお問い合わせください。',
     narr: 'まずは無料トライアルから。基本料ゼロ円で、先行受付中です。お気軽にお問い合わせください。' }
 ];
 
@@ -525,17 +526,31 @@ function go(i){
   clearTimers();
   cur=i; show(i);
   progressEl.style.width='0%';
-  narr.src = sceneFile(i);
-  narr.muted = !soundOn;
-  if(playing){ var p = narr.play(); if(p && p.catch) p.catch(function(){}); }
+  if(soundOn){
+    // 音声あり：ナレーション音声で進行（'ended'で次へ）
+    narr.src = sceneFile(i);
+    narr.muted = false;
+    if(playing){ var p = narr.play(); if(p && p.catch) p.catch(function(){
+      // 音声が再生できない場合はタイマーで進行
+      runProgress(SCENES[i].dur);
+      timer=setTimeout(function(){ go(cur+1); }, SCENES[i].dur);
+    }); }
+  } else {
+    // サイレント（?silent=1）：音声なし・タイマー駆動の1分版（音声は後付け前提）
+    try { narr.pause(); } catch(e){}
+    if(playing){
+      runProgress(SCENES[i].dur);
+      timer=setTimeout(function(){ go(cur+1); }, SCENES[i].dur);
+    }
+  }
 }
 
 function play(){
   playing=true;
   document.getElementById('playBtn').innerHTML='<i class="fas fa-pause"></i>';
   if(cur<0||cur>=SCENES.length) cur=0;
-  // 途中一時停止からの再開
-  if(narr.src && !narr.ended && narr.currentTime>0){ narr.play(); }
+  // 音声ありで途中停止からの再開のみ継続。それ以外は現シーンから再生
+  if(soundOn && narr.src && !narr.ended && narr.currentTime>0){ narr.play(); }
   else { go(cur); }
 }
 function pause(){
