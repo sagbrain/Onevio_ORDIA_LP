@@ -152,6 +152,11 @@
     opacity:0;transition:opacity .3s;z-index:6;
   }
   .stage:hover .controls,.controls.force{opacity:1;}
+  /* 録画用クリーン表示（?auto=1）：操作バー・進捗バー・カーソルを隠す */
+  body.rec .controls{display:none !important;}
+  body.rec .progress{display:none !important;}
+  body.rec .play-overlay{display:none !important;}
+  body.rec, body.rec *{cursor:none !important;}
   .ctrl-btn{background:rgba(255,255,255,.14);border:none;color:#fff;width:5vh;height:5vh;border-radius:50%;cursor:pointer;font-size:2vh;display:flex;align-items:center;justify-content:center;transition:background .2s;}
   .ctrl-btn:hover{background:rgba(255,255,255,.28);}
   .ctrl-spacer{flex:1;}
@@ -577,7 +582,9 @@ document.getElementById('playOverlay').onclick=function(){
 
 // 自動再生モード（?auto=1）：録画用。読み込み後すぐ最初から1回再生。
 // 例）?silent=1&auto=1 … 無音で自動再生（画面録画 → PowerDirector取り込み向け）
+// 録画用は操作バー・進捗バー・カーソルを隠してクリーンに収録する。
 if (new URLSearchParams(location.search).has('auto')) {
+  document.body.classList.add('rec');
   window.addEventListener('load', function(){
     var ov = document.getElementById('playOverlay');
     if (ov) ov.classList.add('hide');
