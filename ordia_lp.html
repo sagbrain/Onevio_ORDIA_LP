@@ -800,6 +800,16 @@
       .ts::after     { display: none; }
       .footer-grid   { grid-template-columns: 1fr; }
       .pt-row        { grid-template-columns: 1fr 1fr; }
+      /* スマホ：ヘッダーの重なり防止（ロゴ縮小・by Onevio非表示・CTA縮小・高さ自動） */
+      .nav           { height: auto; min-height: 54px; padding: 8px 0; flex-wrap: wrap; gap: 6px 8px; }
+      .nav-logo img  { height: 28px; }
+      .nav-logo .badge-by { display: none; }
+      .nav-cta       { gap: 6px; }
+      .nav-cta .btn  { padding: 8px 12px; font-size: 12px; }
+    }
+    @media (max-width: 400px) {
+      /* 極小画面：資料請求はナビから隠し（Hero/フッターに導線あり）、無料トライアルのみ */
+      .nav-cta .btn-outline { display: none; }
     }
   </style>
 </head>
