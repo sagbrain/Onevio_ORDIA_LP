@@ -1666,12 +1666,9 @@
     var btn = form.querySelector('button[type="submit"]');
     if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...'; }
     try {
-      fetch(GAS_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
+      var body = new URLSearchParams();
+      Object.keys(payload).forEach(function (k) { body.append(k, payload[k]); });
+      fetch(GAS_ENDPOINT, { method: 'POST', mode: 'no-cors', body: body });
     } catch (err) { /* no-op */ }
     // 送信後は完了表示に切替（no-corsのため結果は取得できないが送信は実行される）
     setTimeout(function () {
