@@ -129,7 +129,8 @@
           <h2>ありがとうございます！</h2>
           <p>
             資料（PDF）を別タブで開きました。<br>
-            別タブで資料が開かない場合は、下のリンクからご覧ください。
+            別タブで資料が開かない場合は、下のリンクからご覧ください。<br>
+            <span style="font-size:12px;color:var(--gray-600);">※ あわせてメールソフトが起動します。担当宛メールを送信いただくと、より詳しいご案内が可能です。</span>
           </p>
           <a href="assets/ORDIA_紹介資料.pdf" class="dl" id="manualDl" target="_blank" rel="noopener">
             <i class="fas fa-file-pdf"></i> 資料PDFを閲覧する
@@ -152,15 +153,14 @@
 
   <script>
   /* ─────────────────────────────────────────────
-     資料請求フォーム
-     ※ 自動メール送信は静的ホスティング単体では不可。
-        下記 FORM_ENDPOINT に、フォーム送信サービス
-        （Formspree / Google Apps Script / 自社API 等）の
-        URLを設定すると、入力内容が送信され、
-        サーバー側で資料PDFを自動メール送付できます。
-        未設定の場合はPDFの即時ダウンロードのみ行います。
+     資料請求フォーム（mailto方式）
+     送信時：
+       1) 資料PDFを別タブで開く（その場で閲覧・DL可）
+       2) 入力内容を MAIL_TO 宛のメールとして作成し、
+          お客様のメールソフトを起動（お客様が送信するとリードが届く）
+     ※ サーバー不要。リードは MAIL_TO の受信箱に蓄積されます。
      ───────────────────────────────────────────── */
-  var FORM_ENDPOINT = ''; // 例: 'https://formspree.io/f/xxxxxxxx'
+  var MAIL_TO = 'ordia-support@sagbrain.com';
   var PDF_PATH = 'assets/ORDIA_紹介資料.pdf';
 
   var form = document.getElementById('dlForm');
@@ -185,30 +185,29 @@
     setInvalid('fgEmail', !okEmail);
     if (!okName || !okEmail) return;
 
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 送信中...';
+    // 1) PDFを別タブで開いて即閲覧
+    window.open(PDF_PATH, '_blank', 'noopener');
 
-    var payload = { name: name, email: email, company: company, source: 'ordia_lp_shiryou' };
+    // 2) 入力内容を ordia-support 宛メールとして作成（お客様のメーラーが起動）
+    var lines = [
+      '【ORDIA 資料請求】',
+      '',
+      'お名前：' + name,
+      'メールアドレス：' + email,
+      '会社名：' + company,
+      '',
+      '※このメールはORDIA紹介サイトの資料請求フォームから作成されました。'
+    ];
+    var mailto = 'mailto:' + MAIL_TO
+      + '?subject=' + encodeURIComponent('【ORDIA】資料請求（' + (company || name) + '）')
+      + '&body=' + encodeURIComponent(lines.join('\r\n'));
 
-    function finish() {
-      // 完了表示へ切替
-      form.style.display = 'none';
-      doneBox.classList.add('show');
-      // PDFを別タブで開いて即閲覧（ポップアップブロック時は完了画面のリンクから閲覧可）
-      window.open(PDF_PATH, '_blank', 'noopener');
-    }
+    // 3) 完了表示へ切替
+    form.style.display = 'none';
+    doneBox.classList.add('show');
 
-    if (FORM_ENDPOINT) {
-      fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(finish).catch(finish);
-    } else {
-      // エンドポイント未設定：即時ダウンロードのみ
-      finish();
-    }
+    // 4) メーラー起動（少し遅延させPDFタブ表示と競合しないように）
+    setTimeout(function () { window.location.href = mailto; }, 400);
   });
   </script>
 </body>
