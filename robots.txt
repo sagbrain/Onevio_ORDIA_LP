@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ordia.net/sitemap.xml
+Sitemap: https://lp.ordia.net/sitemap.xml
