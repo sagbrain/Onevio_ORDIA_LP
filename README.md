@@ -255,6 +255,32 @@ GitHub Pages で公開し、社内レビュー〜第一弾公開の準備に使�
 - `AD_SEO_PLAN.md` を追加（キャンペーン構成＝汎用／バイオ特化、キーワード・除外KW、広告文案、予算運用、SEO施策、役割分担）。
 - 次アクション：GA4・Google広告・Search Console のアカウント作成 → 発行IDをLPに設定 → 少額運用でCPA測定。
 
+### Phase 18 — 独自ドメイン公開・GA4計測・Search Console登録・広告計測着手（2026-07-09）
+
+**公開（独自ドメイン・HTTPS）**
+- IT が Route53 に `lp.ordia.net CNAME sagbrain.github.io.` を追加＋GitHub Pages で Enforce HTTPS 設定 → **`https://lp.ordia.net/` で正式公開**（全ページ200・canonical/OGP反映を確認）。旧 `ordia.net/`（旧ORDIAログイン）は温存。
+
+**GA4 アクセス計測（稼働）**
+- GA4に新アカウント/プロパティ「ORDIA LP」を作成 → 測定ID **`G-DPHJL2CGG2`** を `index.html`／`shiryou.html` に設定 → リアルタイムでアクセス計測を確認。
+
+**Google Search Console（SEO登録・完了）**
+- `https://lp.ordia.net/` を URLプレフィックスで登録。GA方式は動的タグのため失敗 → **HTMLメタタグ方式**（`index.html` に google-site-verification を追加）で所有権確認**成功**。**sitemap.xml 送信成功**。※誤って clims 側に送信した sitemap は無関係（要削除・任意）。
+
+**Google広告 コンバージョン計測（着手・継続中）**
+- 既存Google広告アカウント（`ORDIA-LP phase1` キャンペーンが停止中で存在）を使用。GA4「ORDIA LP」プロパティを Google広告に**リンク済み**。
+- フォーム送信で GA4 `generate_lead` イベントが**発火することをリアルタイムで確認**（フォーム→メール→計測の一気通貫OK）。
+- 残：GA4で `generate_lead` を**キーイベント指定** → Google広告へ**インポート**（反映に数時間ラグ）。急ぐ場合は AW-ID＋ラベル直接方式に切替可（LPは両対応・実装済み）。
+
+**SEO/広告の実装（完了済み・ID受け皿）**
+- canonical/OGP/構造化データ(SoftwareApplication)/sitemap/robots は実装・公開済み。
+- `index.html`／`shiryou.html` に gtag ローダーと `ORDIA_GA4_ID`（設定済）/`ORDIA_ADS_ID`/`ORDIA_ADS_LABEL`（未設定）の枠、フォーム送信時の `ordiaTrackConversion()`（GA4イベント＋広告CV）を実装済み。広告CVは AW-ID/ラベル記入で即有効化。
+- 広告・SEO戦略は `AD_SEO_PLAN.md` 参照。
+
+**次回への引き継ぎ**
+- ① `generate_lead` をキーイベント化 → Google広告にインポート（or AW直接方式）で広告CV計測を完成
+- ② 広告キャンペーン（`ORDIA-LP phase1` 整備 or 新規）作成 → 少額運用でCPA測定（バイオ特化推奨）
+- ③ clims側の誤sitemap削除（任意）／GA4↔広告の運用確認
+
 ---
 
 ## 公開前チェック（残課題）
