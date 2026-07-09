@@ -237,6 +237,24 @@ GitHub Pages で公開し、社内レビュー〜第一弾公開の準備に使�
 - ヒーローロゴを左バッジ上に配置、キャッチ直下・各リードに「ORDIAは」を付与、料金リード中央寄せ（Phase15の微調整含む）。
 - **「マスター統合」→「マスター突合」**に変更（過剰表現の懸念によりマッチングの意味に統一）。LP差別化（見出し・カード・対象・仕組み・まとめ文・流れ説明）＋資料 p7 を修正。※「統合プラットフォーム(Onevio)」等の別概念の統合は据え置き。「照合／突合」はほぼ同義として現状の混在を許容（大津確認）。
 
+### Phase 17 — 独自ドメイン（lp.ordia.net）・SEO土台・広告計測の先行仕込み（2026-07-09）
+
+**ドメイン：`lp.ordia.net`（GitHub Pages カスタムドメイン・案A）**
+- 旧 `ordia.net/`（旧ORDIAログイン画面）は温存する必要があるため、apexではなく**サブドメイン `lp.ordia.net`** を採用（GitHub Pagesカスタムドメインはホスト名全体を占有するため、`ordia.net/lp/` 併存は不可）。
+- リポジトリに `CNAME=lp.ordia.net` を配置。GitHub Pages Settings→Pages の Custom domain も設定済み。**DNSはIT（Route53の `ordia.net` ホストゾーンに `lp.ordia.net CNAME sagbrain.github.io.` を1本）**。反映後に Enforce HTTPS。
+- `ordia_lp.html` → `index.html` にリネーム（`lp.ordia.net/` でLP表示）。旧パスはリダイレクトstub。内部リンクを index.html に統一。
+
+**SEO土台（実装済み）**
+- canonical（`https://lp.ordia.net/`）・OGP・Twitterカード・構造化データ（SoftwareApplication）・sitemap.xml・robots.txt。
+
+**広告・アクセス計測の先行仕込み（実装済み・ID未設定で無害）**
+- `index.html` / `shiryou.html` の冒頭に gtag ローダーと `window.ORDIA_GA4_ID` / `ORDIA_ADS_ID` / `ORDIA_ADS_LABEL` の設定枠を用意。IDを記入すればGA4＋Google広告が有効化。
+- フォーム送信成功時に `generate_lead`（GA4）＋広告コンバージョンを発火する `ordiaTrackConversion()` を実装（問い合わせ／無料トライアル／資料請求）。
+
+**広告・SEOプラン**
+- `AD_SEO_PLAN.md` を追加（キャンペーン構成＝汎用／バイオ特化、キーワード・除外KW、広告文案、予算運用、SEO施策、役割分担）。
+- 次アクション：GA4・Google広告・Search Console のアカウント作成 → 発行IDをLPに設定 → 少額運用でCPA測定。
+
 ---
 
 ## 公開前チェック（残課題）

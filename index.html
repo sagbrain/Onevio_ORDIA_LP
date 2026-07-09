@@ -44,6 +44,38 @@
   }
   </script>
 
+  <!-- ===== アクセス解析・広告計測（IDが出たら下記3つを設定するだけ） ===== -->
+  <script>
+    window.ORDIA_GA4_ID   = '';   // 例: 'G-XXXXXXXXXX'（GA4 測定ID）
+    window.ORDIA_ADS_ID   = '';   // 例: 'AW-XXXXXXXXX'（Google広告 コンバージョンID）
+    window.ORDIA_ADS_LABEL= '';   // 例: 'abcdEFGhijKLmnop'（コンバージョンラベル）
+  </script>
+  <script>
+    (function () {
+      var ids = [];
+      if (window.ORDIA_GA4_ID) ids.push(window.ORDIA_GA4_ID);
+      if (window.ORDIA_ADS_ID) ids.push(window.ORDIA_ADS_ID);
+      if (!ids.length) return; // 未設定なら何もしない（無害）
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      ids.forEach(function (id) { gtag('config', id); });
+    })();
+    // フォーム送信成功時に呼ぶコンバージョン計測（GA4イベント＋Google広告CV）
+    window.ordiaTrackConversion = function (kind) {
+      try {
+        if (typeof gtag !== 'function') return;
+        gtag('event', 'generate_lead', { event_category: 'form', event_label: kind || '' });
+        if (window.ORDIA_ADS_ID && window.ORDIA_ADS_LABEL) {
+          gtag('event', 'conversion', { send_to: window.ORDIA_ADS_ID + '/' + window.ORDIA_ADS_LABEL });
+        }
+      } catch (e) {}
+    };
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -1726,6 +1758,7 @@
       form.style.display = 'none';
       if (done) done.style.display = 'block';
       if (pdfNote) pdfNote.style.display = isDocRequest ? 'block' : 'none';
+      if (window.ordiaTrackConversion) window.ordiaTrackConversion(isDocRequest ? 'shiryou_contact' : 'contact');
     }, 600);
   });
 })();

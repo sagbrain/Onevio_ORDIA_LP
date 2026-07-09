@@ -6,6 +6,38 @@
   <title>資料請求 | ORDIA | AI受注自動化クラウド</title>
   <meta name="description" content="ORDIAの紹介資料（PDF）を無料でダウンロードいただけます。お名前とメールアドレスをご入力ください。">
   <meta name="robots" content="noindex">
+
+  <!-- ===== アクセス解析・広告計測（index.html と同じIDを設定） ===== -->
+  <script>
+    window.ORDIA_GA4_ID   = '';
+    window.ORDIA_ADS_ID   = '';
+    window.ORDIA_ADS_LABEL= '';
+  </script>
+  <script>
+    (function () {
+      var ids = [];
+      if (window.ORDIA_GA4_ID) ids.push(window.ORDIA_GA4_ID);
+      if (window.ORDIA_ADS_ID) ids.push(window.ORDIA_ADS_ID);
+      if (!ids.length) return;
+      var s = document.createElement('script');
+      s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ids[0];
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      ids.forEach(function (id) { gtag('config', id); });
+    })();
+    window.ordiaTrackConversion = function (kind) {
+      try {
+        if (typeof gtag !== 'function') return;
+        gtag('event', 'generate_lead', { event_category: 'form', event_label: kind || '' });
+        if (window.ORDIA_ADS_ID && window.ORDIA_ADS_LABEL) {
+          gtag('event', 'conversion', { send_to: window.ORDIA_ADS_ID + '/' + window.ORDIA_ADS_LABEL });
+        }
+      } catch (e) {}
+    };
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
@@ -205,6 +237,9 @@
     // 3) 完了表示へ切替
     form.style.display = 'none';
     doneBox.classList.add('show');
+
+    // 4) コンバージョン計測
+    if (window.ordiaTrackConversion) window.ordiaTrackConversion('shiryou');
   });
   </script>
 </body>
