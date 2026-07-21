@@ -152,6 +152,49 @@
     .btn-lg  { padding: 14px 30px; font-size: 16px; border-radius: 10px; }
     .btn-xl  { padding: 17px 38px; font-size: 17px; border-radius: 12px; }
 
+    /* ===== 追従CTA（フローティング資料請求ボタン） ===== */
+    .float-cta {
+      position: fixed; right: 24px; bottom: 24px; z-index: 300;
+      display: flex; flex-direction: column; gap: 10px; align-items: stretch;
+      opacity: 0; transform: translateY(16px); pointer-events: none;
+      transition: opacity .3s, transform .3s;
+    }
+    .float-cta.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .float-cta .btn {
+      box-shadow: 0 6px 20px rgba(27,79,140,.28); padding: 13px 22px; font-size: 14.5px;
+      border-radius: 999px; white-space: nowrap;
+    }
+    .float-cta .fc-note {
+      font-size: 11px; color: var(--gray-600); text-align: center;
+      background: rgba(255,255,255,.9); border-radius: 6px; padding: 2px 6px;
+    }
+    @media (max-width: 640px) {
+      .float-cta { right: 12px; bottom: 12px; left: 12px; }
+      .float-cta .btn { font-size: 13.5px; padding: 12px 16px; }
+      .float-cta .fc-note { display: none; }
+    }
+
+    /* ===== 軽い資料請求バナー（まず資料だけ） ===== */
+    .lite-cta {
+      background: linear-gradient(135deg, #eef5ff, #eafaf0);
+      border: 1.5px solid var(--gray-200); border-radius: var(--r-lg);
+      padding: 28px 24px; text-align: center; margin: 8px auto 0; max-width: 720px;
+    }
+    .lite-cta h3 { font-size: 20px; font-weight: 900; color: var(--blue-dark); margin-bottom: 8px; }
+    .lite-cta p  { font-size: 14px; color: var(--gray-600); margin-bottom: 18px; }
+    .lite-cta .btn { min-width: 260px; }
+    .lite-cta .sub-note { font-size: 12px; color: var(--gray-600); margin-top: 12px; }
+
+    /* ===== フォームの詳細折りたたみ ===== */
+    .form-more { border: none; background: none; padding: 0; margin: 4px 0 14px; }
+    .form-more > summary {
+      cursor: pointer; font-size: 13.5px; font-weight: 700; color: var(--blue-mid);
+      list-style: none; display: inline-flex; align-items: center; gap: 6px; user-select: none;
+    }
+    .form-more > summary::-webkit-details-marker { display: none; }
+    .form-more > summary::before { content: "\f107"; font-family: "Font Awesome 6 Free"; font-weight: 900; }
+    .form-more[open] > summary::before { content: "\f106"; }
+
     /* ===== Header ===== */
     header {
       position: sticky; top: 0; z-index: 200;
@@ -1311,6 +1354,14 @@
       </span>
       <span class="ob-arrow">Onevioについて見る ↓</span>
     </a>
+
+    <!-- 軽い資料請求CTA（まず資料だけ） -->
+    <div class="lite-cta">
+      <h3>まずは資料で詳しく見てみませんか？</h3>
+      <p>サービス概要・導入効果・料金をまとめたPDF資料を、その場でご覧いただけます。</p>
+      <a href="shiryou.html" class="btn btn-green btn-lg"><i class="fas fa-file-pdf"></i> 資料をダウンロード（無料）</a>
+      <p class="sub-note">お名前とメールだけ・30秒で完了。しつこい営業はいたしません。</p>
+    </div>
   </div>
 </section>
 
@@ -1590,22 +1641,8 @@
       <form id="contactForm" novalidate style="background:#fff;padding:36px;border-radius:var(--r-lg);box-shadow:var(--sh-md);">
         <div class="form-grid">
           <div class="fg"><label>会社名<span class="req">*</span></label><input type="text" id="cf-company" placeholder="株式会社○○"></div>
-          <div class="fg"><label>部署名</label><input type="text" id="cf-dept" placeholder="営業部 受注チーム"></div>
           <div class="fg"><label>担当者名<span class="req">*</span></label><input type="text" id="cf-name" placeholder="山田 太郎"></div>
-          <div class="fg"><label>メールアドレス<span class="req">*</span></label><input type="email" id="cf-email" placeholder="taro.yamada@example.com"><span style="font-size:11.5px;color:var(--gray-600);margin-top:4px;">※当社の各種サービスに関するご案内をお送りする場合があります。</span></div>
-          <div class="fg"><label>電話番号</label><input type="tel" id="cf-tel" placeholder="03-XXXX-XXXX"></div>
-          <div class="fg">
-            <label>業種</label>
-            <select id="cf-industry">
-              <option value="">選択してください</option>
-              <option>卸・商社・販売店</option>
-              <option>製造・メーカー</option>
-              <option>建材・住宅設備</option>
-              <option>食品・飲料</option>
-              <option>医療・医薬・バイオ試薬</option>
-              <option>その他</option>
-            </select>
-          </div>
+          <div class="fg full"><label>メールアドレス<span class="req">*</span></label><input type="email" id="cf-email" placeholder="taro.yamada@example.com"><span style="font-size:11.5px;color:var(--gray-600);margin-top:4px;">※当社の各種サービスに関するご案内をお送りする場合があります。</span></div>
           <div class="fg full">
             <label>お問い合わせ内容</label>
             <select id="cf-subject">
@@ -1618,11 +1655,30 @@
             </select>
             <span style="font-size:11.5px;color:var(--gray-600);margin-top:4px;">※「資料を請求したい」を選んで送信すると、資料PDFが別タブで開きます。</span>
           </div>
-          <div class="fg full">
-            <label>現在の受注形式・課題（任意）</label>
-            <textarea id="cf-message" placeholder="例：FAXとメールが混在しており、手入力が多い。月間受注件数は約200件程度..."></textarea>
-          </div>
         </div>
+        <details class="form-more">
+          <summary>詳しく伝える（任意・部署名・電話・業種・課題）</summary>
+          <div class="form-grid" style="margin-top:14px;">
+            <div class="fg"><label>部署名</label><input type="text" id="cf-dept" placeholder="営業部 受注チーム"></div>
+            <div class="fg"><label>電話番号</label><input type="tel" id="cf-tel" placeholder="03-XXXX-XXXX"></div>
+            <div class="fg full">
+              <label>業種</label>
+              <select id="cf-industry">
+                <option value="">選択してください</option>
+                <option>卸・商社・販売店</option>
+                <option>製造・メーカー</option>
+                <option>建材・住宅設備</option>
+                <option>食品・飲料</option>
+                <option>医療・医薬・バイオ試薬</option>
+                <option>その他</option>
+              </select>
+            </div>
+            <div class="fg full">
+              <label>現在の受注形式・課題</label>
+              <textarea id="cf-message" placeholder="例：FAXとメールが混在しており、手入力が多い。月間受注件数は約200件程度..."></textarea>
+            </div>
+          </div>
+        </details>
         <div class="form-foot">
           <button type="submit" class="btn btn-green btn-xl">
             <i class="fas fa-paper-plane"></i> 送信する
@@ -1655,6 +1711,12 @@
     </div>
   </div>
 </section>
+
+<!-- ======= 追従CTA（フローティング資料請求） ======= -->
+<div class="float-cta" id="floatCta">
+  <a href="shiryou.html" class="btn btn-green"><i class="fas fa-file-pdf"></i> まず資料だけ見る（無料）</a>
+  <span class="fc-note">30秒・PDFをその場で閲覧</span>
+</div>
 
 <!-- ======= FOOTER ======= -->
 <footer>
@@ -1834,6 +1896,26 @@ function updateCalc() {
 }
 document.addEventListener('DOMContentLoaded', updateCalc);
 
+/* 追従CTA：ヒーローを過ぎたら表示、フォーム(#contact)表示中は隠す */
+(function () {
+  var fc = document.getElementById('floatCta');
+  var hero = document.querySelector('.hero');
+  var contact = document.getElementById('contact');
+  if (!fc) return;
+  function update() {
+    var heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+    var pastHero = heroBottom < 80;
+    var contactVisible = false;
+    if (contact) {
+      var r = contact.getBoundingClientRect();
+      contactVisible = r.top < window.innerHeight && r.bottom > 0;
+    }
+    fc.classList.toggle('show', pastHero && !contactVisible);
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
 
 </script>
 
