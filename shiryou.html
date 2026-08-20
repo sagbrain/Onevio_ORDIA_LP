@@ -12,6 +12,7 @@
     window.ORDIA_GA4_ID   = 'G-DPHJL2CGG2';
     window.ORDIA_ADS_ID   = 'AW-11010882633';
     window.ORDIA_ADS_LABEL= '';   // GA4インポート(generate_lead)で計測のため未使用
+    window.ORDIA_CLARITY_ID = 'y57qg8d9rr';   // Microsoft Clarity プロジェクトID（index.html と同じ値を設定）
   </script>
   <script>
     (function () {
@@ -36,6 +37,18 @@
         }
       } catch (e) {}
     };
+    window.ordiaTrack = function (name, params) {
+      try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+    };
+  </script>
+  <!-- ===== Microsoft Clarity（IDが未設定なら何もしない・無害） ===== -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      if (!window.ORDIA_CLARITY_ID) return;
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', window.ORDIA_CLARITY_ID);
   </script>
 
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -197,6 +210,15 @@
 
   var form = document.getElementById('dlForm');
   var doneBox = document.getElementById('doneBox');
+
+  // フォーム開始（最初の入力にフォーカスした時・1回だけ）
+  (function () {
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (started) return; started = true;
+      if (window.ordiaTrack) window.ordiaTrack('form_start', { form: '資料請求' });
+    });
+  })();
 
   function setInvalid(id, bad) {
     document.getElementById(id).classList.toggle('invalid', bad);

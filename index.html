@@ -50,6 +50,7 @@
     window.ORDIA_GA4_ID   = 'G-DPHJL2CGG2';   // 例: 'G-XXXXXXXXXX'（GA4 測定ID）
     window.ORDIA_ADS_ID   = 'AW-11010882633';   // 例: 'AW-XXXXXXXXX'（Google広告 コンバージョンID）
     window.ORDIA_ADS_LABEL= '';   // GA4インポート(generate_lead)で計測のため未使用   // 例: 'abcdEFGhijKLmnop'（コンバージョンラベル）
+    window.ORDIA_CLARITY_ID = 'y57qg8d9rr';   // Microsoft Clarity のプロジェクトID（clarity.microsoft.com で発行）。設定すると録画・ヒートマップが有効化
   </script>
   <script>
     (function () {
@@ -75,6 +76,19 @@
         }
       } catch (e) {}
     };
+    // 汎用イベント計測ヘルパー（スクロール・CTAクリック・フォーム開始などを GA4 へ）
+    window.ordiaTrack = function (name, params) {
+      try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+    };
+  </script>
+  <!-- ===== Microsoft Clarity（録画・ヒートマップ。IDが未設定なら何もしない・無害） ===== -->
+  <script>
+    (function (c, l, a, r, i, t, y) {
+      if (!window.ORDIA_CLARITY_ID) return;
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', window.ORDIA_CLARITY_ID);
   </script>
 
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1915,6 +1929,70 @@ document.addEventListener('DOMContentLoaded', updateCalc);
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+})();
+
+/* ───── LP行動計測：スクロール到達・CTAクリック・フォーム開始・動画再生 ───── */
+(function () {
+  var track = window.ordiaTrack || function () {};
+
+  // ① スクロール到達（25/50/75/100%）
+  var marks = [25, 50, 75, 100], fired = {};
+  function onScroll() {
+    var h = document.documentElement;
+    var scrollable = h.scrollHeight - h.clientHeight;
+    if (scrollable <= 0) return;
+    var pct = (h.scrollTop || window.pageYOffset) / scrollable * 100;
+    marks.forEach(function (m) {
+      if (!fired[m] && pct >= m) {
+        fired[m] = true;
+        track('scroll_depth', { percent: m });
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ② CTAクリック（どのボタンが押されたか。href と直近セクションで識別）
+  function labelFor(href) {
+    if (!href) return 'other';
+    if (href.indexOf('shiryou') > -1) return '資料請求';
+    if (href.indexOf('#contact') > -1) return '問い合わせ/トライアル';
+    if (href.indexOf('#pricing') > -1) return '料金';
+    if (href.indexOf('#demo') > -1) return '解析の流れ(動画)';
+    if (href.indexOf('#faq') > -1) return 'FAQ';
+    return href;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.btn, a.bio-banner, .float-cta a, .lite-cta a, .cta-band a, .nav-cta a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var sec = a.closest('section');
+    track('cta_click', {
+      cta_target: labelFor(href),
+      cta_text: (a.textContent || '').trim().slice(0, 40),
+      section: (sec && sec.id) ? sec.id : 'hero/other'
+    });
+  }, true);
+
+  // ③ フォーム開始（最初の入力にフォーカスした時／フォーム種別つき）
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    var started = false;
+    contactForm.addEventListener('focusin', function () {
+      if (started) return; started = true;
+      track('form_start', { form: '問い合わせ/トライアル' });
+    });
+  }
+
+  // ④ 動画再生（説明ビデオ）
+  var vids = document.querySelectorAll('video');
+  vids.forEach(function (v) {
+    var played = false;
+    v.addEventListener('play', function () {
+      if (played) return; played = true;
+      track('video_play', { video: 'ORDIA説明ビデオ' });
+    });
+  });
 })();
 
 </script>
