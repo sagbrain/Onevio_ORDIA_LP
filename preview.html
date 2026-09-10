@@ -147,9 +147,9 @@
     }
     .chip.green { color: var(--green); background: rgba(46,168,74,.09); }
     .chip.white { color: rgba(255,255,255,.8); background: rgba(255,255,255,.12); }
-    .h2 { font-size: clamp(26px, 3.8vw, 40px); font-weight: 900; line-height: 1.28; margin-bottom: 14px; }
+    .h2 { font-size: clamp(26px, 3.8vw, 40px); font-weight: 900; line-height: 1.28; margin-bottom: 14px; text-wrap: balance; }
     .h2.white { color: #fff; }
-    .lead { font-size: 18px; color: var(--gray-600); max-width: 640px; }
+    .lead { text-wrap: pretty; font-size: 18px; color: var(--gray-600); max-width: 640px; }
     .lead.white { color: rgba(255,255,255,.76); }
     .tc { text-align: center; }
     .tc .lead { margin: 0 auto; }
@@ -213,7 +213,7 @@
     .solve-head { padding: 18px 20px; font-weight: 900; font-size: 21px; text-align: center; letter-spacing:.02em; }
     .solve-head.pain { background: #fdf0f0; color: #b3413f; }
     .solve-head.gain { background: #eafaf0; color: var(--green-dk); }
-    .solve-row { padding: 22px 22px; font-size: 19px; line-height: 1.72; border-top: 1px solid var(--gray-200); display: flex; gap: 16px; align-items: flex-start; }
+    .solve-row { text-wrap: pretty; padding: 22px 22px; font-size: 19px; line-height: 1.72; border-top: 1px solid var(--gray-200); display: flex; gap: 16px; align-items: flex-start; }
     .solve-row .ic { flex: none; width: 52px; height: 52px; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center; font-size: 24px; }
     .solve-row.pain .ic { background: #fdecec; }
@@ -339,8 +339,8 @@
       padding: 4px 12px; border-radius: 100px;
     }
 
-    .hero h1 {
-      font-size: clamp(30px, 4.2vw, 50px); font-weight: 900;
+    .hero h1 { text-wrap: balance;
+      font-size: clamp(28px, 3.6vw, 43px); font-weight: 900;
       line-height: 1.22; color: var(--text); margin-bottom: 18px;
     }
     .hero h1 em { font-style: normal; color: var(--blue-mid); position: relative; }
@@ -348,7 +348,7 @@
       content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
       height: 3px; background: linear-gradient(90deg, var(--blue-mid), var(--cyan)); border-radius: 2px;
     }
-    .hero-sub { font-size: 19px; color: var(--gray-600); margin-bottom: 26px; line-height: 1.85; }
+    .hero-sub { text-wrap: pretty; font-size: 19px; color: var(--gray-600); margin-bottom: 26px; line-height: 1.85; }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
     .hero-kpis { display: flex; gap: 0; }
     .kpi { text-align: center; padding: 0 22px; }
@@ -470,7 +470,7 @@
     .pain-card:hover { border-color: var(--blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
     .pain-no  { font-size: 13px; font-weight: 800; color: var(--blue-light); letter-spacing: .1em; margin-bottom: 10px; }
     .pain-card h3 { font-size: 21px; font-weight: 900; margin-bottom: 10px; }
-    .pain-card p  { font-size: 16px; color: var(--gray-600); line-height: 1.68; }
+    .pain-card p  { text-wrap: pretty; font-size: 16px; color: var(--gray-600); line-height: 1.68; }
     .pain-img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 12px;
       margin-bottom: 16px; border: 1px solid var(--gray-200); display: block; }
     .insight-box {
@@ -1063,7 +1063,7 @@
         <p class="hero-sub">
           <span class="nb">FAX・メール・PDFの注文書を、AIが自動で受注データへ。</span>
           <span class="nb">お客様の送り方はそのままで OK。手入力・転記ミスから解放されます。</span>
-          <b class="nb" style="color:var(--blue-dark);">ローコストで導入でき、使い始めたその月からコスト削減へ。</b>
+          <b class="nb" style="color:var(--blue-dark);">ローコストで導入でき、その月からコスト削減へ。</b>
         </p>
         <div class="hero-price">
           <span class="hp-item">基本料 0円</span>
