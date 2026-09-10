@@ -200,6 +200,12 @@
     /* 語句単位で折り返す（強制改行の代替。画面幅に応じて自然に改行） */
     .nb { display: inline-block; }
 
+    /* ===== 詳細セクションの区切り ===== */
+    .more-divider { background: var(--gray-50); border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200); padding: 30px 0; text-align: center; }
+    .more-divider h3 { font-size: clamp(19px,2.4vw,24px); font-weight: 900; color: var(--blue-dark); margin-bottom: 6px; }
+    .more-divider p { font-size: 15.5px; color: var(--gray-600); }
+
     /* ===== セクション挿絵 ===== */
     .sec-visual { max-width: 780px; margin: 0 auto 34px; }
     .sec-visual img { width: 100%; height: auto; display: block; border-radius: var(--r-lg);
@@ -1318,6 +1324,145 @@
   </div>
 </section>
 
+<!-- ======= PRICING ======= -->
+<section class="sec" id="pricing">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">料金</span>
+      <h2 class="h2"><span class="nb">どのチャネルでも、一律。</span><span class="nb">基本料0円・1ファイル50円</span></h2>
+    </div>
+    <div class="price-top">
+      <div class="price-badge"><i class="fas fa-check-circle"></i>初期費用0円・基本月額0円。使った分だけ</div>
+      <p class="lead" style="margin:10px auto 0;text-align:center;max-width:560px;"><span class="nb">ORDIAの料金は、プランやチャネルで変わりません。</span><span class="nb">注文書1ファイルあたり一律のシンプルな料金です。</span></p>
+    </div>
+
+    <div style="max-width:600px;margin:0 auto;background:#fff;border:2px solid var(--green);border-radius:var(--r-lg);box-shadow:var(--sh-md);padding:34px 28px;text-align:center;">
+      <div style="font-size:13px;font-weight:800;color:var(--green);letter-spacing:.12em;">一律料金 / FLAT RATE</div>
+      <div style="font-size:52px;font-weight:900;color:var(--blue-dark);line-height:1.1;margin:8px 0;">50<span style="font-size:24px;">円</span> <span style="font-size:18px;color:var(--gray-600);font-weight:700;">/ 1ファイル（税別）</span></div>
+      <div style="font-size:13.5px;color:var(--gray-600);">メール・FAX・スキャン画像・PDF・Excel・EDI ―― どのチャネルでも一律</div>
+      <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <span style="font-size:12px;font-weight:700;background:rgba(43,114,203,.08);color:var(--blue-mid);padding:5px 14px;border-radius:100px;">初期費用 0円</span>
+        <span style="font-size:12px;font-weight:700;background:rgba(43,114,203,.08);color:var(--blue-mid);padding:5px 14px;border-radius:100px;">基本月額 0円</span>
+      </div>
+    </div>
+    <div class="price-note">
+      ※ 価格は税別。「1ファイル」＝同一顧客・同一日付の注文書1通（明細が何行でも1ファイル）。大量にご利用の場合は、別途ボリュームディスカウントをご相談いただけます。<br>
+      ※ 基幹システムとの連携は別途お見積りになりますので、お問い合わせください。
+    </div>
+    <!-- 自社ケース自動試算 -->
+    <div class="calc">
+      <div class="calc-head">
+        <h3><i class="fas fa-calculator"></i> 自社のケースを試算する</h3>
+        <p>月間の注文書件数と時給を入力すると、人件費削減効果を自動計算します。</p>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label>月間の注文書件数<span class="unit">件 / 月（＝処理ファイル数）</span></label>
+            <div class="calc-inrow">
+              <input type="range" id="calcCount" min="50" max="3000" step="10" value="300" oninput="updateCalc()">
+              <input type="number" class="calc-num" id="calcCountNum" min="0" value="300" oninput="syncCalc('count')">
+            </div>
+          </div>
+          <div class="calc-field">
+            <label>担当者の時給<span class="unit">円 / 時</span></label>
+            <div class="calc-inrow">
+              <input type="range" id="calcWage" min="1000" max="3000" step="50" value="1200" oninput="updateCalc()">
+              <input type="number" class="calc-num" id="calcWageNum" min="0" value="1200" oninput="syncCalc('wage')">
+            </div>
+          </div>
+          <div class="calc-assumptions">
+            ※ 前提：法定福利費等を時給×1.20で計上。手入力 5分/件 → ORDIA確認 1分/件。<br>
+            ORDIA利用料は一律 50円/ファイルとして試算。実際の効果はお見積もり時に精査します。
+          </div>
+        </div>
+        <div class="calc-out">
+          <div class="calc-out-main">
+            <div class="calc-out-label">年間の人件費削減効果（概算）</div>
+            <div class="calc-out-val"><span id="calcYear">1,656,000</span><span class="yen">円</span></div>
+            <div class="calc-out-sub">月間 約 <strong id="calcMonth">138,000</strong> 円の削減</div>
+          </div>
+          <div class="calc-breakdown">
+            <div class="calc-bd">
+              <div class="bd-label">従来コスト/件</div>
+              <div class="bd-val" id="calcBefore">120円</div>
+            </div>
+            <div class="calc-bd">
+              <div class="bd-label">ORDIA後/件</div>
+              <div class="bd-val down" id="calcAfter">74円</div>
+            </div>
+            <div class="calc-bd">
+              <div class="bd-label">削減率</div>
+              <div class="bd-val down" id="calcRate">38%</div>
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-green" style="width:100%;">
+            <i class="fas fa-paper-plane"></i> この試算をもとに無料相談する
+          </a>
+          <a href="shiryou.html" class="btn btn-outline" style="width:100%;margin-top:10px;">
+            <i class="fas fa-file-pdf"></i> 試算の前提・料金を資料で受け取る
+          </a>
+          <p style="font-size:11.5px;color:var(--gray-600);text-align:center;margin-top:10px;line-height:1.6;">
+            お名前とメールだけ・30秒で完了。しつこい営業はいたしません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= 課題 → 解決（料金直後の再訴求） ======= -->
+<section class="sec solve">
+  <div class="container">
+    <div class="tc" style="margin-bottom:28px;">
+      <span class="chip">お悩み → 解決</span>
+      <h2 class="h2" style="font-size:clamp(30px,4.4vw,46px);"><span class="nb">その「受注の困りごと」、</span><span class="nb">ORDIAなら<em style="font-style:normal;color:var(--green-dk);">こう変わります</em></span></h2>
+      <p class="lead" style="margin:0 auto;font-size:20px;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
+    </div>
+    <div class="solve-grid">
+      <div class="solve-head pain">よくあるお悩み</div>
+      <div class="solve-head gain">ORDIAなら</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>担当者しか処理できず、休めない・属人化している</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>システム導入は高額で、うちには手が出ない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>効果が出るまで時間がかかりそう</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= 料金確認後のCTA帯 ======= -->
+<section class="price-cta">
+  <div class="container">
+    <h3>料金をご確認いただけましたか？</h3>
+    <p>基本料0円・1ファイル50円。次の一歩は、どちらからでもお選びいただけます。</p>
+    <div class="pc-btns">
+      <a href="shiryou.html" class="btn btn-green btn-lg"><i class="fas fa-file-pdf"></i> 資料をダウンロード（無料）</a>
+      <a href="#contact" class="btn btn-outline btn-lg"><i class="fas fa-comments"></i> 費用について相談する</a>
+      <a href="#contact" class="btn btn-outline btn-lg"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
+    </div>
+    <p class="sub-note">資料は お名前とメールだけ・30秒で完了。ご相談は2営業日以内にご返信します。</p>
+  </div>
+</section>
+
+<!-- ======= 詳細セクションへの区切り ======= -->
+<section class="more-divider">
+  <div class="container">
+    <h3>ここから先は、ORDIAをもっと詳しく</h3>
+    <p>精度の高め方・基幹システムとの連携・機能の一覧をご紹介します。お急ぎの方は、上のボタンから資料をご覧ください。</p>
+  </div>
+</section>
+
 <!-- ======= SMART AI ======= -->
 <section class="sec">
   <div class="container">
@@ -1466,137 +1611,6 @@
       <a href="shiryou.html" class="btn btn-green btn-lg"><i class="fas fa-file-pdf"></i> 資料をダウンロード（無料）</a>
       <p class="sub-note">お名前とメールだけ・30秒で完了。しつこい営業はいたしません。</p>
     </div>
-  </div>
-</section>
-
-<!-- ======= PRICING ======= -->
-<section class="sec" id="pricing">
-  <div class="container">
-    <div class="tc">
-      <span class="chip">料金</span>
-      <h2 class="h2"><span class="nb">どのチャネルでも、一律。</span><span class="nb">基本料0円・1ファイル50円</span></h2>
-    </div>
-    <div class="price-top">
-      <div class="price-badge"><i class="fas fa-check-circle"></i>初期費用0円・基本月額0円。使った分だけ</div>
-      <p class="lead" style="margin:10px auto 0;text-align:center;max-width:560px;"><span class="nb">ORDIAの料金は、プランやチャネルで変わりません。</span><span class="nb">注文書1ファイルあたり一律のシンプルな料金です。</span></p>
-    </div>
-
-    <div style="max-width:600px;margin:0 auto;background:#fff;border:2px solid var(--green);border-radius:var(--r-lg);box-shadow:var(--sh-md);padding:34px 28px;text-align:center;">
-      <div style="font-size:13px;font-weight:800;color:var(--green);letter-spacing:.12em;">一律料金 / FLAT RATE</div>
-      <div style="font-size:52px;font-weight:900;color:var(--blue-dark);line-height:1.1;margin:8px 0;">50<span style="font-size:24px;">円</span> <span style="font-size:18px;color:var(--gray-600);font-weight:700;">/ 1ファイル（税別）</span></div>
-      <div style="font-size:13.5px;color:var(--gray-600);">メール・FAX・スキャン画像・PDF・Excel・EDI ―― どのチャネルでも一律</div>
-      <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <span style="font-size:12px;font-weight:700;background:rgba(43,114,203,.08);color:var(--blue-mid);padding:5px 14px;border-radius:100px;">初期費用 0円</span>
-        <span style="font-size:12px;font-weight:700;background:rgba(43,114,203,.08);color:var(--blue-mid);padding:5px 14px;border-radius:100px;">基本月額 0円</span>
-      </div>
-    </div>
-    <div class="price-note">
-      ※ 価格は税別。「1ファイル」＝同一顧客・同一日付の注文書1通（明細が何行でも1ファイル）。大量にご利用の場合は、別途ボリュームディスカウントをご相談いただけます。<br>
-      ※ 基幹システムとの連携は別途お見積りになりますので、お問い合わせください。
-    </div>
-    <!-- 自社ケース自動試算 -->
-    <div class="calc">
-      <div class="calc-head">
-        <h3><i class="fas fa-calculator"></i> 自社のケースを試算する</h3>
-        <p>月間の注文書件数と時給を入力すると、人件費削減効果を自動計算します。</p>
-      </div>
-      <div class="calc-body">
-        <div class="calc-inputs">
-          <div class="calc-field">
-            <label>月間の注文書件数<span class="unit">件 / 月（＝処理ファイル数）</span></label>
-            <div class="calc-inrow">
-              <input type="range" id="calcCount" min="50" max="3000" step="10" value="300" oninput="updateCalc()">
-              <input type="number" class="calc-num" id="calcCountNum" min="0" value="300" oninput="syncCalc('count')">
-            </div>
-          </div>
-          <div class="calc-field">
-            <label>担当者の時給<span class="unit">円 / 時</span></label>
-            <div class="calc-inrow">
-              <input type="range" id="calcWage" min="1000" max="3000" step="50" value="1200" oninput="updateCalc()">
-              <input type="number" class="calc-num" id="calcWageNum" min="0" value="1200" oninput="syncCalc('wage')">
-            </div>
-          </div>
-          <div class="calc-assumptions">
-            ※ 前提：法定福利費等を時給×1.20で計上。手入力 5分/件 → ORDIA確認 1分/件。<br>
-            ORDIA利用料は一律 50円/ファイルとして試算。実際の効果はお見積もり時に精査します。
-          </div>
-        </div>
-        <div class="calc-out">
-          <div class="calc-out-main">
-            <div class="calc-out-label">年間の人件費削減効果（概算）</div>
-            <div class="calc-out-val"><span id="calcYear">1,656,000</span><span class="yen">円</span></div>
-            <div class="calc-out-sub">月間 約 <strong id="calcMonth">138,000</strong> 円の削減</div>
-          </div>
-          <div class="calc-breakdown">
-            <div class="calc-bd">
-              <div class="bd-label">従来コスト/件</div>
-              <div class="bd-val" id="calcBefore">120円</div>
-            </div>
-            <div class="calc-bd">
-              <div class="bd-label">ORDIA後/件</div>
-              <div class="bd-val down" id="calcAfter">74円</div>
-            </div>
-            <div class="calc-bd">
-              <div class="bd-label">削減率</div>
-              <div class="bd-val down" id="calcRate">38%</div>
-            </div>
-          </div>
-          <a href="#contact" class="btn btn-green" style="width:100%;">
-            <i class="fas fa-paper-plane"></i> この試算をもとに無料相談する
-          </a>
-          <a href="shiryou.html" class="btn btn-outline" style="width:100%;margin-top:10px;">
-            <i class="fas fa-file-pdf"></i> 試算の前提・料金を資料で受け取る
-          </a>
-          <p style="font-size:11.5px;color:var(--gray-600);text-align:center;margin-top:10px;line-height:1.6;">
-            お名前とメールだけ・30秒で完了。しつこい営業はいたしません。
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======= 課題 → 解決（料金直後の再訴求） ======= -->
-<section class="sec solve">
-  <div class="container">
-    <div class="tc" style="margin-bottom:28px;">
-      <span class="chip">お悩み → 解決</span>
-      <h2 class="h2" style="font-size:clamp(30px,4.4vw,46px);"><span class="nb">その「受注の困りごと」、</span><span class="nb">ORDIAなら<em style="font-style:normal;color:var(--green-dk);">こう変わります</em></span></h2>
-      <p class="lead" style="margin:0 auto;font-size:20px;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
-    </div>
-    <div class="solve-grid">
-      <div class="solve-head pain">よくあるお悩み</div>
-      <div class="solve-head gain">ORDIAなら</div>
-
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
-
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
-
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>担当者しか処理できず、休めない・属人化している</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
-
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>システム導入は高額で、うちには手が出ない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
-
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>効果が出るまで時間がかかりそう</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
-    </div>
-  </div>
-</section>
-
-<!-- ======= 料金確認後のCTA帯 ======= -->
-<section class="price-cta">
-  <div class="container">
-    <h3>料金をご確認いただけましたか？</h3>
-    <p>基本料0円・1ファイル50円。次の一歩は、どちらからでもお選びいただけます。</p>
-    <div class="pc-btns">
-      <a href="shiryou.html" class="btn btn-green btn-lg"><i class="fas fa-file-pdf"></i> 資料をダウンロード（無料）</a>
-      <a href="#contact" class="btn btn-outline btn-lg"><i class="fas fa-comments"></i> 費用について相談する</a>
-      <a href="#contact" class="btn btn-outline btn-lg"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
-    </div>
-    <p class="sub-note">資料は お名前とメールだけ・30秒で完了。ご相談は2営業日以内にご返信します。</p>
   </div>
 </section>
 
