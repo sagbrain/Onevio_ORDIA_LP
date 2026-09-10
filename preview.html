@@ -127,7 +127,7 @@
     /* ===== Reset ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; color: var(--text); background: #fff; line-height: 1.65; font-size: 15px; }
+    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; color: var(--text); background: #fff; line-height: 1.8; font-size: 17px; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
@@ -149,7 +149,7 @@
     .chip.white { color: rgba(255,255,255,.8); background: rgba(255,255,255,.12); }
     .h2 { font-size: clamp(26px, 3.8vw, 40px); font-weight: 900; line-height: 1.28; margin-bottom: 14px; }
     .h2.white { color: #fff; }
-    .lead { font-size: 16px; color: var(--gray-600); max-width: 640px; }
+    .lead { font-size: 18px; color: var(--gray-600); max-width: 640px; }
     .lead.white { color: rgba(255,255,255,.76); }
     .tc { text-align: center; }
     .tc .lead { margin: 0 auto; }
@@ -191,6 +191,37 @@
       .hero-price { border-radius: var(--r); padding: 12px 16px; }
       .hero-price .hp-sep { display: none; }
     }
+
+    /* ===== ヒーロー右：ビフォーアフター図解 ===== */
+    .hero-visual { background:#fff; border:1.5px solid var(--gray-200); border-radius: var(--r-lg);
+      padding: 18px; box-shadow: var(--sh-md); }
+    @media (max-width: 980px) { .hero-visual { margin-top: 8px; } }
+
+    /* ===== 課題→解決 対比ブロック ===== */
+    .solve { background: #fff; }
+    .solve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 940px; margin: 0 auto;
+      border: 1.5px solid var(--gray-200); border-radius: var(--r-lg); overflow: hidden; }
+    .solve-head { padding: 14px 20px; font-weight: 900; font-size: 16px; text-align: center; }
+    .solve-head.pain { background: #fdf0f0; color: #b3413f; }
+    .solve-head.gain { background: #eafaf0; color: var(--green-dk); }
+    .solve-row { padding: 16px 20px; font-size: 16px; line-height: 1.7; border-top: 1px solid var(--gray-200); display: flex; gap: 10px; }
+    .solve-row .ic { flex: none; margin-top: 3px; }
+    .solve-row.pain { background: #fffafa; color: var(--gray-600); }
+    .solve-row.pain .ic { color: #d98b8a; }
+    .solve-row.gain .ic { color: var(--green); }
+    .solve-row.gain b { color: var(--blue-dark); }
+    @media (max-width: 760px) { .solve-grid { grid-template-columns: 1fr; } .solve-head.gain { border-top: 2px solid var(--gray-200); } }
+
+    /* ===== ヒーロー価値バッジ ===== */
+    .hero-values { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; }
+    .hero-values .hv {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green); color: #fff; font-weight: 800; font-size: 15px;
+      padding: 8px 16px; border-radius: 999px; box-shadow: 0 3px 10px rgba(46,168,74,.28);
+    }
+    .hero-values .hv.blue { background: var(--blue-mid); box-shadow: 0 3px 10px rgba(43,114,203,.28); }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
+    .hero-links a { font-size: 15px; font-weight: 700; color: var(--blue-mid); text-decoration: underline; }
 
     /* ===== 料金セクション直後のCTA帯 ===== */
     .price-cta {
@@ -312,7 +343,7 @@
       content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
       height: 3px; background: linear-gradient(90deg, var(--blue-mid), var(--cyan)); border-radius: 2px;
     }
-    .hero-sub { font-size: 16.5px; color: var(--gray-600); margin-bottom: 34px; line-height: 1.75; }
+    .hero-sub { font-size: 19px; color: var(--gray-600); margin-bottom: 26px; line-height: 1.85; }
     .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
     .hero-kpis { display: flex; gap: 0; }
     .kpi { text-align: center; padding: 0 22px; }
@@ -1017,24 +1048,21 @@
           <span class="dot"></span>
           2026年 ローンチ予定・先行トライアル受付中
         </div>
-        <!-- product category（大きく視認） -->
         <div class="hero-cat">
-          <span class="hero-cat-main">あらゆる業界の受注業務へ</span>
-          <span class="hero-cat-sub">AI受注自動化クラウド</span>
+          <span class="hero-cat-sub">あらゆる業界の受注業務へ｜AI受注自動化クラウド</span>
         </div>
         <h1>
-          FAX・メール・PDFの<br>
-          注文書を、<em>AIが自動で</em><br>
-          受注データへ変換。
+          注文書の入力、<br>
+          <em>もう手作業はいりません。</em>
         </h1>
         <p class="hero-sub">
-          お客様の送り方はそのままで OK。<br>
-          ORDIAはどんな形式・どんな業界の注文書も自動で読み取り、<br>
-          商品・顧客マスターと照合し、基幹システムへ登録まで一気に完了させます。<br>
-          <span style="font-size:14px;color:var(--blue-mid);font-weight:700;display:block;margin-top:8px;">
-            ――お客様のやり方は変えなくていい。変わるのは貴社の受け方だけ。
-          </span>
+          FAX・メール・PDFの注文書を、AIが自動で受注データへ。<br>
+          お客様の送り方はそのままで OK。手入力・転記ミスから解放されます。
         </p>
+        <div class="hero-values">
+          <span class="hv"><i class="fas fa-yen-sign"></i> ローコストで導入可能</span>
+          <span class="hv blue"><i class="fas fa-bolt"></i> すぐにコスト削減</span>
+        </div>
         <div class="hero-price">
           <span class="hp-item">基本料 0円</span>
           <span class="hp-sep"></span>
@@ -1045,9 +1073,11 @@
         </div>
         <div class="hero-btns">
           <a href="#pricing" class="btn btn-green btn-xl"><i class="fas fa-yen-sign"></i>まず料金を見る</a>
-          <a href="#contact" class="btn btn-outline btn-xl"><i class="fas fa-rocket"></i>無料トライアルに申し込む</a>
-          <a href="shiryou.html" class="btn btn-outline btn-xl"><i class="fas fa-file-pdf"></i>資料請求（PDF）</a>
-          <a href="#demo" class="btn btn-outline btn-xl"><i class="fas fa-play-circle"></i>解析の流れを見る（動画）</a>
+          <a href="shiryou.html" class="btn btn-outline btn-xl"><i class="fas fa-file-pdf"></i>資料をダウンロード（無料）</a>
+        </div>
+        <div class="hero-links">
+          <a href="#demo"><i class="fas fa-play-circle"></i> 解析の流れを見る（1分動画）</a>
+          <a href="#contact"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
         </div>
         <div class="hero-kpis">
           <div class="kpi">
@@ -1073,57 +1103,72 @@
         <p style="font-size:11px;color:var(--gray-400);margin-top:10px;">※ 人件費削減・処理時間短縮は試算例です（実環境により異なります）。</p>
       </div>
 
-      <!-- right visual -->
-      <div class="hero-card">
-        <div class="hc-float tr">
-          <span style="color:var(--green);font-size:15px;">●</span> AI解析中...
-        </div>
-        <div class="hc-head">
-          <div class="hc-icon"><i class="fas fa-robot"></i></div>
-          <div>
-            <div class="hc-title">ORDIA AI受注処理</div>
-            <div class="hc-sub">リアルタイム自動解析</div>
-          </div>
-        </div>
-        <div class="flow-list">
-          <div class="fl-item active">
-            <div class="fl-ic b"><i class="fas fa-envelope"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;">受信</div>
-              <div style="font-size:11px;color:var(--gray-400);">メール / FAX / PDF</div>
-            </div>
-            <span class="fl-badge done">✓ 受信済</span>
-          </div>
-          <div class="fl-arrow">↓</div>
-          <div class="fl-item active">
-            <div class="fl-ic b"><i class="fas fa-brain"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;">AI解析</div>
-              <div style="font-size:11px;color:var(--gray-400);">品番・数量・納期を抽出</div>
-            </div>
-            <span class="fl-badge done">✓ 完了</span>
-          </div>
-          <div class="fl-arrow">↓</div>
-          <div class="fl-item">
-            <div class="fl-ic c"><i class="fas fa-sync-alt"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;">在庫・納期照会</div>
-              <div style="font-size:11px;color:var(--gray-400);">仕入先サイト・在庫DB照会</div>
-            </div>
-            <span class="fl-badge proc">処理中</span>
-          </div>
-          <div class="fl-arrow">↓</div>
-          <div class="fl-item">
-            <div class="fl-ic g"><i class="fas fa-check-circle"></i></div>
-            <div>
-              <div style="font-size:12px;font-weight:800;">受注登録</div>
-              <div style="font-size:11px;color:var(--gray-400);">基幹システムへ自動連携</div>
-            </div>
-          </div>
-        </div>
-        <div class="hc-float bl">
-          <i class="fas fa-shield-alt" style="color:var(--blue-mid)"></i> ISO/IEC 27001認証
-        </div>
+      <!-- right visual : ビフォー→アフター図解 -->
+      <div class="hero-visual">
+        <svg viewBox="0 0 600 450" style="font-family:inherit;width:100%;height:auto;display:block;" role="img"
+             aria-label="バラバラな注文書を、AIが自動で受注データに変換する図">
+          <text x="130" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#5A6E85">Before：バラバラな注文書</text>
+          <text x="470" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#23883B">After：そのまま受注データ</text>
+          <g transform="rotate(-7 110 150)">
+            <rect x="50" y="62" width="120" height="146" rx="8" fill="#fff" stroke="#DDE4EF" stroke-width="2"/>
+            <rect x="62" y="76" width="42" height="19" rx="5" fill="#EEF2F7"/>
+            <text x="83" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#5A6E85">FAX</text>
+            <rect x="62" y="106" width="92" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="62" y="122" width="74" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="62" y="138" width="84" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="62" y="154" width="60" height="7" rx="3.5" fill="#DDE4EF"/>
+          </g>
+          <g transform="rotate(4 130 175)">
+            <rect x="72" y="88" width="120" height="146" rx="8" fill="#fff" stroke="#DDE4EF" stroke-width="2"/>
+            <rect x="84" y="102" width="52" height="19" rx="5" fill="#EEF2F7"/>
+            <text x="110" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#5A6E85">メール</text>
+            <rect x="84" y="132" width="92" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="84" y="148" width="70" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="84" y="164" width="86" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="84" y="180" width="56" height="7" rx="3.5" fill="#DDE4EF"/>
+          </g>
+          <g transform="rotate(10 150 200)">
+            <rect x="94" y="114" width="120" height="146" rx="8" fill="#fff" stroke="#DDE4EF" stroke-width="2"/>
+            <rect x="106" y="128" width="42" height="19" rx="5" fill="#FDECEC"/>
+            <text x="127" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#B3413F">PDF</text>
+            <rect x="106" y="158" width="92" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="106" y="174" width="66" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="106" y="190" width="88" height="7" rx="3.5" fill="#DDE4EF"/>
+            <rect x="106" y="206" width="52" height="7" rx="3.5" fill="#DDE4EF"/>
+          </g>
+          <text x="130" y="300" text-anchor="middle" font-size="14" fill="#5A6E85">手入力・転記に追われる…</text>
+          <line x1="238" y1="170" x2="356" y2="170" stroke="#2EA84A" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="344,160 362,170 344,180" fill="#2EA84A"/>
+          <circle cx="298" cy="170" r="41" fill="none" stroke="#2B72CB" stroke-opacity=".22" stroke-width="4"/>
+          <circle cx="298" cy="170" r="34" fill="#2B72CB"/>
+          <text x="298" y="177" text-anchor="middle" font-size="20" font-weight="800" fill="#fff">AI</text>
+          <text x="298" y="238" text-anchor="middle" font-size="14" font-weight="700" fill="#1B4F8C">自動で読み取り・突合</text>
+          <rect x="360" y="62" width="220" height="198" rx="12" fill="#fff" stroke="#DDE4EF" stroke-width="2"/>
+          <path d="M360 74a12 12 0 0 1 12-12h196a12 12 0 0 1 12 12v26H360z" fill="#1B4F8C"/>
+          <text x="470" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">受注データ（自動生成）</text>
+          <line x1="360" y1="152" x2="580" y2="152" stroke="#EEF2F7" stroke-width="2"/>
+          <line x1="360" y1="206" x2="580" y2="206" stroke="#EEF2F7" stroke-width="2"/>
+          <text x="378" y="132" font-size="13" fill="#5A6E85">品番</text>
+          <text x="540" y="132" text-anchor="end" font-size="14" font-weight="700" fill="#1A2A3A">A-1234</text>
+          <circle cx="562" cy="127" r="9" fill="#eafaf0"/>
+          <path d="M557 127l3.5 3.5 6-6.5" stroke="#2EA84A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="378" y="186" font-size="13" fill="#5A6E85">数量</text>
+          <text x="540" y="186" text-anchor="end" font-size="14" font-weight="700" fill="#1A2A3A">20</text>
+          <circle cx="562" cy="181" r="9" fill="#eafaf0"/>
+          <path d="M557 181l3.5 3.5 6-6.5" stroke="#2EA84A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="378" y="240" font-size="13" fill="#5A6E85">納期</text>
+          <text x="540" y="240" text-anchor="end" font-size="14" font-weight="700" fill="#1A2A3A">9/25</text>
+          <circle cx="562" cy="235" r="9" fill="#eafaf0"/>
+          <path d="M557 235l3.5 3.5 6-6.5" stroke="#2EA84A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="424" cy="295" r="15" fill="#eafaf0" stroke="#2EA84A" stroke-width="2"/>
+          <circle cx="419" cy="291" r="2" fill="#23883B"/>
+          <circle cx="429" cy="291" r="2" fill="#23883B"/>
+          <path d="M418 299q6 6 12 0" stroke="#23883B" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="448" y="301" font-size="14" font-weight="700" fill="#23883B">確認するだけ</text>
+          <rect x="20" y="340" width="560" height="86" rx="16" fill="#EEF5FF" stroke="#C7D9F0" stroke-width="2"/>
+          <text x="300" y="376" text-anchor="middle" font-size="21" font-weight="800" fill="#1B4F8C">基本料 0円 ／ 1ファイル 50円 ／ 初期費用なし</text>
+          <text x="300" y="404" text-anchor="middle" font-size="15" font-weight="700" fill="#23883B">ローコストで導入可能。すぐにコスト削減へ。</text>
+        </svg>
       </div>
 
     </div>
@@ -1512,6 +1557,36 @@
   </div>
 </section>
 
+<!-- ======= 課題 → 解決（料金直後の再訴求） ======= -->
+<section class="sec solve">
+  <div class="container">
+    <div class="tc" style="margin-bottom:28px;">
+      <span class="chip">お悩み → 解決</span>
+      <h2 class="h2">その「受注の困りごと」、<br>ORDIAならこう変わります</h2>
+      <p class="lead" style="margin:0 auto;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
+    </div>
+    <div class="solve-grid">
+      <div class="solve-head pain">よくあるお悩み</div>
+      <div class="solve-head gain">ORDIAなら</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>担当者しか処理できず、休めない・属人化している</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>システム導入は高額で、うちには手が出ない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
+
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>効果が出るまで時間がかかりそう</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
+    </div>
+  </div>
+</section>
+
 <!-- ======= 料金確認後のCTA帯 ======= -->
 <section class="price-cta">
   <div class="container">
@@ -1561,6 +1636,59 @@
     <a href="#contact" class="btn btn-green btn-xl">
       <i class="fas fa-rocket"></i> 無料トライアルに申し込む
     </a>
+  </div>
+</section>
+
+<!-- ======= FAQ ======= -->
+<section class="sec" id="faq">
+  <div class="container">
+    <div class="tc">
+      <span class="chip">よくあるご質問</span>
+      <h2 class="h2">FAQ</h2>
+    </div>
+    <div class="faq-wrap">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          自社の基幹システムと連携できますか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">CSV出力や標準APIによる連携が可能です。リアルタイム連携が必要な場合はカスタムAPIやRPAを個別に開発・設定することもできます。まずはCSV運用から始め、段階的に連携を深めることを推奨しています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          導入時に社内で準備するものは何ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">最低限必要なものは①利用者のメールアドレス、②注文受信チャネルからのメール転送設定、③商品・得意先マスターのCSV、④AIチューニング用の注文書サンプル（できるだけ多くご提供いただくほど精度が向上します）です。専任のIT担当者は不要で、業務担当者のみで導入を進められます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          FAXの注文書にも対応できますか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">はい、対応しています。FAX受信したPDF・画像をOCR処理し、AIが内容を解析します。料金はチャネルを問わず一律で、1ファイルあたり50円（税別）です。手書きのFAXにも対応していますが、活字に比べ精度が低下する場合があります。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          AI解析の精度はどの程度ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">顧客ごとの定型フォーマットに対しては、高い精度での読み取りを目指して設計しています。初期導入時に、いただいた注文書サンプルをもとにAIプロンプトを設定・チューニングし、運用しながら精度を高めていきます。精度管理画面から顧客別の解析品質を確認できます。なお、注文書の形式や記載内容により精度は変動するため、確認・承認の工程を前提とした運用としています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          セキュリティ面は大丈夫ですか？
+          <span class="ico"><i class="fas fa-plus"></i></span>
+        </div>
+        <div class="faq-a">株式会社サグブレインはISO/IEC 27001（ISMS）認証を取得しています（認証番号：MSA-IS-532）。データは国内リージョンで管理され、テナント間の完全な論理分離を実施しています。お客様のデータが他社に参照されることはありません。</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1653,59 +1781,6 @@
     <p class="tc" style="margin-top:8px;font-size:13px;color:var(--gray-600);">
       ※ バイオ業界向けの連携（DOG／BPM・認定エリアパートナー制度 等）の詳細は<a href="#contact" style="color:var(--blue-mid);text-decoration:underline;font-weight:700;">お問い合わせ</a>ください。
     </p>
-  </div>
-</section>
-
-<!-- ======= FAQ ======= -->
-<section class="sec" id="faq">
-  <div class="container">
-    <div class="tc">
-      <span class="chip">よくあるご質問</span>
-      <h2 class="h2">FAQ</h2>
-    </div>
-    <div class="faq-wrap">
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          自社の基幹システムと連携できますか？
-          <span class="ico"><i class="fas fa-plus"></i></span>
-        </div>
-        <div class="faq-a">CSV出力や標準APIによる連携が可能です。リアルタイム連携が必要な場合はカスタムAPIやRPAを個別に開発・設定することもできます。まずはCSV運用から始め、段階的に連携を深めることを推奨しています。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          導入時に社内で準備するものは何ですか？
-          <span class="ico"><i class="fas fa-plus"></i></span>
-        </div>
-        <div class="faq-a">最低限必要なものは①利用者のメールアドレス、②注文受信チャネルからのメール転送設定、③商品・得意先マスターのCSV、④AIチューニング用の注文書サンプル（できるだけ多くご提供いただくほど精度が向上します）です。専任のIT担当者は不要で、業務担当者のみで導入を進められます。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          FAXの注文書にも対応できますか？
-          <span class="ico"><i class="fas fa-plus"></i></span>
-        </div>
-        <div class="faq-a">はい、対応しています。FAX受信したPDF・画像をOCR処理し、AIが内容を解析します。料金はチャネルを問わず一律で、1ファイルあたり50円（税別）です。手書きのFAXにも対応していますが、活字に比べ精度が低下する場合があります。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          AI解析の精度はどの程度ですか？
-          <span class="ico"><i class="fas fa-plus"></i></span>
-        </div>
-        <div class="faq-a">顧客ごとの定型フォーマットに対しては、高い精度での読み取りを目指して設計しています。初期導入時に、いただいた注文書サンプルをもとにAIプロンプトを設定・チューニングし、運用しながら精度を高めていきます。精度管理画面から顧客別の解析品質を確認できます。なお、注文書の形式や記載内容により精度は変動するため、確認・承認の工程を前提とした運用としています。</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          セキュリティ面は大丈夫ですか？
-          <span class="ico"><i class="fas fa-plus"></i></span>
-        </div>
-        <div class="faq-a">株式会社サグブレインはISO/IEC 27001（ISMS）認証を取得しています（認証番号：MSA-IS-532）。データは国内リージョンで管理され、テナント間の完全な論理分離を実施しています。お客様のデータが他社に参照されることはありません。</div>
-      </div>
-
-    </div>
   </div>
 </section>
 
