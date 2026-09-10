@@ -197,6 +197,12 @@
       padding: 18px; box-shadow: var(--sh-md); }
     @media (max-width: 980px) { .hero-visual { margin-top: 8px; } }
 
+    /* ===== セクション挿絵 ===== */
+    .sec-visual { max-width: 780px; margin: 0 auto 34px; }
+    .sec-visual img { width: 100%; height: auto; display: block; border-radius: var(--r-lg);
+      border: 1px solid var(--gray-200); box-shadow: var(--sh-md); }
+    .sec-visual figcaption { text-align: center; font-size: 14.5px; color: var(--gray-600); margin-top: 12px; }
+
     /* ===== 課題→解決 対比ブロック ===== */
     .solve { background: #fff; }
     .solve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 1040px; margin: 0 auto;
@@ -1206,6 +1212,10 @@
       <h2 class="h2">受注業務の現場、<br>こんな問題を抱えていませんか？</h2>
       <p class="lead">業界を問わず、顧客からの注文フォーマットがバラバラで人力に頼る現場には、3つの共通課題があります。</p>
     </div>
+    <figure class="sec-visual" style="max-width:640px;">
+      <img src="assets/visual-orders.jpg" alt="レイアウトの異なる注文書・発注書が並んでいる様子" loading="lazy">
+      <figcaption>お客様ごとにレイアウトも項目もバラバラ。だから手入力が必要になります。</figcaption>
+    </figure>
     <div class="pain-grid">
       <div class="pain-card">
         <img class="pain-img" src="assets/pain-01.jpg" alt="FAX・メール・紙の注文書に囲まれ困る受注担当者" loading="lazy">
@@ -1241,6 +1251,10 @@
       <h2 class="h2">AIが「下書き・調査」を行い、<br>人が「判断・承認」する4ステップ</h2>
       <p class="lead">ORDIAは、お客様の発注方法はそのままに、貴社の受け方だけを自動化します。</p>
     </div>
+    <figure class="sec-visual">
+      <img src="assets/visual-cloud.jpg" alt="メール・EC・FAXなど多様な注文をクラウドに集約し、Web画面と在庫へ連携する仕組み" loading="lazy">
+      <figcaption>メール・EC・FAXなど、バラバラの注文をクラウドに集約。担当者は画面で確認するだけ。</figcaption>
+    </figure>
     <div class="process-wrap">
       <div class="proc-step">
         <div class="proc-no">1</div>
@@ -1310,6 +1324,10 @@
       <h2 class="h2">汎用AI-OCRとは違う。<br>運用しながら、貴社に合わせて精度を高められる</h2>
       <p class="lead">ORDIAは貴社専用の読み取りルールを設定・蓄積。運用を重ねながら、読み取り精度を高めていけます。</p>
     </div>
+    <figure class="sec-visual" style="max-width:680px;">
+      <img src="assets/visual-ai-247.jpg" alt="AIが24時間365日、受注側と仕入先側の処理を自動で回すイメージ" loading="lazy">
+      <figcaption>AIが24時間365日稼働。夜間・休日に届いた注文も、翌朝には整った状態に。</figcaption>
+    </figure>
     <div class="feat-grid">
       <div class="feat-card">
         <div class="feat-ic"><i class="fas fa-graduation-cap"></i></div>
