@@ -199,27 +199,23 @@
 
     /* ===== 課題→解決 対比ブロック ===== */
     .solve { background: #fff; }
-    .solve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 940px; margin: 0 auto;
+    .solve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 1040px; margin: 0 auto;
       border: 1.5px solid var(--gray-200); border-radius: var(--r-lg); overflow: hidden; }
-    .solve-head { padding: 14px 20px; font-weight: 900; font-size: 16px; text-align: center; }
+    .solve-head { padding: 18px 20px; font-weight: 900; font-size: 21px; text-align: center; letter-spacing:.02em; }
     .solve-head.pain { background: #fdf0f0; color: #b3413f; }
     .solve-head.gain { background: #eafaf0; color: var(--green-dk); }
-    .solve-row { padding: 16px 20px; font-size: 16px; line-height: 1.7; border-top: 1px solid var(--gray-200); display: flex; gap: 10px; }
-    .solve-row .ic { flex: none; margin-top: 3px; }
+    .solve-row { padding: 22px 22px; font-size: 19px; line-height: 1.72; border-top: 1px solid var(--gray-200); display: flex; gap: 16px; align-items: flex-start; }
+    .solve-row .ic { flex: none; width: 52px; height: 52px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 24px; }
+    .solve-row.pain .ic { background: #fdecec; }
+    .solve-row.gain .ic { background: #eafaf0; }
     .solve-row.pain { background: #fffafa; color: var(--gray-600); }
-    .solve-row.pain .ic { color: #d98b8a; }
+    .solve-row.pain .ic { color: #c2504e; }
     .solve-row.gain .ic { color: var(--green); }
     .solve-row.gain b { color: var(--blue-dark); }
     @media (max-width: 760px) { .solve-grid { grid-template-columns: 1fr; } .solve-head.gain { border-top: 2px solid var(--gray-200); } }
 
-    /* ===== ヒーロー価値バッジ ===== */
-    .hero-values { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; }
-    .hero-values .hv {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: var(--green); color: #fff; font-weight: 800; font-size: 15px;
-      padding: 8px 16px; border-radius: 999px; box-shadow: 0 3px 10px rgba(46,168,74,.28);
-    }
-    .hero-values .hv.blue { background: var(--blue-mid); box-shadow: 0 3px 10px rgba(43,114,203,.28); }
+    /* ===== ヒーロー補助リンク ===== */
     .hero-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; }
     .hero-links a { font-size: 15px; font-weight: 700; color: var(--blue-mid); text-decoration: underline; }
 
@@ -463,10 +459,10 @@
       border: 1.5px solid var(--gray-200); transition: all .2s;
     }
     .pain-card:hover { border-color: var(--blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
-    .pain-no  { font-size: 12px; font-weight: 800; color: var(--blue-light); letter-spacing: .1em; margin-bottom: 10px; }
-    .pain-card h3 { font-size: 17px; font-weight: 900; margin-bottom: 10px; }
-    .pain-card p  { font-size: 13.5px; color: var(--gray-600); line-height: 1.68; }
-    .pain-emoji   { font-size: 30px; margin-bottom: 12px; }
+    .pain-no  { font-size: 13px; font-weight: 800; color: var(--blue-light); letter-spacing: .1em; margin-bottom: 10px; }
+    .pain-card h3 { font-size: 21px; font-weight: 900; margin-bottom: 10px; }
+    .pain-card p  { font-size: 16px; color: var(--gray-600); line-height: 1.68; }
+    .pain-emoji   { font-size: 52px; margin-bottom: 12px; }
     .insight-box {
       max-width: 700px; margin: 40px auto 0;
       padding: 22px 28px; background: #fff;
@@ -1057,12 +1053,9 @@
         </h1>
         <p class="hero-sub">
           FAX・メール・PDFの注文書を、AIが自動で受注データへ。<br>
-          お客様の送り方はそのままで OK。手入力・転記ミスから解放されます。
+          お客様の送り方はそのままで OK。手入力・転記ミスから解放されます。<br>
+          <b style="color:var(--blue-dark);">ローコストで導入でき、使い始めたその月からコスト削減へ。</b>
         </p>
-        <div class="hero-values">
-          <span class="hv"><i class="fas fa-yen-sign"></i> ローコストで導入可能</span>
-          <span class="hv blue"><i class="fas fa-bolt"></i> すぐにコスト削減</span>
-        </div>
         <div class="hero-price">
           <span class="hp-item">基本料 0円</span>
           <span class="hp-sep"></span>
@@ -1105,7 +1098,7 @@
 
       <!-- right visual : ビフォー→アフター図解 -->
       <div class="hero-visual">
-        <svg viewBox="0 0 600 450" style="font-family:inherit;width:100%;height:auto;display:block;" role="img"
+        <svg viewBox="0 0 600 520" style="font-family:inherit;width:100%;height:auto;display:block;" role="img"
              aria-label="バラバラな注文書を、AIが自動で受注データに変換する図">
           <text x="130" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#5A6E85">Before：バラバラな注文書</text>
           <text x="470" y="40" text-anchor="middle" font-size="16" font-weight="700" fill="#23883B">After：そのまま受注データ</text>
@@ -1136,7 +1129,16 @@
             <rect x="106" y="190" width="88" height="7" rx="3.5" fill="#DDE4EF"/>
             <rect x="106" y="206" width="52" height="7" rx="3.5" fill="#DDE4EF"/>
           </g>
-          <text x="130" y="300" text-anchor="middle" font-size="14" fill="#5A6E85">手入力・転記に追われる…</text>
+          <!-- 困っている担当者 -->
+          <g>
+            <path d="M96 392q0-34 34-34t34 34z" fill="#8FA3BC"/>
+            <circle cx="130" cy="332" r="25" fill="#FFE0C8"/>
+            <path d="M105 328q4-24 25-24t25 24q-8-9-25-9t-25 9z" fill="#4A5B70"/>
+            <path d="M118 331l9 4M142 331l-9 4" stroke="#3C4A5C" stroke-width="2.6" stroke-linecap="round"/>
+            <path d="M121 348q9-7 18 0" stroke="#3C4A5C" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path d="M163 316c4 6 7 10 7 14a7 7 0 0 1-14 0c0-4 3-8 7-14z" fill="#5B9BD5"/>
+          </g>
+          <text x="130" y="424" text-anchor="middle" font-size="17" font-weight="700" fill="#5A6E85">手入力・転記に追われる…</text>
           <line x1="238" y1="170" x2="356" y2="170" stroke="#2EA84A" stroke-width="5" stroke-linecap="round"/>
           <polygon points="344,160 362,170 344,180" fill="#2EA84A"/>
           <circle cx="298" cy="170" r="41" fill="none" stroke="#2B72CB" stroke-opacity=".22" stroke-width="4"/>
@@ -1160,14 +1162,20 @@
           <text x="540" y="240" text-anchor="end" font-size="14" font-weight="700" fill="#1A2A3A">9/25</text>
           <circle cx="562" cy="235" r="9" fill="#eafaf0"/>
           <path d="M557 235l3.5 3.5 6-6.5" stroke="#2EA84A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="424" cy="295" r="15" fill="#eafaf0" stroke="#2EA84A" stroke-width="2"/>
-          <circle cx="419" cy="291" r="2" fill="#23883B"/>
-          <circle cx="429" cy="291" r="2" fill="#23883B"/>
-          <path d="M418 299q6 6 12 0" stroke="#23883B" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <text x="448" y="301" font-size="14" font-weight="700" fill="#23883B">確認するだけ</text>
-          <rect x="20" y="340" width="560" height="86" rx="16" fill="#EEF5FF" stroke="#C7D9F0" stroke-width="2"/>
-          <text x="300" y="376" text-anchor="middle" font-size="21" font-weight="800" fill="#1B4F8C">基本料 0円 ／ 1ファイル 50円 ／ 初期費用なし</text>
-          <text x="300" y="404" text-anchor="middle" font-size="15" font-weight="700" fill="#23883B">ローコストで導入可能。すぐにコスト削減へ。</text>
+          <!-- 喜んでいる担当者 -->
+          <g>
+            <path d="M436 392q0-34 34-34t34 34z" fill="#2EA84A"/>
+            <circle cx="470" cy="332" r="25" fill="#FFE0C8"/>
+            <path d="M445 328q4-24 25-24t25 24q-8-9-25-9t-25 9z" fill="#4A5B70"/>
+            <path d="M457 333q4-5 8 0M477 333q4-5 8 0" stroke="#3C4A5C" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path d="M459 342q11 12 22 0" stroke="#3C4A5C" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+            <path d="M505 306l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#F5B301"/>
+            <path d="M429 316l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#F5B301"/>
+          </g>
+          <text x="470" y="424" text-anchor="middle" font-size="17" font-weight="700" fill="#23883B">確認するだけでOK</text>
+          <rect x="20" y="440" width="560" height="72" rx="16" fill="#EEF5FF" stroke="#C7D9F0" stroke-width="2"/>
+          <text x="300" y="472" text-anchor="middle" font-size="21" font-weight="800" fill="#1B4F8C">基本料 0円 ／ 1ファイル 50円 ／ 初期費用なし</text>
+          <text x="300" y="498" text-anchor="middle" font-size="15" font-weight="700" fill="#23883B">ローコストで導入可能。すぐにコスト削減へ。</text>
         </svg>
       </div>
 
@@ -1193,29 +1201,6 @@
       <a href="#contact" class="btn btn-green btn-lg"><i class="fas fa-rocket"></i> 無料トライアルに申し込む</a>
       <a href="shiryou.html" class="btn btn-outline btn-lg"><i class="fas fa-file-pdf"></i> 資料請求（PDF）</a>
     </div>
-  </div>
-</section>
-
-<!-- ======= BIO ENTRY BANNER ======= -->
-<section style="padding:28px 0 0;">
-  <div class="container">
-    <a href="#bio" class="bio-banner">
-      <div class="bb-ic">🧬</div>
-      <div class="bb-body">
-        <span class="bb-chip">バイオ業界の皆様へ</span>
-        <div class="bb-title">バイオサイエンス業界には、20年以上の実績があります。</div>
-        <div class="bb-sub">
-          サグブレインがバイオ業界向けに展開してきた各サービスと<strong>連動</strong>。商品マスタ・メーカー連携・研究機関データを活かし、ORDIAは“すぐ効く”。
-        </div>
-        <div class="bb-services">
-          <span class="bb-svc">BRP-Code 商品マスタ</span>
-          <span class="bb-svc">主要20社 RPA連携（開発中）</span>
-          <span class="bb-svc">LDB 研究機関DB</span>
-          <span class="bb-svc">DOG / BPM / CLIMS</span>
-        </div>
-      </div>
-      <span class="bb-cta">バイオ業界向けの強みを見る <i class="fas fa-arrow-down"></i></span>
-    </a>
   </div>
 </section>
 
@@ -1562,27 +1547,27 @@
   <div class="container">
     <div class="tc" style="margin-bottom:28px;">
       <span class="chip">お悩み → 解決</span>
-      <h2 class="h2">その「受注の困りごと」、<br>ORDIAならこう変わります</h2>
-      <p class="lead" style="margin:0 auto;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
+      <h2 class="h2" style="font-size:clamp(30px,4.4vw,46px);">その「受注の困りごと」、<br>ORDIAなら<em style="font-style:normal;color:var(--green-dk);">こう変わります</em></h2>
+      <p class="lead" style="margin:0 auto;font-size:20px;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
     </div>
     <div class="solve-grid">
       <div class="solve-head pain">よくあるお悩み</div>
       <div class="solve-head gain">ORDIAなら</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>担当者しか処理できず、休めない・属人化している</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>担当者しか処理できず、休めない・属人化している</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>システム導入は高額で、うちには手が出ない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>システム導入は高額で、うちには手が出ない</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-circle-exclamation"></i></span>効果が出るまで時間がかかりそう</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-circle-check"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>効果が出るまで時間がかかりそう</div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
     </div>
   </div>
 </section>
@@ -1689,6 +1674,29 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ======= BIO ENTRY BANNER ======= -->
+<section style="padding:28px 0 0;">
+  <div class="container">
+    <a href="#bio" class="bio-banner">
+      <div class="bb-ic">🧬</div>
+      <div class="bb-body">
+        <span class="bb-chip">バイオ業界の皆様へ</span>
+        <div class="bb-title">バイオサイエンス業界には、20年以上の実績があります。</div>
+        <div class="bb-sub">
+          サグブレインがバイオ業界向けに展開してきた各サービスと<strong>連動</strong>。商品マスタ・メーカー連携・研究機関データを活かし、ORDIAは“すぐ効く”。
+        </div>
+        <div class="bb-services">
+          <span class="bb-svc">BRP-Code 商品マスタ</span>
+          <span class="bb-svc">主要20社 RPA連携（開発中）</span>
+          <span class="bb-svc">LDB 研究機関DB</span>
+          <span class="bb-svc">DOG / BPM / CLIMS</span>
+        </div>
+      </div>
+      <span class="bb-cta">バイオ業界向けの強みを見る <i class="fas fa-arrow-down"></i></span>
+    </a>
   </div>
 </section>
 
