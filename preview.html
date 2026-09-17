@@ -220,6 +220,7 @@
     .solve-head.pain { background: #fdf0f0; color: #b3413f; }
     .solve-head.gain { background: #eafaf0; color: var(--green-dk); }
     .solve-row { text-wrap: pretty; padding: 22px 22px; font-size: 19px; line-height: 1.72; border-top: 1px solid var(--gray-200); display: flex; gap: 16px; align-items: flex-start; }
+    .solve-row .txt { flex: 1; min-width: 0; }
     .solve-row .ic { flex: none; width: 52px; height: 52px; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center; font-size: 24px; }
     .solve-row.pain .ic { background: #fdecec; }
@@ -517,6 +518,7 @@
 
     /* ===== Impact ===== */
     .impact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+    .impact-grid.cols2 { grid-template-columns: repeat(2,1fr); max-width: 840px; margin-left: auto; margin-right: auto; }
     .impact-card {
       background: #fff; border-radius: var(--r-lg);
       padding: 38px 28px; text-align: center; box-shadow: var(--sh-md);
@@ -1068,7 +1070,7 @@
         </h1>
         <p class="hero-sub">
           <span class="nb">FAX・メール・PDFの注文書を、AIが自動で受注データへ。</span>
-          <span class="nb">お客様の送り方はそのままで OK。手入力・転記ミスから解放されます。</span>
+          <span class="nb">お客様の送り方はそのままで OK。</span><span class="nb">手入力・転記ミスから解放されます。</span>
           <b class="nb" style="color:var(--blue-dark);">ローコストで導入でき、その月からコスト削減へ。</b>
         </p>
         <div class="hero-price">
@@ -1218,7 +1220,7 @@
     <div class="tc">
       <span class="chip">課題</span>
       <h2 class="h2"><span class="nb">受注業務の現場、</span><span class="nb">こんな問題を抱えていませんか？</span></h2>
-      <p class="lead">業界を問わず、顧客からの注文フォーマットがバラバラで人力に頼る現場には、3つの共通課題があります。</p>
+      <p class="lead"><span class="nb">顧客ごとに注文フォーマットがバラバラで、人力に頼る現場。</span><span class="nb">業界を問わず、3つの共通課題があります。</span></p>
     </div>
     <figure class="sec-visual" style="max-width:640px;">
       <img src="assets/visual-orders.jpg" alt="レイアウトの異なる注文書・発注書が並んでいる様子" loading="lazy">
@@ -1241,12 +1243,12 @@
         <img class="pain-img" src="assets/pain-03.jpg" alt="複雑につながらない業務フローに戸惑う担当者" loading="lazy">
         <div class="pain-no">ISSUE 03</div>
         <h3>品番の「読み替え」が手作業</h3>
-        <p>お客様の注文書に書かれた商品名や型番は、自社の品番と同じとは限りません。担当者がマスターを見ながら自社の品番に読み替え、基幹システムへ入力する必要があり、時間も品番違いのリスクも残ります。取引先ごとの表記ゆれは、経験のある担当者しか判断できません。</p>
+        <p>お客様の注文書の商品名や型番は、自社の品番と同じとは限りません。担当者がマスターを見ながら読み替えて入力するため、手間も品番違いのリスクも残ります。</p>
       </div>
     </div>
     <div class="insight-box">
       <strong>受注業務は、もう"人海戦術"の限界。</strong>
-      <p>バラバラな注文を、人が読み解いて手入力する時代から。AIが受け取り・データ化・マスター突合・基幹連携まで担う時代へ。</p>
+      <p><span class="nb">バラバラな注文を、人が読み解いて手入力する時代から。</span><span class="nb">AIが受け取り・データ化・マスター突合・基幹連携まで担う時代へ。</span></p>
     </div>
   </div>
 </section>
@@ -1257,7 +1259,7 @@
     <div class="tc">
       <span class="chip">ORDIAの仕組み</span>
       <h2 class="h2"><span class="nb">AIが「下書き・調査」を行い、</span><span class="nb">人が「判断・承認」する4ステップ</span></h2>
-      <p class="lead">ORDIAは、お客様の発注方法はそのままに、貴社の受け方だけを自動化します。</p>
+      <p class="lead"><span class="nb">ORDIAは、お客様の発注方法はそのままに、</span><span class="nb">貴社の受け方だけを自動化します。</span></p>
     </div>
     <figure class="sec-visual">
       <img src="assets/visual-cloud.jpg" alt="メール・EC・FAXなど多様な注文をクラウドに集約し、Web画面と在庫へ連携する仕組み" loading="lazy">
@@ -1268,28 +1270,28 @@
         <div class="proc-no">1</div>
         <span class="proc-icon">📥</span>
         <h4>受信</h4>
-        <p>メール・FAX・PDF・CSV・XML・API</p>
+        <p><span class="nb">メール・FAX・PDF・</span><span class="nb">CSV・XML・API</span></p>
         <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
       </div>
       <div class="proc-step">
         <div class="proc-no">2</div>
         <span class="proc-icon">🤖</span>
         <h4>AI解析</h4>
-        <p>OCRと自然言語処理で、品番・数量・納期を自動抽出</p>
+        <p><span class="nb">OCRと自然言語処理で、</span><span class="nb">品番・数量・納期を自動抽出</span></p>
         <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
       </div>
       <div class="proc-step">
         <div class="proc-no">3</div>
         <span class="proc-icon">🏪</span>
         <h4>在庫・納期照会</h4>
-        <p>仕入先サイト・在庫DBから自動取得し、問い合わせ作業を削減<br><span style="font-size:12px;color:var(--gray-400);">※開発中・順次実装予定</span></p>
+        <p><span class="nb">仕入先サイト・在庫DBから自動取得し、</span><span class="nb">問い合わせ作業を削減</span><br><span style="font-size:12px;color:var(--gray-400);">※開発中・順次実装予定</span></p>
         <div class="proc-arr"><i class="fas fa-chevron-right"></i></div>
       </div>
       <div class="proc-step">
         <div class="proc-no">4</div>
         <span class="proc-icon">✅</span>
         <h4>受注登録</h4>
-        <p>確認・承認後に受注データを自動作成し、基幹システムへ連携</p>
+        <p><span class="nb">確認・承認後に受注データを自動作成し、</span><span class="nb">基幹システムへ連携</span></p>
       </div>
     </div>
   </div>
@@ -1301,7 +1303,7 @@
     <div class="tc">
       <span class="chip">導入効果（試算例）</span>
       <h2 class="h2"><span class="nb">「AIが処理し、人が確認する」</span><span class="nb">運用で見込める効果</span></h2>
-      <p class="lead" style="margin-top:6px;">下記はモデルケースによる<strong>試算例</strong>です。実際の効果は受注件数・業務内容により異なります。</p>
+      <p class="lead" style="margin-top:6px;"><span class="nb">下記はモデルケースによる<strong>試算例</strong>です。</span><span class="nb">実際の効果は受注件数・業務内容により異なります。</span></p>
     </div>
     <div class="impact-grid">
       <div class="impact-card">
@@ -1312,12 +1314,12 @@
       <div class="impact-card">
         <div class="imp-num">80%</div>
         <div class="imp-title">担当者拘束時間の削減</div>
-        <div class="imp-desc">調査・待機などの準備作業をAIが代替。人は承認に集中できます。</div>
+        <div class="imp-desc"><span class="nb">調査・待機などの準備作業をAIが代替。</span><span class="nb">人は承認に集中できます。</span></div>
       </div>
       <div class="impact-card">
         <div class="imp-num">0円</div>
         <div class="imp-title">基本月額費</div>
-        <div class="imp-desc">1ファイル50円・使った分だけ。基本料0円で始められます。</div>
+        <div class="imp-desc"><span class="nb">1ファイル50円・使った分だけ。</span><span class="nb">基本料0円で始められます。</span></div>
       </div>
     </div>
     <p style="text-align:center;font-size:13px;color:var(--gray-400);margin-top:18px;">※時給1,200円・手入力5分/件 → 確認1分/件として試算（1ファイルあたり）。</p>
@@ -1346,7 +1348,7 @@
       </div>
     </div>
     <div class="price-note">
-      ※ 価格は税別。「1ファイル」＝同一顧客・同一日付の注文書1通（明細が何行でも1ファイル）。大量にご利用の場合は、別途ボリュームディスカウントをご相談いただけます。<br>
+      ※ 価格は税別。「1ファイル」＝同一顧客・同一日付の注文書1通（明細が何行でも1ファイル）。<span class="nb">大量にご利用の場合は、</span><span class="nb">別途ボリュームディスカウントをご相談いただけます。</span><br>
       ※ 基幹システムとの連携は別途お見積りになりますので、お問い合わせください。
     </div>
     <!-- 自社ケース自動試算 -->
@@ -1417,26 +1419,26 @@
     <div class="tc" style="margin-bottom:28px;">
       <span class="chip">お悩み → 解決</span>
       <h2 class="h2" style="font-size:clamp(30px,4.4vw,46px);"><span class="nb">その「受注の困りごと」、</span><span class="nb">ORDIAなら<em style="font-style:normal;color:var(--green-dk);">こう変わります</em></span></h2>
-      <p class="lead" style="margin:0 auto;font-size:20px;">導入は<b>ローコスト</b>。初期構築なしで始められ、<b>使い始めたその月からコスト削減</b>につながります。</p>
+      <p class="lead" style="margin:0 auto;font-size:20px;"><span class="nb">導入は<b>ローコスト</b>。初期構築なしで始められ、</span><span class="nb"><b>使い始めたその月からコスト削減</b>につながります。</span></p>
     </div>
     <div class="solve-grid">
       <div class="solve-head pain">よくあるお悩み</div>
       <div class="solve-head gain">ORDIAなら</div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>FAX・メール・PDFが混在し、手入力が終わらない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span><span class="txt">FAX・メール・PDFが混在し、手入力が終わらない</span></div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><span class="txt">お客様の<b>送り方はそのまま</b>。AIが自動で受注データ化</span></div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>転記ミスが起きて、受注トラブルにつながる</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>商品・顧客<b>マスターと突合</b>し、入力ミスを削減</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span><span class="txt">転記ミスが起きて、受注トラブルにつながる</span></div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><span class="txt">商品・顧客<b>マスターと突合</b>し、入力ミスを削減</span></div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>担当者しか処理できず、休めない・属人化している</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span><span class="txt">担当者しか処理できず、休めない・属人化している</span></div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><span class="txt">誰でも<b>確認するだけ</b>の運用に。引き継ぎもかんたん</span></div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>システム導入は高額で、うちには手が出ない</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span><span class="txt">システム導入は高額で、うちには手が出ない</span></div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><span class="txt"><b>基本料0円・1ファイル50円</b>。ローコストで導入でき、使った分だけ</span></div>
 
-      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span>効果が出るまで時間がかかりそう</div>
-      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span>大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></div>
+      <div class="solve-row pain"><span class="ic"><i class="fas fa-face-tired"></i></span><span class="txt">効果が出るまで時間がかかりそう</span></div>
+      <div class="solve-row gain"><span class="ic"><i class="fas fa-face-smile"></i></span><span class="txt">大がかりな初期構築は不要。<b>使い始めたその月から工数削減</b></span></div>
     </div>
   </div>
 </section>
@@ -1469,7 +1471,7 @@
     <div class="tc">
       <span class="chip">運用しながら精度向上</span>
       <h2 class="h2"><span class="nb">汎用AI-OCRとは違う。</span><span class="nb">運用しながら、貴社に合わせて精度を高められる</span></h2>
-      <p class="lead">ORDIAは貴社専用の読み取りルールを設定・蓄積。運用を重ねながら、読み取り精度を高めていけます。</p>
+      <p class="lead"><span class="nb">ORDIAは貴社専用の読み取りルールを設定・蓄積。</span><span class="nb">運用を重ねながら、読み取り精度を高めていけます。</span></p>
     </div>
     <figure class="sec-visual" style="max-width:680px;">
       <img src="assets/visual-ai-247.jpg" alt="AIが24時間365日、受注側と仕入先側の処理を自動で回すイメージ" loading="lazy">
@@ -1599,7 +1601,7 @@
       <span class="ob-ic"><i class="fas fa-layer-group"></i></span>
       <span class="ob-body">
         <span class="ob-title">ORDIAは、統合プラットフォーム「Onevio」の一部です</span>
-        <span class="ob-sub">受注から販売管理・発注EDIまで、必要に応じて段階的に拡張できます。</span>
+        <span class="ob-sub"><span class="nb">受注から販売管理・発注EDIまで、</span><span class="nb">必要に応じて段階的に拡張できます。</span></span>
       </span>
       <span class="ob-arrow">Onevioについて見る ↓</span>
     </a>
@@ -1742,10 +1744,10 @@
   <div class="container">
     <div class="tc">
       <span class="chip green">サグブレインの強み</span>
-      <h2 class="h2">バイオ研究支援の受発注を<br>知り尽くした、3つの強み</h2>
-      <p class="lead">ORDIAは、試薬・消耗品の受発注に必要な「商品マスタ・メーカー連携・研究機関データ」を、ひとつの基盤で提供します。</p>
+      <h2 class="h2"><span class="nb">バイオ研究支援の受発注を</span><span class="nb">知り尽くした、2つの強み</span></h2>
+      <p class="lead"><span class="nb">ORDIAは、試薬・消耗品の受発注に必要な</span><span class="nb">「業界共通の商品マスタ」と「メーカー連携」を、</span><span class="nb">ひとつの基盤で提供します。</span></p>
     </div>
-    <div class="impact-grid">
+    <div class="impact-grid cols2">
       <div class="impact-card">
         <div class="bio-num">STRENGTH 01</div>
         <div class="imp-title" style="font-size:17px;margin-bottom:8px;">業界共通の商品マスタ<br>BRP-Code</div>
@@ -1755,11 +1757,6 @@
         <div class="bio-num">STRENGTH 02</div>
         <div class="imp-title" style="font-size:17px;margin-bottom:8px;">主要メーカー20社に<br>RPA対応（開発中）</div>
         <div class="imp-desc">主要メーカー２０社の在庫・納期をWebサイトから自動取得し、問い合わせ作業を大幅に削減します。<br><span style="font-size:11.5px;color:var(--gray-400);">※本機能は開発中・順次実装予定です。</span></div>
-      </div>
-      <div class="impact-card">
-        <div class="bio-num">STRENGTH 03</div>
-        <div class="imp-title" style="font-size:17px;margin-bottom:8px;">全国研究機関DB<br>LDB</div>
-        <div class="imp-desc">11万機関・25万人の研究者データベース。受発注データと統合し、エンドユーザー別の分析・案件管理が可能になります。</div>
       </div>
     </div>
 
